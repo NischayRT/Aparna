@@ -1,0 +1,134 @@
+@import "tailwindcss";
+html {
+  margin: 0px;
+  padding: 0px;
+}
+
+.brown-underline {
+  width: 5rem;
+  height: 0.25rem;
+  background-color: #991b1b;
+  margin-right: auto;
+}
+
+.para-font {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+.location {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.2
+  ); /* Semi-transparent white background */
+  margin-right: 1rem;
+}
+
+.heading-font {
+  word-spacing: 1px;
+  font-weight: 600;
+  font-size: 2.5rem;
+}
+
+/* Form styles */
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+/* Info box styles */
+.info-box {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  text-align: center;
+  transition: box-shadow 0.2s ease;
+}
+
+.info-box:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Hero section background */
+.hero-section {
+  height: 105.5vh;
+  width: 100%;
+  padding-top: 5rem;
+  min-height: 80vh;
+  display: flex;
+}
+/* Gallery image hover effect */
+.gallery-image:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+.per-card {
+  display: flex;
+  align-items: left;
+}
+
+/* Mobile sticky button */
+.mobile-sticky-btn {
+  background-color: #f59e0b;
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  width: 100%;
+  max-width: 20rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Sticky CTA button */
+.sticky-cta {
+  background: linear-gradient(to right, #f59e0b, #d97706);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.sticky-cta:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transform: scale(1.05);
+}
+
+/* Accordion styles */
+.accordion-button {
+  background-color: #f9fafb;
+  padding: 1rem 1.5rem;
+  width: 100%;
+  text-align: left;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.accordion-button:hover {
+  background-color: #f3f4f6;
+}
+
+/* Permission card */
+.permission-card {
+  border: 1px solid #e5e7eb;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 180px;
+}
+.second-section {
+  background-color: #f2f9ff;
+}
+@media (max-width: 440px) {
+  .second-section {
+    text-align: left !important;
+  }
+  .hero-section {
+    font-size: 2rem !important;
+    height: 100vh;
+  }
+}
