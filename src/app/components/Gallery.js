@@ -22,7 +22,84 @@ const FullscreenImage = ({ src, alt, onClose, onNext, onPrev }) => {
       className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
       onClick={onClose}
     >
-      {/* ... rest of the JSX ... */}
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 text-white text-4xl font-light bg-black/40 rounded-full w-12 h-12 flex items-center justify-center leading-none hover:bg-black/60 transition z-20"
+        aria-label="Close image"
+      >
+        &times;
+      </button>
+
+      {/* Navigation Buttons (conditionally rendered) */}
+      {onPrev && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onPrev();
+          }}
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/30 rounded-full shadow-md hover:bg-white/50 transition"
+          aria-label="Previous"
+        >
+          <svg
+            className="h-6 w-6 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+        </button>
+      )}
+      {onNext && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onNext();
+          }}
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/30 rounded-full shadow-md hover:bg-white/50 transition"
+          aria-label="Next"
+        >
+          <svg
+            className="h-6 w-6 text-white"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </button>
+      )}
+
+      {/* Image container that handles zoom */}
+      <div
+        className="relative w-[90vw] h-[90vh] flex items-center justify-center overflow-hidden"
+        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the container
+      >
+        <div
+          className={`relative w-full h-full transition-transform duration-300 ease-in-out ${
+            isZoomed ? "scale-150" : "scale-100"
+          }`}
+          onClick={() => setIsZoomed(!isZoomed)} // Toggle zoom on click
+        >
+          <Image
+            src={src}
+            alt={alt}
+            layout="fill"
+            objectFit="contain"
+            className={isZoomed ? "cursor-zoom-out" : "cursor-zoom-in"}
+          />
+        </div>
+      </div>
     </div>
   );
 };
