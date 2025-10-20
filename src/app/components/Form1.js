@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { darkenColor } from "@/utils/colorUtils";
+import PrivacyPolicyPopup from "./PrivacyPolicyPopup.js";
+
 const countries = [
   { name: "India (भारत)", dial_code: "+91", flag: "🇮🇳" },
   { name: "United States", dial_code: "+1", flag: "🇺🇸" },
@@ -12,6 +14,8 @@ const countries = [
 
 const Form1 = ({ budgetOptions = [], submitButton = {}, style }) => {
   const [isHovered, setIsHovered] = useState(false);
+
+  const [showPrivacyPopup, setShowPrivacyPopup] = useState(false);
 
   const buttonStyle = {
     ...style,
@@ -144,7 +148,10 @@ const Form1 = ({ budgetOptions = [], submitButton = {}, style }) => {
                 contact me via email, SMS, or Call, which overrides DND/NDNC
                 Registration.
                 <br />
-                <small className="font-bold underline cursor-pointer">
+                <small
+                  className="font-bold underline cursor-pointer"
+                  onClick={() => setShowPrivacyPopup(true)}
+                >
                   Privacy and Policy
                 </small>
               </span>
@@ -165,6 +172,10 @@ const Form1 = ({ budgetOptions = [], submitButton = {}, style }) => {
           </div>
         </form>
       </div>
+      <PrivacyPolicyPopup
+        isOpen={showPrivacyPopup}
+        onClose={() => setShowPrivacyPopup(false)}
+      />
     </div>
   );
 };
