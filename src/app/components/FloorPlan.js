@@ -6,21 +6,23 @@ import PopupForm from "./PopupForm";
 import { darkenColor } from "@/utils/colorUtils";
 
 // --- UPDATED: Reusable Fullscreen component ---
+// --- UPDATED: Reusable Fullscreen component ---
 const FullscreenImage = ({ src, alt, onClose, onNext, onPrev }) => {
   const [isZoomed, setIsZoomed] = useState(false);
 
-  if (!src) return null;
-
+  // Move useEffect before the early return
   useEffect(() => {
     setIsZoomed(false);
   }, [src]);
+
+  if (!src) return null;
 
   return (
     <div
       className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
       onClick={onClose}
     >
-      {/* Close Button */}
+      {/* Rest of the component remains the same */}
       <button
         onClick={onClose}
         className="absolute top-4 right-4 text-white text-4xl font-light bg-black/40 rounded-full w-12 h-12 flex items-center justify-center leading-none hover:bg-black/60 transition z-20"
@@ -29,7 +31,6 @@ const FullscreenImage = ({ src, alt, onClose, onNext, onPrev }) => {
         &times;
       </button>
 
-      {/* CHANGE: Conditionally render navigation buttons */}
       {onPrev && (
         <button
           onClick={(e) => {
@@ -79,7 +80,6 @@ const FullscreenImage = ({ src, alt, onClose, onNext, onPrev }) => {
         </button>
       )}
 
-      {/* Image container that handles zoom */}
       <div
         className="relative w-[90vw] h-[90vh] flex items-center justify-center overflow-hidden"
         onClick={(e) => e.stopPropagation()}

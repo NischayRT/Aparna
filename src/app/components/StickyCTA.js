@@ -3,7 +3,7 @@
 import { useState } from "react";
 import PopupForm from "./PopupForm"; // Assuming a popup form component exists
 
-const StickyCTA = () => {
+const StickyCTA = (style) => {
   const [showPopup, setShowPopup] = useState(false);
 
   return (
