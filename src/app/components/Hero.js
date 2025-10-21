@@ -49,7 +49,7 @@ const Hero = ({
 
         {/* Content */}
         <div className="container mx-auto py-12 relative z-10">
-          <div className="heading-location mt-8 lg:mt-12">
+          <div className="heading-location mt-12">
             {/* CHANGE: Reduced base font size from text-3xl to text-2xl */}
             <h1 className="heading-font font-bolder text-xl md:text-5xl lg:text-6xl text-white leading-tight drop-shadow-lg ">
               {h1_name1} <br className="hidden md:block" />
@@ -90,8 +90,7 @@ const Hero = ({
       </section>
 
       {/* Popup Form */}
-      <PopupForm  
-        
+      <PopupForm
         isOpen={showPopup}
         onClose={() => setShowPopup(false)}
         budgetOptions={budgetOptions}
