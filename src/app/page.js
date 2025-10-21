@@ -115,7 +115,7 @@ export default function Home() {
       />
 
       <Footer />
-      <StickyCTA />
+      <StickyCTA style={common.buttonStyle} />
       <MobileSticky />
     </div>
   );
