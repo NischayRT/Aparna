@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import { darkenColor } from "@/utils/colorUtils";
 import PrivacyPolicyPopup from "./PrivacyPolicyPopup.js";
 
@@ -119,10 +120,12 @@ const Form1 = ({ budgetOptions = [], submitButton = {}, style }) => {
                   className="flex items-center pl-2 pr-1 bg-transparent border-none outline-none"
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 >
-                  <img
+                  <Image
                     src={`https://flagcdn.com/w20/${selectedCountry.code}.png`}
                     alt={selectedCountry.name}
                     className="w-6 h-4 object-cover rounded-sm"
+                    width={24} // w-6 = 1.5rem = 24px
+                    height={16} // h-4 = 1rem = 16px
                   />
                   <span className=" text-sm text-gray-600">
                     {selectedCountry.dial_code}
@@ -153,10 +156,12 @@ const Form1 = ({ budgetOptions = [], submitButton = {}, style }) => {
                         setIsDropdownOpen(false);
                       }}
                     >
-                      <img
+                      <Image
                         src={`https://flagcdn.com/w20/${country.code}.png`}
                         alt={country.name}
                         className="w-6 h-4 object-cover"
+                        width={24} // w-6 = 1.5rem = 24px
+                        height={16} // h-4 = 1rem = 16px
                       />
                       <span className="ml-3 text-sm">
                         {country.name} ({country.dial_code})
@@ -195,19 +200,20 @@ const Form1 = ({ budgetOptions = [], submitButton = {}, style }) => {
                 focus-visible:outline-none transition-all duration-300 ease-in-out"
                 required
               />
-              <span className="text-gray-700 text-sm">
+              <span className="text-gray-700 max-md:text-xs text-sm">
                 I authorize Aparna Constructions and its representative to
                 contact me via email, SMS, or Call, which overrides DND/NDNC
                 Registration.
                 <br />
-                <small
-                  className="font-bold underline cursor-pointer text-[#e63946] hover:text-[#b91c1c] transition-colors"
-                  onClick={() => setShowPrivacyPopup(true)}
-                >
-                  Privacy and Policy
-                </small>
               </span>
             </label>
+
+            <small
+              className="font-bold underline cursor-pointer text-[#e63946] hover:text-[#b91c1c] transition-colors"
+              onClick={() => setShowPrivacyPopup(true)}
+            >
+              Privacy and Policy
+            </small>
           </div>
 
           {/* Submit Button */}

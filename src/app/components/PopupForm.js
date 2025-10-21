@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image"; // --- ADDED IMPORT ---
 import PrivacyPolicyPopup from "./PrivacyPolicyPopup";
 
 // 🌍 Expanded Country List with Image Flags (PNG from flagcdn.com)
@@ -126,10 +127,13 @@ const PopupForm = ({ isOpen, onClose, budgetOptions = [] }) => {
                   className="flex items-center px-3 bg-transparent border-none outline-none"
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 >
-                  <img
+                  {/* --- REPLACED 1 --- */}
+                  <Image
                     src={`https://flagcdn.com/w20/${selectedCountry.code}.png`}
                     alt={selectedCountry.name}
                     className="w-6 h-4 object-cover rounded-sm"
+                    width={24}
+                    height={16}
                   />
                   <span className="ml-2 text-sm text-gray-600">
                     {selectedCountry.dial_code}
@@ -156,10 +160,13 @@ const PopupForm = ({ isOpen, onClose, budgetOptions = [] }) => {
                         setIsDropdownOpen(false);
                       }}
                     >
-                      <img
+                      {/* --- REPLACED 2 --- */}
+                      <Image
                         src={`https://flagcdn.com/w20/${country.code}.png`}
                         alt={country.name}
                         className="w-6 h-4 object-cover"
+                        width={24}
+                        height={16}
                       />
                       <span className="ml-3 text-sm">
                         {country.name} ({country.dial_code})
@@ -192,14 +199,15 @@ const PopupForm = ({ isOpen, onClose, budgetOptions = [] }) => {
                   contact me via email, SMS, or Call, which overrides DND/NDNC
                   Registration.
                   <br />
-                  <small
-                    className="font-bold underline cursor-pointer hover:text-[#0071BA]"
-                    onClick={() => setShowPrivacyPopup(true)}
-                  >
-                    Privacy and Policy
-                  </small>
                 </span>
               </label>
+
+              <small
+                className="font-bold underline cursor-pointer hover:text-[#0071BA]"
+                onClick={() => setShowPrivacyPopup(true)}
+              >
+                Privacy and Policy
+              </small>
             </div>
 
             {/* Submit */}

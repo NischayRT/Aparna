@@ -15,11 +15,9 @@ import Footer from "./components/Footer";
 import StickyCTA from "./components/StickyCTA";
 import MobileSticky from "./components/MobileSticky";
 
-// Import the centralized data
-import { siteData } from "./siteData";
-
-export default function Home() {
-  // Destructure for easier access
+// This component is now reusable. It receives the site data via props.
+export default function MainPage({ siteData }) {
+  // Destructure for easier access from the prop
   const {
     common,
     navBar,
@@ -33,10 +31,12 @@ export default function Home() {
     about,
     form2,
   } = siteData;
+
   const colorStyle2 = {
     backgroundColor: common.themeColor2,
   };
 
+  // The JSX remains identical to your original page.js
   return (
     <div className="relative">
       <NavBar
@@ -76,7 +76,7 @@ export default function Home() {
         p2={secondarySection.p2}
         style1={colorStyle2}
         style={common.buttonStyle1}
-        src={gallery[gallery.length - 1]?.src} // Still dynamically getting the last image
+        src={gallery[gallery.length - 1]?.src}
       />
 
       <LocationHighlight

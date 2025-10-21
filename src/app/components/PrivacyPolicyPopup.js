@@ -6,9 +6,9 @@ const PrivacyPolicyPopup = ({ isOpen, onClose }) => {
   return (
     // Backdrop
     <div
-      className="fixed inset-0 flex items-center justify-center z-[60]"
+      // --- CHANGE: Updated z-index to be higher than the main popup ---
+      className="fixed inset-0 flex items-center justify-center z-[10000]"
       onClick={onClose}
-      // --- CHANGE: Replaced Tailwind classes with a direct inline style for reliability ---
       style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
     >
       {/* Modal Content */}

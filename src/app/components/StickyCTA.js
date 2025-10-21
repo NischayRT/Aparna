@@ -21,7 +21,7 @@ const StickyCTA = ({ budgetOptions, style }) => {
     <>
       <div className="hidden lg:block fixed top-1/2 right-0 z-40 transform -translate-y-1/2 -rotate-90 origin-bottom-right">
         <button
-          className="schedule-btn para-font text-lg px-8 py-3 rounded-lg font-semibold"
+          className="schedule-btn sticky-cta para-font text-lg px-8 py-3 rounded-lg font-semibold"
           style={buttonStyle}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}

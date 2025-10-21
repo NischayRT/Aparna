@@ -49,7 +49,7 @@ const SecondSection = ({
                   key={index}
                   className="info-box text-center p-4 border border-[#ccc] content-center"
                 >
-                  <span className="text-2xl font-bold block mb-2 whitespace-pre-line">
+                  <span className="text-xl sm:text-2xl font-bold block mb-2 whitespace-pre-line">
                     {stat.value}
                   </span>
                   <hr className="w-3/4 mx-auto border-gray-300 mb-2" />

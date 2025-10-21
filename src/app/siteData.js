@@ -11,7 +11,7 @@ export const siteData = {
       // --- CHANGE: Correctly reference the constant ---
       backgroundColor: themeColor1,
       color: "white",
-      padding: "0.5rem 1rem",
+      padding: "1rem 2rem",
       borderRadius: "2px",
       fontWeight: 600,
       fontSize: "medium",
@@ -22,7 +22,7 @@ export const siteData = {
       // --- CHANGE: Correctly reference the constant and fix the key name ---
       backgroundColor: themeColor2,
       color: "white",
-      padding: "0.5rem 1rem",
+      padding: "1rem 2rem",
       borderRadius: "2px",
       fontWeight: 600,
       fontSize: "medium",

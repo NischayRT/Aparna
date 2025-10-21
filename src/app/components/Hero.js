@@ -48,10 +48,10 @@ const Hero = ({
         </div>
 
         {/* Content */}
-        <div className="container mx-auto py-12 relative z-10">
-          <div className="heading-location mt-12">
+        <div className="container hero-content mx-auto py-12 relative z-10">
+          <div className="heading-location ">
             {/* CHANGE: Reduced base font size from text-3xl to text-2xl */}
-            <h1 className="heading-font font-bolder text-xl md:text-5xl lg:text-6xl text-white leading-tight drop-shadow-lg ">
+            <h1 className="heading-font font-bolder max-sm:text-2xl text-3xl md:pt-6 md:text-4xl lg:text-6xl text-white leading-tight drop-shadow-lg ">
               {h1_name1} <br className="hidden md:block" />
               {h1_name2}
             </h1>
@@ -62,7 +62,7 @@ const Hero = ({
           </div>
 
           {/* CHANGE: Reduced base font size from text-lg to text-base */}
-          <p className="location para-font font-semibold text-base md:text-l text-white mb-6 drop-shadow-lg mt-8 w-fit p-3 rounded-xs">
+          <p className="location para-font font-semibold text-base md:text-l text-white mb-4 drop-shadow-lg mt-4 sm:w-[50%]">
             {p2_1}
             <br />
             {p2_2}
