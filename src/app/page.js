@@ -34,8 +34,12 @@ export default function Home() {
     form2,
   } = siteData;
 
-  const colorStyle = {
-    color: common.themeColor,
+  const colorStyle1 = {
+    color: common.themeColor1,
+  };
+
+  const colorStyle2 = {
+    color: common.themeColor2,
   };
 
   return (
@@ -53,18 +57,18 @@ export default function Home() {
         p2_1={hero.location}
         p2_2={hero.feature1}
         p3={hero.feature2}
-        style={common.buttonStyle}
+        style={common.buttonStyle1}
         budgetOptions={common.budgetOptions}
       />
 
       <Form1
         budgetOptions={common.budgetOptions}
         submitButton={form1.submitButton}
-        style={common.buttonStyle}
+        style={common.buttonStyle2}
       />
 
       <Gallery
-        style={common.buttonStyle}
+        style={common.buttonStyle1}
         budgetOptions={common.budgetOptions}
         galleryData={gallery}
       />
@@ -74,40 +78,40 @@ export default function Home() {
         h1={secondarySection.title}
         p1={secondarySection.p1}
         p2={secondarySection.p2}
-        style1={colorStyle}
-        style={common.buttonStyle}
+        style1={colorStyle2}
+        style={common.buttonStyle1}
         src={gallery[gallery.length - 1]?.src} // Still dynamically getting the last image
       />
 
       <LocationHighlight
         galleryData={gallery}
-        style={common.buttonStyle}
+        style={common.buttonStyle2}
         locationData={locationHighlights}
         budgetOptions={common.budgetOptions}
       />
 
       <ThirdSection
         amenities={amenities}
-        style={common.buttonStyle}
+        style={common.buttonStyle1}
         budgetOptions={common.budgetOptions}
       />
 
       <FloorPlan
         masterPlanImage={floorPlan.masterPlan}
         floorPlans={floorPlan.floorPlans}
-        style={common.buttonStyle}
+        style={common.buttonStyle1}
         budgetOptions={common.budgetOptions}
       />
 
       <About
         src={about.videoSrc}
-        style={common.buttonStyle}
+        style={common.buttonStyle2}
         budgetOptions={common.budgetOptions}
       />
 
       <Form2
         src={form2.logoSrc}
-        style={common.buttonStyle}
+        style={common.buttonStyle1}
         address={form2.address}
         p1={form2.title}
         p2={form2.subtitle}
@@ -115,7 +119,7 @@ export default function Home() {
       />
 
       <Footer />
-      <StickyCTA style={common.buttonStyle} />
+      <StickyCTA budgetOptions={common.budgetOptions} style={common.buttonStyle1} />
       <MobileSticky />
     </div>
   );

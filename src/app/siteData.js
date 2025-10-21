@@ -1,9 +1,26 @@
+// --- CHANGE: Define theme colors as constants first ---
+const themeColor1 = "#FE4848";
+const themeColor2 = "#A83031";
+
 export const siteData = {
   // Common data used across multiple components
   common: {
-    themeColor: "#fe4848",
-    buttonStyle: {
-      backgroundColor: "#fe4848",
+    themeColor1: themeColor1,
+    themeColor2: themeColor2,
+    buttonStyle1: {
+      // --- CHANGE: Correctly reference the constant ---
+      backgroundColor: themeColor1,
+      color: "white",
+      padding: "0.5rem 1rem",
+      borderRadius: "2px",
+      fontWeight: 600,
+      fontSize: "medium",
+      boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+      transition: "all 0.3s ease",
+    },
+    buttonStyle2: {
+      // --- CHANGE: Correctly reference the constant and fix the key name ---
+      backgroundColor: themeColor2,
       color: "white",
       padding: "0.5rem 1rem",
       borderRadius: "2px",

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { darkenColor } from "@/utils/colorUtils";
 import Image from "next/image"; // Make sure Image is imported
 

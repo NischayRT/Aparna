@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import PopupForm from "./PopupForm"; // Assuming a popup form component exists
-
-const StickyCTA = ({ style }) => {
+import { darkenColor } from "@/utils/colorUtils";
+const StickyCTA = ({ budgetOptions, style }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const buttonStyle = {
@@ -31,7 +31,11 @@ const StickyCTA = ({ style }) => {
         </button>
       </div>
 
-      <PopupForm isOpen={showPopup} onClose={() => setShowPopup(false)} />
+      <PopupForm
+        isOpen={showPopup}
+        onClose={() => setShowPopup(false)}
+        budgetOptions={budgetOptions}
+      />
     </>
   );
 };

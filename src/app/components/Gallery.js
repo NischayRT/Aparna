@@ -61,7 +61,7 @@ const FullscreenImage = ({ src, alt, onClose, onNext, onPrev }) => {
             e.stopPropagation();
             onNext();
           }}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/30 rounded-full shadow-md hover:bg-white/50 transition"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/30  shadow-md hover:bg-white/50 transition"
           aria-label="Next"
         >
           <svg
@@ -165,7 +165,7 @@ const Gallery = ({ style, budgetOptions = [], galleryData = [] }) => {
             <h2 className="heading-font text-4xl md:text-5xl font-bold text-gray-800">
               Gallery
             </h2>
-            <div className="w-20 h-1 bg-red-600 mx-auto rounded-full mt-4"></div>
+            <div className="w-20 h-1 bg-red-600 mx-auto "></div>
           </div>
 
           <div

@@ -78,7 +78,7 @@ const Form1 = ({ budgetOptions = [], submitButton = {}, style }) => {
                 {/* Country Selector Button */}
                 <button
                   type="button"
-                  className="flex pb-[3px] px-3 bg-transparent border-none  focus-visible:outline-none"
+                  className="flex pb-[3px] px-[3px] bg-transparent border-none  focus-visible:outline-none"
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 >
                   <span className="text-xl">
