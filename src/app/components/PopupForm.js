@@ -18,6 +18,16 @@ const PopupForm = ({ isOpen, onClose, budgetOptions = [] }) => {
   const dropdownRef = useRef(null);
   const [showPrivacyPopup, setShowPrivacyPopup] = useState(false);
 
+  // 🧩 Prevent background scroll when popup is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [isOpen]);
+
+  // 🧩 Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -46,13 +56,13 @@ const PopupForm = ({ isOpen, onClose, budgetOptions = [] }) => {
 
   return (
     <>
+      {/* 🟢 Popup Overlay */}
       <div
-        className="fixed inset-0 z-50 flex items-center justify-center p-4"
+        className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
         onClick={handleBackdropClick}
-        // --- CHANGE: Added inline style for a reliable transparent background ---
         style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
       >
-        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl mx-auto">
+        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl mx-auto relative animate-fadeIn">
           {/* Header */}
           <div className="bg-[#0071BA] text-white p-6 rounded-t-2xl">
             <div className="flex justify-between items-center">
@@ -70,30 +80,26 @@ const PopupForm = ({ isOpen, onClose, budgetOptions = [] }) => {
           <form onSubmit={handleSubmit} className="p-6">
             <div className="space-y-4">
               {/* Name Field */}
-              <div>
-                <input
-                  type="text"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none"
-                  placeholder="Name *"
-                  required
-                  name="name"
-                />
-              </div>
+              <input
+                type="text"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0071BA] focus:border-transparent outline-none"
+                placeholder="Name *"
+                required
+                name="name"
+              />
 
               {/* Email Field */}
-              <div>
-                <input
-                  type="email"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none"
-                  placeholder="Email *"
-                  required
-                  name="email"
-                />
-              </div>
+              <input
+                type="email"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0071BA] focus:border-transparent outline-none"
+                placeholder="Email *"
+                required
+                name="email"
+              />
 
-              {/* Phone Field with Dropdown */}
+              {/* Phone Field */}
               <div className="relative" ref={dropdownRef}>
-                <div className="flex items-center w-full border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-red-500 focus-within:border-transparent">
+                <div className="flex items-center w-full border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-[#0071BA] focus-within:border-transparent">
                   <button
                     type="button"
                     className="flex items-center px-3 bg-transparent border-none outline-none"
@@ -111,9 +117,8 @@ const PopupForm = ({ isOpen, onClose, budgetOptions = [] }) => {
                   />
                 </div>
 
-                {/* Dropdown List */}
                 {isDropdownOpen && (
-                  <ul className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                  <ul className="absolute z-20 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
                     {countries.map((country, index) => (
                       <li
                         key={index}
@@ -122,7 +127,6 @@ const PopupForm = ({ isOpen, onClose, budgetOptions = [] }) => {
                           setSelectedCountry(country);
                           setIsDropdownOpen(false);
                         }}
-                        tabIndex={0}
                       >
                         <span className="text-xl">{country.flag}</span>
                         <span className="ml-3 text-sm">
@@ -135,20 +139,18 @@ const PopupForm = ({ isOpen, onClose, budgetOptions = [] }) => {
               </div>
 
               {/* Budget Field */}
-              <div>
-                <select
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none"
-                  required
-                  name="budget"
-                >
-                  <option value="">Select Budget</option>
-                  {budgetOptions.map((option, index) => (
-                    <option key={index} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <select
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0071BA] focus:border-transparent outline-none"
+                required
+                name="budget"
+              >
+                <option value="">Select Budget</option>
+                {budgetOptions.map((option, index) => (
+                  <option key={index} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
             </div>
 
             {/* Checkbox */}
@@ -173,15 +175,8 @@ const PopupForm = ({ isOpen, onClose, budgetOptions = [] }) => {
             {/* Buttons */}
             <div className="mt-6 flex gap-3">
               <button
-                type="button"
-                onClick={onClose}
-                className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-              >
-                Cancel
-              </button>
-              <button
                 type="submit"
-                className="flex-1 px-6 py-3 bg-[#0071BA] text-white rounded-lg hover:bg-red-700 transition-colors font-semibold"
+                className="flex-1 px-6 py-3 bg-[#0071BA] text-white rounded-lg hover:bg-[#005a94] transition-colors font-semibold"
               >
                 SUBMIT
               </button>
@@ -189,6 +184,7 @@ const PopupForm = ({ isOpen, onClose, budgetOptions = [] }) => {
           </form>
         </div>
       </div>
+
       <PrivacyPolicyPopup
         isOpen={showPrivacyPopup}
         onClose={() => setShowPrivacyPopup(false)}

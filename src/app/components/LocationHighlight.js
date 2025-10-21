@@ -10,6 +10,7 @@ const LocationHighlight = ({
   style,
   locationData,
   budgetOptions,
+  style1,
 }) => {
   const [activeAccordion, setActiveAccordion] = useState("it-companies");
   const [isHovered, setIsHovered] = useState(false);
@@ -98,7 +99,10 @@ const LocationHighlight = ({
               <p className="para-font text-gray-600 mt-2">
                 Distances and ETAs are approx as per Google Maps
               </p>
-              <div className="brown-underline w-20 h-1 bg-red-800 my-6 mx-auto lg:mx-0"></div>
+              <div
+                className="brown-underline w-20 h-1 my-6 mx-auto lg:mx-0"
+                style={style1}
+              ></div>
 
               {/* Accordion */}
               <div className="space-y-4">

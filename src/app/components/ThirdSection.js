@@ -5,7 +5,7 @@ import PopupForm from "./PopupForm";
 import { darkenColor } from "@/utils/colorUtils";
 import { useState } from "react";
 
-const ThirdSection = ({ amenities, style, budgetOptions }) => {
+const ThirdSection = ({ amenities, style, budgetOptions, style1 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
@@ -30,7 +30,10 @@ const ThirdSection = ({ amenities, style, budgetOptions }) => {
           <h2 className="heading-font text-3xl md:text-4xl font-bold text-gray-800">
             Amenities
           </h2>
-          <div className="brown-underline w-20 h-1 bg-red-800 mx-auto mt-4 mb-8"></div>
+          <div
+            className="brown-underline w-20 h-1 mx-auto mt-4 mb-8"
+            style={style1}
+          ></div>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 para-font">

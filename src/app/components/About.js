@@ -2,7 +2,7 @@
 import { useState } from "react";
 import PopupForm from "./PopupForm";
 import { darkenColor } from "@/utils/colorUtils";
-const About = ({ src, style, budgetOptions }) => {
+const About = ({ src, style, budgetOptions, style1 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
@@ -26,7 +26,10 @@ const About = ({ src, style, budgetOptions }) => {
         <h2 className="heading-font text-center text-3xl md:text-4xl font-bold text-gray-800">
           About Aparna Constructions
         </h2>
-        <div className="brown-underline w-20 h-1 bg-red-800 mx-auto my-6"></div>
+        <div
+          className="brown-underline w-20 h-1  mx-auto my-6"
+          style={style1}
+        ></div>
 
         <div className="flex flex-col lg:flex-row items-center gap-8 mt-8">
           <div className="lg:w-1/2">

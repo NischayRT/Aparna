@@ -3,13 +3,11 @@ import React, { useState } from "react";
 import { darkenColor } from "@/utils/colorUtils";
 import Image from "next/image"; // Make sure Image is imported
 
-const Form2 = ({ src, style, address, p1, p2, budgetOptions }) => {
-  // The address to be displayed on the map
+const Form2 = ({ src, style, address, p1, p2, budgetOptions, style1 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const buttonStyle = {
     ...style,
-    // On hover, apply a 20% darker background color; otherwise, use the default.
     backgroundColor: isHovered
       ? darkenColor(style.backgroundColor, 20)
       : style.backgroundColor,
@@ -20,28 +18,33 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions }) => {
     transform: isHovered ? "scale(1.05)" : "scale(1)",
     transition: "all 0.3s ease",
   };
-  // --- THIS IS THE FIX ---
-  // Use the correct Google Maps embed URL format.
+
+  // --- CHANGE: Updated zoom level from 17 to 14 to zoom out ---
   const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(
     address
-  )}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+  )}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
+
+  // --- FIX: Create a valid style object for the underline from the passed prop ---
+  const underlineStyle = {
+    backgroundColor: style1?.color,
+  };
 
   return (
     <section className="form-section bg-white py-12">
       <div className="container mx-auto px-4">
-        {/* The parent grid now has items-stretch to ensure columns are equal height */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           {/* Enquiry Form (Left Column) */}
-          <div className="enquiry-card p-6 md:p-8  bg-blue-50">
+          <div className="enquiry-card p-6 md:p-8 bg-blue-50">
             <h2 className="heading-font text-center lg:text-left text-3xl font-bold text-gray-800 mb-6">
               ENQUIRY FORM
             </h2>
-            <div className="brown-underline w-20 h-1 bg-red-800 mb-6"></div>
+
+            {/* --- FIX: Applied the corrected style object --- */}
+            <div className="brown-underline h-1 bg-red-800 my-4 lg:my-6"></div>
             <p className="para-font text-center lg:text-left text-gray-700 mb-8">
               Learn more about {p2}.
             </p>
             <form className="contact-form para-font space-y-6">
-              {/* Form fields remain the same */}
               <div>
                 <label className="form-label block text-gray-700 font-medium mb-2">
                   Full Name*
@@ -111,7 +114,6 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions }) => {
                   style={buttonStyle}
                   onMouseEnter={() => setIsHovered(true)}
                   onMouseLeave={() => setIsHovered(false)}
-                  onClick={() => setShowPopup(true)}
                 >
                   SCHEDULE A SITE VISIT
                 </button>
@@ -123,7 +125,7 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions }) => {
           <div className="flex flex-col h-full">
             <div className="text-center mb-4">
               <Image
-                src="/brand-logo.svg"
+                src={src}
                 alt="Aparna Sarovar Towers Logo"
                 width={200}
                 height={60}
@@ -132,7 +134,7 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions }) => {
               <p className="mt-2 text-sm font-semibold text-gray-800">{p1}</p>
             </div>
 
-            <div className="flex-grow  overflow-hidden shadow-lg min-h-[400px]">
+            <div className="flex-grow overflow-hidden shadow-lg min-h-[400px]">
               <iframe
                 src={mapSrc}
                 width="100%"

@@ -1,14 +1,54 @@
 @import "tailwindcss";
 @import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
-html {
-  margin: 0px;
-  padding: 0px;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent unwanted horizontal scroll */
 }
 
+.fixed,
+.absolute {
+  max-width: 100%; /* Prevent fixed elements from overflowing */
+}
+/* Default styles for 'md' screens and up
+  (md:max-w-[80%] mx-auto py-3 px-4) 
+*/
+.container {
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 0.75rem; /* py-3 */
+  padding-bottom: 0.75rem; /* py-3 */
+  padding-left: 1rem; /* px-4 */
+  padding-right: 1rem; /* px-4 */
+}
+
+/* For screens *smaller* than 'md' (max-width: 767px)
+  (max-md:px-[15px] max-md:mx-0)
+*/
+@media (max-width: 767px) {
+  .container {
+    max-width: none; /* Remove the 80% max-width */
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+/* For screens *smaller* than 'sm' (max-width: 639px)
+  (max-sm:px-[10px])
+*/
+@media (max-width: 639px) {
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
 .brown-underline {
   width: 5rem;
   height: 0.25rem;
-  background-color: #991b1b;
   margin-right: auto;
 }
 
@@ -24,6 +64,15 @@ html {
   ); /* Semi-transparent white background */
   margin-right: 1rem;
 }
+.heading-font {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Noto Sans", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.2;
+}
 
 .heading-font h1 {
   word-spacing: 1px;
@@ -36,6 +85,7 @@ h2 {
   font-weight: 500 !important;
   line-height: 1.2;
   margin-bottom: 0.5 rem !important;
+  font-size: 48px;
 }
 /* Form styles */
 .form-input,
@@ -60,13 +110,29 @@ h2 {
 }
 
 /* Hero section background */
+/* Base hero section setup */
 .hero-section {
   height: 105.5vh;
   width: 100%;
   padding-top: 5rem;
-  min-height: 80vh;
   display: flex;
+  overflow: hidden;
 }
+
+/* Default (desktop) image behavior */
+.hero-image {
+  transition: transform 6s ease-in-out;
+  transform-origin: center center;
+}
+
+/* Mobile zoom + shift to bottom-right */
+@media (max-width: 768px) {
+  .hero-image {
+    transform: scale(1.15) translate(10%, 10%);
+    transform-origin: bottom right;
+  }
+}
+
 /* Gallery image hover effect */
 .gallery-image:hover {
   transform: scale(1.05);
@@ -79,7 +145,6 @@ h2 {
 
 /* Mobile sticky button */
 .mobile-sticky-btn {
-  background-color: #f59e0b;
   color: white;
   padding: 0.75rem 2rem;
   border-radius: 0.5rem;
@@ -136,6 +201,5 @@ h2 {
   }
   .hero-section {
     font-size: 2rem !important;
-    height: 100vh;
   }
 }

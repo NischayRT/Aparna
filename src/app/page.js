@@ -33,13 +33,8 @@ export default function Home() {
     about,
     form2,
   } = siteData;
-
-  const colorStyle1 = {
-    color: common.themeColor1,
-  };
-
   const colorStyle2 = {
-    color: common.themeColor2,
+    backgroundColor: common.themeColor2,
   };
 
   return (
@@ -71,6 +66,7 @@ export default function Home() {
         style={common.buttonStyle1}
         budgetOptions={common.budgetOptions}
         galleryData={gallery}
+        style1={colorStyle2}
       />
 
       <SecondSection
@@ -88,12 +84,14 @@ export default function Home() {
         style={common.buttonStyle2}
         locationData={locationHighlights}
         budgetOptions={common.budgetOptions}
+        style1={colorStyle2}
       />
 
       <ThirdSection
         amenities={amenities}
         style={common.buttonStyle1}
         budgetOptions={common.budgetOptions}
+        style1={colorStyle2}
       />
 
       <FloorPlan
@@ -107,6 +105,7 @@ export default function Home() {
         src={about.videoSrc}
         style={common.buttonStyle2}
         budgetOptions={common.budgetOptions}
+        style1={colorStyle2}
       />
 
       <Form2
@@ -116,10 +115,14 @@ export default function Home() {
         p1={form2.title}
         p2={form2.subtitle}
         budgetOptions={common.budgetOptions}
+        style1={colorStyle2}
       />
 
       <Footer />
-      <StickyCTA budgetOptions={common.budgetOptions} style={common.buttonStyle1} />
+      <StickyCTA
+        budgetOptions={common.budgetOptions}
+        style={common.buttonStyle1}
+      />
       <MobileSticky />
     </div>
   );

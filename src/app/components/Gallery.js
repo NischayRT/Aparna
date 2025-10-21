@@ -104,7 +104,7 @@ const FullscreenImage = ({ src, alt, onClose, onNext, onPrev }) => {
   );
 };
 
-const Gallery = ({ style, budgetOptions = [], galleryData = [] }) => {
+const Gallery = ({ style, budgetOptions = [], galleryData = [], style1 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -165,7 +165,7 @@ const Gallery = ({ style, budgetOptions = [], galleryData = [] }) => {
             <h2 className="heading-font text-4xl md:text-5xl font-bold text-gray-800">
               Gallery
             </h2>
-            <div className="w-20 h-1 bg-red-600 mx-auto "></div>
+            <div className="w-20 h-1 mx-auto " style={style1}></div>
           </div>
 
           <div
@@ -258,7 +258,7 @@ const Gallery = ({ style, budgetOptions = [], galleryData = [] }) => {
           </div>
 
           <div className="text-center mt-4">
-            <h3 className="text-xl font-semibold text-gray-800 heading-font">
+            <h3 className="text-xl font-semibold text-gray-800">
               {galleryData[currentIndex]?.caption}
             </h3>
           </div>

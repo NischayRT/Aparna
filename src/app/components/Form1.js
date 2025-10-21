@@ -78,21 +78,16 @@ const Form1 = ({ budgetOptions = [], submitButton = {}, style }) => {
                 {/* Country Selector Button */}
                 <button
                   type="button"
-                  className="flex pb-[3px] px-[3px] bg-transparent border-none  focus-visible:outline-none"
+                  className="flex pb-[3px] pl-4 pr-2 bg-transparent border-none  focus-visible:outline-none"
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 >
-                  <span className="text-xl">
-                    {selectedCountry.flag}|
-                    <span className="text-sm text-gray-400">
-                      {selectedCountry.dial_code}
-                    </span>
-                  </span>
+                  <span className="text-xl">{selectedCountry.flag}</span>
                 </button>
 
                 {/* Phone Number Input */}
                 <input
                   type="tel"
-                  className="w-full pl-0 py-3 border-none bg-transparent rounded-r-lg "
+                  className="w-full pl-0 py-3 border-none px-2 bg-transparent rounded-r-lg "
                   placeholder="81234 56789"
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
