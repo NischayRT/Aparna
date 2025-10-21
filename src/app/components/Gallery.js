@@ -3,7 +3,7 @@
 import Image from "next/image";
 import PopupForm from "./PopupForm";
 import { darkenColor } from "@/utils/colorUtils";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 // --- UPDATED: Reusable Fullscreen component with navigation and zoom ---
 const FullscreenImage = ({ src, alt, onClose, onNext, onPrev }) => {
@@ -16,7 +16,6 @@ const FullscreenImage = ({ src, alt, onClose, onNext, onPrev }) => {
 
   if (!src) return null;
 
-  // Rest of the component remains exactly the same...
   return (
     <div
       className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
@@ -91,12 +90,14 @@ const FullscreenImage = ({ src, alt, onClose, onNext, onPrev }) => {
           }`}
           onClick={() => setIsZoomed(!isZoomed)} // Toggle zoom on click
         >
+          {/* --- FIXED: Updated next/image props --- */}
           <Image
             src={src}
             alt={alt}
-            layout="fill"
-            objectFit="contain"
-            className={isZoomed ? "cursor-zoom-out" : "cursor-zoom-in"}
+            fill
+            className={`object-contain ${
+              isZoomed ? "cursor-zoom-out" : "cursor-zoom-in"
+            }`}
           />
         </div>
       </div>
@@ -111,6 +112,10 @@ const Gallery = ({ style, budgetOptions = [], galleryData = [], style1 }) => {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [showFullscreen, setShowFullscreen] = useState(false);
 
+  // --- NEW: Refs for scrolling ---
+  const scrollRef = useRef(null); // Ref for the scroll container
+  const itemRefs = useRef([]); // Ref to hold all item elements
+
   const handleNext = useCallback(() => {
     if (galleryData.length === 0) return;
     setCurrentIndex((prevIndex) =>
@@ -124,6 +129,30 @@ const Gallery = ({ style, budgetOptions = [], galleryData = [], style1 }) => {
       prevIndex === 0 ? galleryData.length - 1 : prevIndex - 1
     );
   }, [galleryData.length]);
+
+  // --- NEW: useEffect to handle scrolling ---
+  // This effect runs when currentIndex changes and scrolls the container
+  useEffect(() => {
+    if (
+      !scrollRef.current ||
+      !itemRefs.current[currentIndex] ||
+      galleryData.length === 0
+    )
+      return;
+
+    const container = scrollRef.current;
+    const item = itemRefs.current[currentIndex];
+
+    // Calculate the position to center the item
+    const containerCenter = container.clientWidth / 2;
+    const itemCenter = item.offsetLeft + item.clientWidth / 2;
+    const scrollLeft = itemCenter - containerCenter;
+
+    container.scrollTo({
+      left: scrollLeft,
+      behavior: "smooth",
+    });
+  }, [currentIndex, galleryData.length]); // Runs when currentIndex changes
 
   // Auto-scroll effect, now pauses when fullscreen
   useEffect(() => {
@@ -150,7 +179,11 @@ const Gallery = ({ style, budgetOptions = [], galleryData = [], style1 }) => {
     transition: "all 0.3s ease",
   };
 
-  const openFullscreen = () => setShowFullscreen(true);
+  // --- FIXED: openFullscreen now accepts an index ---
+  const openFullscreen = (index) => {
+    setCurrentIndex(index);
+    setShowFullscreen(true);
+  };
   const closeFullscreen = () => setShowFullscreen(false);
 
   if (galleryData.length === 0) {
@@ -173,23 +206,22 @@ const Gallery = ({ style, budgetOptions = [], galleryData = [], style1 }) => {
             onMouseEnter={() => setIsAutoPlaying(false)}
             onMouseLeave={() => setIsAutoPlaying(true)}
           >
+            {/* --- FIXED: Replaced transform logic with CSS Scroll Snap container --- */}
             <div
-              className="flex items-center transition-transform duration-700 ease-in-out"
-              style={{
-                transform: `translateX(calc(50% - ${
-                  currentIndex * (100 / galleryData.length)
-                }% - 50% / ${galleryData.length}))`,
-                transition: "transform 0.7s ease-in-out",
-              }}
+              ref={scrollRef}
+              className="flex items-center overflow-x-auto snap-x snap-mandatory scroll-smooth"
+              // This padding helps center the first and last items
+              style={{ padding: "0 calc(50% - clamp(250px, 40vw, 500px) / 2)" }}
             >
               {galleryData.map((item, index) => (
                 <div
+                  ref={(el) => (itemRefs.current[index] = el)} // Add item ref
                   key={index}
-                  className="relative flex-shrink-0 mx-2 md:mx-4"
+                  className="relative flex-shrink-0 mx-2 md:mx-4 snap-center" // Add snap-center
                   style={{ width: "clamp(250px, 40vw, 500px)" }}
                 >
                   <button
-                    onClick={openFullscreen}
+                    onClick={() => openFullscreen(index)} // --- FIXED: Pass index here
                     className="w-full cursor-zoom-in group"
                     aria-label="View image in fullscreen"
                   >

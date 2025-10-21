@@ -35,25 +35,27 @@ const NavBar = ({ src, rera_no, perm_no }) => {
               alt="Aparna Lead the Future"
               width={135}
               height={140}
-              className="md:w-[135px] md:h-[140px] max-md:w-[95px] max-md:h-[95px]"
+              // FIXED: Use mobile-first classes. w-[95px] is default, md:w-[135px] is for larger.
+              // h-auto maintains the aspect ratio defined by the width/height props.
+              className="w-[95px] h-auto md:w-[135px]"
               priority
             />
           </div>
 
           {/* Right Section — Permission Card + Project Logo */}
-          <div className="flex ml-auto items-center gap-6 max-sm:gap-2">
+          <div className="flex ml-auto items-center gap-2 md:gap-6">
             {/* Permission Card */}
-            <div className="border border-gray-300 px-4 max-md:px-1  flex flex-col text-left max-md:h-[52px] ">
-              <small className=" text-gray-600 mb-1 max-md:mb-0 max-md:text-[8px]">
+            <div className="border border-gray-300 px-1 md:px-4 flex flex-col text-left h-[52px] md:h-auto">
+              <small className="text-gray-600 mb-0 md:mb-1 text-[8px] md:text-xs">
                 Building Permission No.
               </small>
-              <small className="font-bold border-b border-gray-300 text-xs max-md:text-[8px]">
+              <small className="font-bold border-b border-gray-300 text-[8px] md:text-xs">
                 {perm_no}
               </small>
-              <small className="font-bold border-b border-gray-300 text-xs max-md:text-[8px]">
+              <small className="font-bold border-b border-gray-300 text-[8px] md:text-xs">
                 TG RERA NO: {rera_no}
               </small>
-              <small className="text-gray-600 text-xs max-md:text-[8px]">
+              <small className="text-gray-600 text-[8px] md:text-xs">
                 www.rera.telangana.gov.in
               </small>
             </div>
@@ -66,7 +68,9 @@ const NavBar = ({ src, rera_no, perm_no }) => {
                   alt="Aparna Sarovar Towers Logo"
                   width={140}
                   height={45}
-                  className="transition-transform h-fill duration-300 max-md:w-[80px] max-md:h-[40px]"
+                  // FIXED: Mobile-first classes and h-auto to maintain aspect ratio.
+                  // h-fill is not a valid Tailwind class.
+                  className="transition-transform duration-300 w-[80px] h-auto md:w-[140px]"
                   priority
                 />
               </div>

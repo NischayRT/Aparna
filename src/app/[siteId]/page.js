@@ -1,10 +1,10 @@
 // This is a Server Component responsible for fetching data.
 import { allSiteData } from "../../data/allSiteData"; // This path is correct as it goes up to src, then down to data.
-import MainPage from "../MainPage"; 
+import MainPage from "../MainPage";
 import { notFound } from "next/navigation";
 
 // This function receives the 'siteId' from the URL parameters
-export default function Page({ params }) {
+export default async function Page({ params }) {
   const { siteId } = params;
 
   // Find the corresponding site data from our centralized 'database'

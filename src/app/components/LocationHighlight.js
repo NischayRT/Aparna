@@ -47,6 +47,7 @@ const LocationHighlight = ({
                     alt={img?.caption || "Location Image"}
                     fill
                     className="object-cover"
+                    sizes="85vw"
                   />
                 </div>
               ))}
@@ -73,6 +74,7 @@ const LocationHighlight = ({
                     alt={galleryData[1]?.caption || "Location Image"}
                     fill
                     className="object-cover"
+                    sizes="25vw"
                   />
                 </div>
                 <div className="relative bg-gray-100 overflow-hidden ">
@@ -81,6 +83,7 @@ const LocationHighlight = ({
                     alt={galleryData[2]?.caption || "Location Image"}
                     fill
                     className="object-cover"
+                    sizes="85vw"
                   />
                 </div>
               </div>
