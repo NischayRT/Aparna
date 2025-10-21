@@ -14,8 +14,9 @@ const NavBar = ({ src, rera_no, perm_no }) => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 bg-white transition-all duration-300 ${
-        isScrolled ? "shadow-lg py-0" : "py-1"
+      // FIXED: Moved 'shadow-lg' outside the conditional to make it permanent
+      className={`fixed top-0 left-0 w-full z-50 bg-white shadow-lg transition-all duration-300 ${
+        isScrolled ? "py-0" : "py-1"
       }`}
     >
       <div className="container">

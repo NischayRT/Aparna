@@ -31,31 +31,31 @@ const LocationHighlight = ({
   return (
     <section className="location-highlights bg-white py-12">
       <div className="container mx-auto px-6">
-        <div className="flex flex-col lg:flex-row items-start gap-8">
+        {/* --- FIXED: Changed 'lg:flex-row' to 'md:flex-row' --- */}
+        <div className="flex flex-col md:flex-row items-start gap-8">
           {/* ===== LEFT: Location Images ===== */}
-          <div className="w-full lg:w-1/2">
-            {/* --- CHANGE: Mobile Horizontal Scrolling Gallery --- */}
-            {/* This block is visible only on screens smaller than lg */}
-            <div className="lg:hidden flex flex-row gap-4 overflow-x-auto snap-x snap-mandatory py-2 -mx-6 px-6">
+          {/* --- FIXED: Changed 'lg:w-1/2' to 'md:w-1/2' --- */}
+          <div className="w-full md:w-1/2">
+            {/* --- FIXED: Mobile Vertical Stack (Now 'md:hidden') --- */}
+            <div className="md:hidden flex flex-col gap-4">
               {galleryData.slice(0, 3).map((img, index) => (
                 <div
                   key={index}
-                  className="relative w-[85vw] aspect-video flex-shrink-0 snap-center  overflow-hidden"
+                  className="relative w-full aspect-video overflow-hidden"
                 >
                   <Image
                     src={img?.src}
                     alt={img?.caption || "Location Image"}
                     fill
                     className="object-cover"
-                    sizes="85vw"
+                    sizes="100vw"
                   />
                 </div>
               ))}
             </div>
 
-            {/* --- CHANGE: Desktop Vertical Stack (Original Layout) --- */}
-            {/* This block is hidden by default and becomes visible on lg screens */}
-            <div className="hidden lg:flex flex-col justify-between gap-4 h-[720px]">
+            {/* --- FIXED: Desktop Vertical Stack (Now 'hidden md:flex') --- */}
+            <div className="hidden md:flex flex-col justify-between gap-4 h-[720px]">
               {/* Top Large Image */}
               <div className="relative h-[420px] bg-gray-100 overflow-hidden ">
                 <Image
@@ -63,11 +63,12 @@ const LocationHighlight = ({
                   alt={galleryData[0]?.caption || "Location Image"}
                   fill
                   className="object-cover"
+                  sizes="50vw"
                 />
               </div>
 
               {/* Bottom Two Images */}
-              <div className="grid grid-cols-2 gap-4 h-[290px]">
+              <div className="grid grid-cols-2 gap-4 h-[290px] max-md:block flex">
                 <div className="relative bg-gray-100 overflow-hidden ">
                   <Image
                     src={galleryData[1]?.src}
@@ -83,7 +84,7 @@ const LocationHighlight = ({
                     alt={galleryData[2]?.caption || "Location Image"}
                     fill
                     className="object-cover"
-                    sizes="85vw"
+                    sizes="25vw"
                   />
                 </div>
               </div>
@@ -91,9 +92,11 @@ const LocationHighlight = ({
           </div>
 
           {/* ===== RIGHT: Location Details ===== */}
-          <div className="w-full lg:w-1/2 flex flex-col justify-between min-h-[600px]">
+          {/* --- FIXED: Changed 'lg:w-1/2' to 'md:w-1/2' --- */}
+          <div className="w-full md:w-1/2 flex flex-col justify-between min-h-[600px]">
             <div>
-              <h2 className="heading-font text-center lg:text-left text-3xl font-bold text-gray-800">
+              {/* --- FIXED: Changed 'lg:text-left' to 'md:text-left' --- */}
+              <h2 className="heading-font text-center md:text-left text-3xl font-bold text-gray-800">
                 Location Highlights
               </h2>
               <p className="para-font font-bold text-gray-700 mt-4">
@@ -102,12 +105,13 @@ const LocationHighlight = ({
               <p className="para-font text-gray-600 mt-2">
                 Distances and ETAs are approx as per Google Maps
               </p>
+              {/* --- FIXED: Changed 'lg:mx-0' to 'md:mx-0' --- */}
               <div
-                className="brown-underline w-20 h-1 my-6 mx-auto lg:mx-0"
+                className="brown-underline w-20 h-1 my-6 mx-auto md:mx-0"
                 style={style1}
               ></div>
 
-              {/* Accordion */}
+              {/* Accordion (No changes needed) */}
               <div className="space-y-4">
                 {Object.entries(locationData).map(([key, items]) => (
                   <div
@@ -154,7 +158,8 @@ const LocationHighlight = ({
             </div>
 
             {/* Schedule Button */}
-            <div className="flex justify-center lg:justify-start mt-8">
+            {/* --- FIXED: Changed 'lg:justify-start' to 'md:justify-start' --- */}
+            <div className="flex justify-center md:justify-start mt-8">
               <button
                 className="schedule-btn para-font text-lg md:text-xl"
                 style={buttonStyle}

@@ -186,6 +186,8 @@ const Gallery = ({ style, budgetOptions = [], galleryData = [], style1 }) => {
   };
   const closeFullscreen = () => setShowFullscreen(false);
 
+  // --- REMOVED goToSlide function ---
+
   if (galleryData.length === 0) {
     return null; // Don't render anything if there are no images
   }
@@ -209,7 +211,7 @@ const Gallery = ({ style, budgetOptions = [], galleryData = [], style1 }) => {
             {/* --- FIXED: Replaced transform logic with CSS Scroll Snap container --- */}
             <div
               ref={scrollRef}
-              className="flex items-center overflow-x-auto snap-x snap-mandatory scroll-smooth"
+              className="flex items-center overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar"
               // This padding helps center the first and last items
               style={{ padding: "0 calc(50% - clamp(250px, 40vw, 500px) / 2)" }}
             >
@@ -288,6 +290,8 @@ const Gallery = ({ style, budgetOptions = [], galleryData = [], style1 }) => {
               </svg>
             </button>
           </div>
+
+          {/* --- REMOVED Dot Indicators --- */}
 
           <div className="text-center mt-4">
             <h3 className="text-xl font-semibold text-gray-800">
