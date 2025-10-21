@@ -40,7 +40,7 @@ body {
 /* For screens *smaller* than 'sm' (max-width: 639px)
   (max-sm:px-[10px])
 */
-@media (max-width: 639px) {
+@media (max-width: 64px) {
   .container {
     padding-left: 10px;
     padding-right: 10px;
