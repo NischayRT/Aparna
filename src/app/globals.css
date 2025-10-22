@@ -123,8 +123,8 @@ h2 {
 .hero-section {
   height: 105.5vh;
   width: 100%;
-  padding-top: 5rem;
   display: flex;
+  padding-right: 5rem;
   overflow: hidden;
 }
 
@@ -132,6 +132,7 @@ h2 {
 .hero-image {
   transition: transform 6s ease-in-out;
   transform-origin: center center;
+  padding-bottom: 2rem;
 }
 
 /* Mobile zoom + shift to bottom-right */

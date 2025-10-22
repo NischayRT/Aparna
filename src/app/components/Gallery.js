@@ -374,7 +374,7 @@ const Gallery = ({
             {/* View More Button */}
             <button
               className="schedule-btn para-font text-lg px-8 py-3 rounded-lg font-semibold"
-              style={isHovered ? buttonHoverStyle : buttonStyle}
+              style={buttonStyle}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
               onClick={() => setShowPopup(true)} // Re-introducing popup

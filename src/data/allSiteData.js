@@ -52,7 +52,7 @@ export const allSiteData = {
       feature1: "1 Minute Walk to Aparna Neo Mall & Multiplex",
       feature2: "3 & 4 BHK Apartments | 2878 - 3700 Sq. Ft.",
       desktopBg: "/Hero.jpg",
-      mobileBg: "/Hero.jpg",
+      mobileBg: "/mobile-banner.svg",
     },
     form1: {
       submitButton: {
@@ -235,12 +235,12 @@ export const allSiteData = {
       permNo: "",
     },
     hero: {
-      title1: "APARNA",
-      title2: "DECCAN TOWN",
-      subtitle: "Near West Hyderabad’s IT Corridor",
-      location: "📍 Gopanpally, Hyderabad",
-      feature1: "Township featuring High-Rise Apartments & Bungalows",
-      feature2: "Luxury 3 & 4 BHK Apartments | Premium Mall",
+      title1: "",
+      title2: "",
+      subtitle: "",
+      location: "",
+      feature1: "",
+      feature2: "",
       desktopBg:
         "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/deccan-town-banner.webp",
       mobileBg:

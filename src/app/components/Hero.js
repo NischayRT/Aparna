@@ -70,30 +70,37 @@ const Hero = ({
               {p1}
             </p>
           </div>
+          {p2_1 && (
+            <>
+              <p className="location para-font font-semibold text-base md:text-l text-white mb-4 drop-shadow-lg mt-4 max-w-fit sm:w-[50%]">
+                {p2_1}
+                <br />
+                {p2_2}
+              </p>
+            </>
+          )}
 
-          <p className="location para-font font-semibold text-base md:text-l text-white mb-4 drop-shadow-lg mt-4 max-w-fit sm:w-[50%]">
-            {p2_1}
-            <br />
-            {p2_2}
-          </p>
+          {p3 && (
+            <>
+              <div className="mb-6">
+                <p className="para-font font-semibold text-base md:text-xl text-white drop-shadow-lg">
+                  {p3}
+                </p>
+              </div>
 
-          <div className="mb-6">
-            <p className="para-font font-semibold text-base md:text-xl text-white drop-shadow-lg">
-              {p3}
-            </p>
-          </div>
-
-          <div>
-            <button
-              className="schedule-btn para-font text-lg md:text-xl mt-6"
-              style={buttonStyle}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              onClick={() => setShowPopup(true)}
-            >
-              SCHEDULE A VISIT
-            </button>
-          </div>
+              <div>
+                <button
+                  className="schedule-btn para-font text-lg md:text-xl mt-6"
+                  style={buttonStyle}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                  onClick={() => setShowPopup(true)}
+                >
+                  SCHEDULE A VISIT
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </section>
 
