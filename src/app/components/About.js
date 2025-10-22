@@ -2,19 +2,22 @@
 import { useState } from "react";
 import PopupForm from "./PopupForm";
 import { darkenColor } from "@/utils/colorUtils";
-import LiteYouTubeEmbed from "react-lite-youtube-embed"; // <-- Import
-import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css"; // <-- Import CSS
-
-const About = ({ src, style, budgetOptions, style1 }) => {
+const About = ({ src, style, budgetOptions }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
-  // Extract the YouTube Video ID from the src prop
-  // (e.g., "https://www.youtube.com/embed/NXMVHeQzLdo" -> "NXMVHeQzLdo")
-  const videoId = src.split("/").pop().split("?")[0];
-
   const buttonStyle = {
-    // ... (your existing button style code)
+    ...style,
+    // On hover, apply a 20% darker background color; otherwise, use the default.
+    backgroundColor: isHovered
+      ? darkenColor(style.backgroundColor, 20)
+      : style.backgroundColor,
+
+    boxShadow: isHovered
+      ? "0 10px 15px -3px rgba(0, 0, 0, 0.1)"
+      : style.boxShadow,
+    transform: isHovered ? "scale(1.05)" : "scale(1)",
+    transition: "all 0.3s ease",
   };
 
   return (
@@ -23,31 +26,39 @@ const About = ({ src, style, budgetOptions, style1 }) => {
         <h2 className="heading-font text-center text-3xl md:text-4xl font-bold text-gray-800">
           About Aparna Constructions
         </h2>
-        <div
-          className="brown-underline w-20 h-1 mx-auto my-6"
-          style={style1}
-        ></div>
+        <div className="brown-underline w-20 h-1 bg-red-800 mx-auto my-6"></div>
 
         <div className="flex flex-col lg:flex-row items-center gap-8 mt-8">
           <div className="lg:w-1/2">
-            {/* --- FIXED: Lite YouTube Embed --- */}
+            {/* --- CHANGE: YouTube Video Embed --- */}
             <div className="relative pt-[56.25%] bg-gray-100 overflow-hidden shadow-lg">
-              <LiteYouTubeEmbed
-                id={videoId}
+              <iframe
+                className="absolute inset-0 w-full h-full"
+                src={src}
                 title="Aparna Constructions - Company Overview"
-                wrapperClass="absolute inset-0 w-full h-full"
-              />
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
             </div>
           </div>
 
           <div className="lg:w-1/2">
             <p className="para-font text-[#3c4854cc] mb-6 text-lg leading-relaxed">
-              {/* ... (your existing paragraph) */}
+              Since 1996, Aparna Constructions has led the way in pioneering
+              innovation within gated communities. Our unwavering vision
+              combines affordability with luxury, building homes that captivate
+              your heart. We&apos;re committed to global standards of
+              construction, with a strong sense of environmental responsibility
+              evident in every home we build.
             </p>
 
             <div className="flex justify-center lg:justify-start">
               <button
-                // ... (your existing button props)
+                className="schedule-btn para-font text-lg md:text-xl mt-6"
+                style={buttonStyle}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
                 onClick={() => setShowPopup(true)}
               >
                 DOWNLOAD BROCHURE

@@ -95,6 +95,7 @@ h2 {
   margin-bottom: 0.5 rem !important;
   font-size: 48px;
 }
+
 /* Form styles */
 .form-input,
 .form-select {
@@ -106,7 +107,7 @@ h2 {
 }
 /* Info box styles */
 .info-box {
-  border: 1px solid #e5e7eb;
+  border: 1px solid #ccc;
   border-radius: 0.5rem;
   padding: 1rem;
   text-align: center;
@@ -221,4 +222,47 @@ h2 {
 .no-scrollbar {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+/* --- FIX YouTube thumbnail repeating issue --- */
+/* --- Strong, multi-target YouTube poster fix --- */
+
+/* Any known wrapper classes used by lite-youtube variants */
+.yt-lite,
+.lite-youtube,
+.ytLite,
+.lty-embed,
+.yt-lite-embed {
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: center center !important;
+}
+
+/* Some builds place background-image inline on a child DIV without those classes;
+   target any element that has youtube thumbnail url in its inline style */
+div[style*="i.ytimg.com"],
+div[style*="ytimg.com"],
+div[style*="vi/"] {
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: center center !important;
+}
+
+/* play button keep crisp */
+.yt-lite > .lty-playbtn,
+.lite-youtube > .lty-playbtn,
+.lty-playbtn {
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  background-position: center center !important;
+}
+.stats-label {
+  font-size: 0.85rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.stats-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #251c1c;
 }

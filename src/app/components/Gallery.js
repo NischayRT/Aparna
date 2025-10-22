@@ -1,172 +1,121 @@
 "use client";
 
-import Image from "next/image";
-import PopupForm from "./PopupForm";
-import { darkenColor } from "@/utils/colorUtils";
-import { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import Image from "next/image"; // Re-introducing next/image
+import PopupForm from "./PopupForm"; // Re-introducing PopupForm
+import { darkenColor } from "@/utils/colorUtils"; // Re-introducing darkenColor
+import { Fancybox as NativeFancybox } from "@fancyapps/ui"; // Re-introducing Fancybox
+import "@fancyapps/ui/dist/fancybox/fancybox.css"; // Re-introducing Fancybox CSS
 
-// --- UPDATED: Reusable Fullscreen component with navigation and zoom ---
-const FullscreenImage = ({ src, alt, onClose, onNext, onPrev }) => {
-  const [isZoomed, setIsZoomed] = useState(false);
+const DEFAULT_GALLERY_DATA = {};
 
-  // Move useEffect before the early return
-  useEffect(() => {
-    setIsZoomed(false);
-  }, [src]);
+const Gallery = ({
+  style,
+  budgetOptions = [],
+  galleryData = DEFAULT_GALLERY_DATA,
+  style1,
+}) => {
+  // --- New Logic: Check if galleryData is an object with categories or a simple array ---
+  const isGalleryObject =
+    galleryData &&
+    typeof galleryData === "object" &&
+    !Array.isArray(galleryData) &&
+    Object.keys(galleryData).length > 0;
 
-  if (!src) return null;
+  const galleryCategories = isGalleryObject ? Object.keys(galleryData) : [];
 
-  return (
-    <div
-      className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
-      onClick={onClose}
-    >
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 text-white text-4xl font-light bg-black/40 rounded-full w-12 h-12 flex items-center justify-center leading-none hover:bg-black/60 transition z-20"
-        aria-label="Close image"
-      >
-        &times;
-      </button>
+  // Find the first category that actually has images (if it's an object)
+  const firstValidCategory = isGalleryObject
+    ? galleryCategories.find(
+        (cat) =>
+          galleryData[cat] &&
+          Array.isArray(galleryData[cat]) &&
+          galleryData[cat].length > 0
+      ) ||
+      galleryCategories[0] ||
+      null
+    : null;
 
-      {/* Navigation Buttons (conditionally rendered) */}
-      {onPrev && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onPrev();
-          }}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/30 rounded-full shadow-md hover:bg-white/50 transition"
-          aria-label="Previous"
-        >
-          <svg
-            className="h-6 w-6 text-white"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </button>
-      )}
-      {onNext && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onNext();
-          }}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/30  shadow-md hover:bg-white/50 transition"
-          aria-label="Next"
-        >
-          <svg
-            className="h-6 w-6 text-white"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </button>
-      )}
-
-      {/* Image container that handles zoom */}
-      <div
-        className="relative w-[90vw] h-[90vh] flex items-center justify-center overflow-hidden"
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the container
-      >
-        <div
-          className={`relative w-full h-full transition-transform duration-300 ease-in-out ${
-            isZoomed ? "scale-150" : "scale-100"
-          }`}
-          onClick={() => setIsZoomed(!isZoomed)} // Toggle zoom on click
-        >
-          {/* --- FIXED: Updated next/image props --- */}
-          <Image
-            src={src}
-            alt={alt}
-            fill
-            className={`object-contain ${
-              isZoomed ? "cursor-zoom-out" : "cursor-zoom-in"
-            }`}
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const Gallery = ({ style, budgetOptions = [], galleryData = [], style1 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
+  const [showPopup, setShowPopup] = useState(false); // Re-introducing PopupForm state
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [showFullscreen, setShowFullscreen] = useState(false);
 
-  // --- NEW: Refs for scrolling ---
-  const scrollRef = useRef(null); // Ref for the scroll container
-  const itemRefs = useRef([]); // Ref to hold all item elements
+  // Active category is only relevant if it's a gallery object
+  const [activeCategory, setActiveCategory] = useState(firstValidCategory);
 
+  const scrollRef = useRef(null);
+  const itemRefs = useRef([]);
+
+  // --- New Logic: Determine the current image array ---
+  const currentImages = React.useMemo(() => {
+    if (isGalleryObject) {
+      // If it's an object, get images from the active category
+      return activeCategory &&
+        galleryData[activeCategory] &&
+        Array.isArray(galleryData[activeCategory])
+        ? galleryData[activeCategory]
+        : [];
+    }
+    // If it's an array, just use it directly
+    return Array.isArray(galleryData) ? galleryData : [];
+  }, [galleryData, isGalleryObject, activeCategory]);
+
+  const currentImageCount = currentImages.length;
+
+  // --- Handlers use currentImageCount ---
   const handleNext = useCallback(() => {
-    if (galleryData.length === 0) return;
+    if (currentImageCount === 0) return;
     setCurrentIndex((prevIndex) =>
-      prevIndex === galleryData.length - 1 ? 0 : prevIndex + 1
+      prevIndex === currentImageCount - 1 ? 0 : prevIndex + 1
     );
-  }, [galleryData.length]);
+  }, [currentImageCount]);
 
   const handlePrev = useCallback(() => {
-    if (galleryData.length === 0) return;
+    if (currentImageCount === 0) return;
     setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? galleryData.length - 1 : prevIndex - 1
+      prevIndex === 0 ? currentImageCount - 1 : prevIndex - 1
     );
-  }, [galleryData.length]);
+  }, [currentImageCount]);
 
-  // --- NEW: useEffect to handle scrolling ---
-  // This effect runs when currentIndex changes and scrolls the container
+  // --- Effect for scrolling ---
   useEffect(() => {
-    if (
-      !scrollRef.current ||
-      !itemRefs.current[currentIndex] ||
-      galleryData.length === 0
-    )
+    if (currentImageCount === 0) {
+      if (scrollRef.current) {
+        scrollRef.current.scrollTo({ left: 0, behavior: "auto" });
+      }
       return;
-
+    }
+    if (!scrollRef.current || !itemRefs.current[currentIndex]) {
+      if (scrollRef.current && currentIndex === 0) {
+        // Only scroll to start if it's the first index
+        scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
+      }
+      return;
+    }
     const container = scrollRef.current;
     const item = itemRefs.current[currentIndex];
-
-    // Calculate the position to center the item
+    if (!item) return;
     const containerCenter = container.clientWidth / 2;
     const itemCenter = item.offsetLeft + item.clientWidth / 2;
     const scrollLeft = itemCenter - containerCenter;
+    container.scrollTo({ left: scrollLeft, behavior: "smooth" });
+  }, [currentIndex, activeCategory, currentImageCount]); // Depend on activeCategory
 
-    container.scrollTo({
-      left: scrollLeft,
-      behavior: "smooth",
-    });
-  }, [currentIndex, galleryData.length]); // Runs when currentIndex changes
-
-  // Auto-scroll effect, now pauses when fullscreen
+  // --- Effect for auto-play ---
   useEffect(() => {
-    if (!isAutoPlaying || showFullscreen || galleryData.length <= 1) return;
-    const interval = setInterval(handleNext, 2000);
+    if (!isAutoPlaying || !currentImages || currentImageCount <= 1) return;
+    const interval = setInterval(handleNext, 4000); // Reset to 4s, 2s is very fast
     return () => clearInterval(interval);
   }, [
     currentIndex,
     isAutoPlaying,
-    showFullscreen,
     handleNext,
-    galleryData.length,
+    currentImages,
+    currentImageCount,
   ]);
 
+  // --- Button style logic (Re-introducing darkenColor) ---
   const buttonStyle = {
     ...style,
     backgroundColor: isHovered
@@ -179,28 +128,128 @@ const Gallery = ({ style, budgetOptions = [], galleryData = [], style1 }) => {
     transition: "all 0.3s ease",
   };
 
-  // --- FIXED: openFullscreen now accepts an index ---
-  const openFullscreen = (index) => {
-    setCurrentIndex(index);
-    setShowFullscreen(true);
+  // --- Re-introducing Fancybox function ---
+  const openGalleryFullscreen = (index) => {
+    // Build the gallery from the *current* image set
+    const gallery = currentImages
+      .filter((item) => item && item.src)
+      .map((item) => ({
+        src: item.src,
+        caption: item.caption || "",
+        thumb: item.src, // Use main image as thumbnail
+      }));
+
+    if (gallery.length === 0) return;
+
+    NativeFancybox.show(gallery, {
+      startIndex: index,
+      Navigation: true,
+      Toolbar: {
+        display: {
+          left: ["infobar"],
+          middle: [
+            "prev",
+            "next",
+            "zoomIn",
+            "zoomOut",
+            "toggle1to1",
+            "rotateCCW",
+            "rotateCW",
+          ],
+          right: ["slideshow", "thumbs", "close"],
+        },
+      },
+    });
   };
-  const closeFullscreen = () => setShowFullscreen(false);
 
-  // --- REMOVED goToSlide function ---
+  // --- Function to handle category change ---
+  const handleCategoryChange = (category) => {
+    if (category !== activeCategory) {
+      setActiveCategory(category);
+      setCurrentIndex(0); // Reset index
+      itemRefs.current = []; // Reset item refs
+      if (scrollRef.current) {
+        scrollRef.current.scrollTo({ left: 0, behavior: "auto" }); // Scroll to start immediately
+      }
+    }
+  };
 
-  if (galleryData.length === 0) {
-    return null; // Don't render anything if there are no images
+  // --- Adjusted initial check ---
+  // Check if it's an object with valid categories OR a simple array with items
+  const hasValidData = isGalleryObject
+    ? galleryCategories.some(
+        (cat) =>
+          galleryData[cat] &&
+          Array.isArray(galleryData[cat]) &&
+          galleryData[cat].length > 0
+      )
+    : Array.isArray(galleryData) && galleryData.length > 0;
+
+  useEffect(() => {
+    // This effect ensures the activeCategory is valid when data is an object
+    if (
+      isGalleryObject &&
+      (!activeCategory ||
+        !galleryData[activeCategory] ||
+        galleryData[activeCategory].length === 0)
+    ) {
+      const firstValidCategory = galleryCategories.find(
+        (cat) =>
+          galleryData[cat] &&
+          Array.isArray(galleryData[cat]) &&
+          galleryData[cat].length > 0
+      );
+      if (firstValidCategory) {
+        setActiveCategory(firstValidCategory);
+      }
+    }
+  }, [galleryData, galleryCategories, activeCategory, isGalleryObject]);
+
+  if (!hasValidData) {
+    return null; // Don't render if no valid data at all
+  }
+
+  // Show loading only if it's an object and the active category is still being set
+  if (isGalleryObject && (!activeCategory || !galleryData[activeCategory])) {
+    return <div className="text-center py-10">Loading gallery...</div>;
   }
 
   return (
     <>
       <div className="gallery-section bg-white py-12 md:py-16 lg:py-20 overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-8">
-            <h2 className="heading-font text-4xl md:text-5xl font-bold text-gray-800">
+          <div className="text-center mb-5">
+            <h2 className="heading-font text-4xl md:text-5xl text-gray-800">
               Gallery
             </h2>
-            <div className="w-20 h-1 mx-auto " style={style1}></div>
+            <div className="w-20 h-1 mx-auto my-3" style={style1}></div>
+
+            {/* --- Conditional Category Buttons --- */}
+            {/* Show buttons only if it's an object and has more than 1 category */}
+            {isGalleryObject && galleryCategories.length > 1 && (
+              <div className="flex justify-center flex-wrap gap-2 mb-8">
+                {galleryCategories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => handleCategoryChange(category)}
+                    // Styling from your image: rounded-full, border, padding
+                    className={`Gallery-toggle-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ease-in-out border
+                    ${
+                      activeCategory === category
+                        ? "text-white border-transparent shadow-md" // Active state
+                        : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100 hover:border-gray-400" // Inactive state
+                    }`}
+                    style={
+                      activeCategory === category
+                        ? style1 // Apply theme background color for active
+                        : { borderColor: style1?.backgroundColor || "#ccc" } // Apply theme border color for inactive
+                    }
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           <div
@@ -208,51 +257,65 @@ const Gallery = ({ style, budgetOptions = [], galleryData = [], style1 }) => {
             onMouseEnter={() => setIsAutoPlaying(false)}
             onMouseLeave={() => setIsAutoPlaying(true)}
           >
-            {/* --- FIXED: Replaced transform logic with CSS Scroll Snap container --- */}
             <div
               ref={scrollRef}
               className="flex items-center overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar"
-              // This padding helps center the first and last items
               style={{ padding: "0 calc(50% - clamp(250px, 40vw, 500px) / 2)" }}
             >
-              {galleryData.map((item, index) => (
+              {/* Map over CURRENT images */}
+              {currentImages.map((item, index) => (
                 <div
-                  ref={(el) => (itemRefs.current[index] = el)} // Add item ref
-                  key={index}
-                  className="relative flex-shrink-0 mx-2 md:mx-4 snap-center" // Add snap-center
+                  ref={(el) => {
+                    if (el) itemRefs.current[index] = el;
+                  }}
+                  key={`${activeCategory || "default"}-${item.src || index}`}
+                  className="relative flex-shrink-0 mx-2 md:mx-4 snap-center"
                   style={{ width: "clamp(250px, 40vw, 500px)" }}
                 >
                   <button
-                    onClick={() => openFullscreen(index)} // --- FIXED: Pass index here
-                    className="w-full cursor-zoom-in group"
-                    aria-label="View image in fullscreen"
+                    className="w-full group cursor-zoom-in"
+                    onClick={() => openGalleryFullscreen(index)} // Open Fancybox
+                    aria-label={
+                      item.caption ||
+                      `${activeCategory || "Gallery"} image ${index + 1}`
+                    }
                   >
                     <div
-                      className={`relative w-full aspect-[4/3] overflow-hidden shadow-lg transform transition-all duration-500 ease-out ${
+                      className={`relative w-full aspect-[4/3] overflow-hidden rounded-lg shadow-lg transform transition-all duration-500 ease-out ${
+                        // Added rounded-lg
                         index === currentIndex
                           ? "scale-100 opacity-100"
                           : "scale-90 opacity-60 group-hover:opacity-80"
                       }`}
                     >
-                      <Image
-                        src={item.src}
-                        alt={item.caption}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 50vw, 33vw"
-                        priority={index < 3}
-                      />
+                      {item.src ? (
+                        <Image // Re-introducing next/image
+                          src={item.src}
+                          alt={
+                            item.caption ||
+                            `${activeCategory || "Gallery"} image ${index + 1}`
+                          }
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 80vw, (max-width: 1200px) 40vw, 500px"
+                          priority={index < 3}
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
+                          Invalid Image
+                        </div>
+                      )}
                     </div>
                   </button>
                 </div>
               ))}
             </div>
 
-            {/* Carousel Navigation */}
             <button
               onClick={handlePrev}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white/80 rounded-[2px] shadow-md hover:bg-white transition"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white/80 rounded-full shadow-md hover:bg-white transition disabled:opacity-50" // Made round
               aria-label="Previous image"
+              disabled={currentImageCount <= 1}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -271,8 +334,9 @@ const Gallery = ({ style, budgetOptions = [], galleryData = [], style1 }) => {
             </button>
             <button
               onClick={handleNext}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white/80 rounded-[2px] shadow-md hover:bg-white transition"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-white/80 rounded-full shadow-md hover:bg-white transition disabled:opacity-50" // Made round
               aria-label="Next image"
+              disabled={currentImageCount <= 1}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -291,21 +355,19 @@ const Gallery = ({ style, budgetOptions = [], galleryData = [], style1 }) => {
             </button>
           </div>
 
-          {/* --- REMOVED Dot Indicators --- */}
-
-          <div className="text-center mt-4">
+          <div className="text-center mt-4 h-6">
             <h3 className="text-xl font-semibold text-gray-800">
-              {galleryData[currentIndex]?.caption}
+              {currentImages[currentIndex]?.caption || ""}
             </h3>
           </div>
 
           <div className="text-center mt-12 md:mt-16">
             <button
               className="schedule-btn para-font text-lg px-8 py-3 rounded-lg font-semibold"
-              style={buttonStyle}
+              style={isHovered ? buttonHoverStyle : buttonStyle}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
-              onClick={() => setShowPopup(true)}
+              onClick={() => setShowPopup(true)} // Re-introducing popup
             >
               VIEW MORE
             </button>
@@ -313,22 +375,12 @@ const Gallery = ({ style, budgetOptions = [], galleryData = [], style1 }) => {
         </div>
       </div>
 
+      {/* Re-introducing PopupForm component */}
       <PopupForm
         isOpen={showPopup}
         onClose={() => setShowPopup(false)}
         budgetOptions={budgetOptions}
       />
-
-      {/* Conditionally render the fullscreen view for the Gallery */}
-      {showFullscreen && (
-        <FullscreenImage
-          src={galleryData[currentIndex]?.src}
-          alt={galleryData[currentIndex]?.caption}
-          onClose={closeFullscreen}
-          onNext={handleNext}
-          onPrev={handlePrev}
-        />
-      )}
     </>
   );
 };

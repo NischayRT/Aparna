@@ -209,7 +209,7 @@ const Form1 = ({ budgetOptions = [], submitButton = {}, style }) => {
             </label>
 
             <small
-              className="font-bold underline cursor-pointer text-[#e63946] hover:text-[#b91c1c] transition-colors"
+              className=" underline cursor-pointer text-[#e63946] hover:text-[#b91c1c] transition-colors"
               onClick={() => setShowPrivacyPopup(true)}
             >
               Privacy and Policy

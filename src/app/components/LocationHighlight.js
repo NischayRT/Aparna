@@ -96,13 +96,13 @@ const LocationHighlight = ({
           <div className="w-full md:w-1/2 flex flex-col justify-between min-h-[600px]">
             <div>
               {/* --- FIXED: Changed 'lg:text-left' to 'md:text-left' --- */}
-              <h2 className="heading-font text-center md:text-left text-3xl font-bold text-gray-800">
+              <h2 className="heading-font text-center md:text-left text-3xl  text-gray-800">
                 Location Highlights
               </h2>
-              <p className="para-font font-bold text-gray-700 mt-4">
+              <p className="para-font font-bold text-black mt-4">
                 1 Minute Walk to Aparna Neo Mall & Multiplex
               </p>
-              <p className="para-font text-gray-600 mt-2">
+              <p className="para-font text-black mt-2">
                 Distances and ETAs are approx as per Google Maps
               </p>
               {/* --- FIXED: Changed 'lg:mx-0' to 'md:mx-0' --- */}

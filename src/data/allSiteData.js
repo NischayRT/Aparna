@@ -1,17 +1,15 @@
-// This object will act as our "database" for multiple real estate projects.
+// --- Theme colors assumed for Aparna Deccan Town ---
+const deccanTownThemeColor1 = "#A0522D"; // Sienna Brown (Example)
+const deccanTownThemeColor2 = "#8B4513"; // Saddle Brown (Example)
 
 // --- Theme colors for Project 1: Aparna Sarovar ---
 const aparnaThemeColor1 = "#FE4848";
 const aparnaThemeColor2 = "#A83031";
 
-// --- Theme colors for Project 2: Urban Oasis ---
-const urbanOasisThemeColor1 = "#2A9D8F";
-const urbanOasisThemeColor2 = "#264653";
-
 export const allSiteData = {
   // --- Data for Project 1: Aparna Sarovar Towers ---
   "aparna-sarovar": {
-    // Common data used across multiple components
+    // ... (rest of aparna-sarovar data remains unchanged)
     common: {
       themeColor1: aparnaThemeColor1,
       themeColor2: aparnaThemeColor2,
@@ -42,13 +40,11 @@ export const allSiteData = {
         { value: "More than 6 Cr", label: "More than 6 Cr" },
       ],
     },
-    // Data for the NavBar component
     navBar: {
       logoSrc: "/brand-logo.svg",
       reraNo: "P123456789",
       permNo: "3068/GHMC/SLP/2023-BP",
     },
-    // Data for the Hero component
     hero: {
       title1: "NALLAGANDLA’S",
       title2: "TALLEST TOWERS",
@@ -57,7 +53,6 @@ export const allSiteData = {
       feature1: "1 Minute Walk to Aparna Neo Mall & Multiplex",
       feature2: "3 & 4 BHK Apartments | 2878 - 3700 Sq. Ft.",
     },
-    // Data for the Form1 component
     form1: {
       submitButton: {
         text: "SUBMIT",
@@ -65,13 +60,12 @@ export const allSiteData = {
           "px-8 py-3 rounded-full bg-gradient-to-r from-red-800 to-red-700 text-white font-semibold hover:shadow-lg transition-all duration-300 w-full md:w-auto",
       },
     },
-    // Data for the Gallery component
+    // Gallery for Sarovar remains an array (or update if needed)
     gallery: [
       { src: "/gallery-1.png", caption: "Lobby" },
       { src: "/gallery-2.png", caption: "Exterior View" },
       { src: "/gallery-3.png", caption: "Living Area" },
     ],
-    // Data for the SecondSection component
     secondarySection: {
       title: "Gated Community Flats for Sale in Nallagandla",
       p1: "Aparna Sarovar Towers is a gated community offering luxury 3 & 4 BHK apartments for sale in Nallagandla.",
@@ -83,7 +77,6 @@ export const allSiteData = {
         { value: "2878-3700 Sft.", label: "AREA RANGE" },
       ],
     },
-    // Data for the LocationHighlight component
     locationHighlights: {
       "it-companies": [
         "Wipro – 9 Mins",
@@ -113,7 +106,6 @@ export const allSiteData = {
         "Novotel Hotel – 28 Mins",
       ],
     },
-    // Data for the ThirdSection (Amenities)
     amenities: [
       {
         icon: "/ameneties-1.svg",
@@ -137,7 +129,6 @@ export const allSiteData = {
       { icon: "/ameneties-17.svg", name: "Pharmacy" },
       { icon: "/ameneties-18.svg", name: "Cardio Fitness" },
     ],
-    // Data for the FloorPlan component
     floorPlan: {
       masterPlan: "/floor-plan.webp",
       floorPlans: [
@@ -152,12 +143,10 @@ export const allSiteData = {
         { src: "/floor-plan-9.webp", alt: "3BHK Standard Unit Plan" },
       ],
     },
-    // Data for the About component
     about: {
       videoSrc:
         "https://www.youtube.com/embed/NXMVHeQzLdo?autoplay=0&controls=1&showinfo=0&rel=0",
     },
-    // Data for the Form2 component
     form2: {
       logoSrc: "/brand-logo.svg",
       address:
@@ -168,152 +157,384 @@ export const allSiteData = {
     },
   },
 
-  // --- Data for Project 2: Urban Oasis ---
-  "urban-oasis": {
-    // Common data for Urban Oasis
+  // --- Data for Project 2: Aparna Deccan Town ---
+  "aparna-deccan-town": {
     common: {
-      themeColor1: urbanOasisThemeColor1,
-      themeColor2: urbanOasisThemeColor2,
+      themeColor1: deccanTownThemeColor1,
+      themeColor2: deccanTownThemeColor2,
       buttonStyle1: {
-        backgroundColor: urbanOasisThemeColor1,
+        backgroundColor: deccanTownThemeColor1,
         color: "white",
-        padding: "0.8rem 1.8rem",
-        borderRadius: "8px",
-        fontWeight: 700,
-        fontSize: "large",
-        boxShadow: "0 2px 4px -1px rgba(0, 0, 0, 0.2)",
+        padding: "1rem 2rem",
+        borderRadius: "2px",
+        fontWeight: 600,
+        fontSize: "medium",
+        boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
         transition: "all 0.3s ease",
+        // Add hover styles directly if not using darkenColor
+        // ':hover': {
+        //    backgroundColor: '#8B4513', // Example darker color
+        // }
       },
       buttonStyle2: {
-        backgroundColor: urbanOasisThemeColor2,
+        backgroundColor: deccanTownThemeColor2,
         color: "white",
-        padding: "0.8rem 1.8rem",
-        borderRadius: "8px",
-        fontWeight: 700,
-        fontSize: "large",
-        boxShadow: "0 2px 4px -1px rgba(0, 0, 0, 0.2)",
+        padding: "1rem 2rem",
+        borderRadius: "2px",
+        fontWeight: 600,
+        fontSize: "medium",
+        boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
         transition: "all 0.3s ease",
+        // ':hover': {
+        //    backgroundColor: '#5C2E0D', // Example darker color
+        // }
       },
       budgetOptions: [
-        { value: "1 Cr - 2 Cr", label: "1 Cr - 2 Cr" },
-        { value: "2 Cr - 3 Cr", label: "2 Cr - 3 Cr" },
-        { value: "3 Cr - 4 Cr", label: "3 Cr - 4 Cr" },
-        { value: "More than 4 Cr", label: "More than 4 Cr" },
+        { value: "1.4 Cr - 1.5 Cr", label: "1.4 Cr - 1.5 Cr" },
+        { value: "1.5 Cr - 1.6 Cr", label: "1.5 Cr - 1.6 Cr" },
+        { value: "1.6 Cr - 1.7 Cr", label: "1.6 Cr - 1.7 Cr" },
+        { value: "More than 1.7 Cr", label: "More than 1.7 Cr" },
+        { value: "2.2 Cr - 2.5 Cr", label: "2.2 Cr - 2.5 Cr" },
+        { value: "2.5 Cr - 2.7 Cr", label: "2.5 Cr - 2.7 Cr" },
+        { value: "2.7 Cr - 2.9 Cr", label: "2.7 Cr - 2.9 Cr" },
+        { value: "More than 2.9 Cr", label: "More than 2.9 Cr" },
       ],
     },
-    // NavBar for Urban Oasis
     navBar: {
-      logoSrc: "/urban-oasis-logo.svg",
-      reraNo: "P987654321",
-      permNo: "1122/MCH/NKL/2024-AC",
+      logoSrc:
+        "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/navbar-logo.svg",
+      reraNo: "",
+      permNo: "",
     },
-    // Hero for Urban Oasis
     hero: {
-      title1: "URBAN OASIS",
-      title2: "IN THE CITY'S HEART",
-      subtitle: "A Green Sanctuary in Gachibowli",
-      location: "📍Gachibowli, Hyderabad",
-      feature1: "Next to the Financial District Metro Station",
-      feature2: "2 & 3 BHK Smart Homes | 1450 - 2100 Sq. Ft.",
+      title1: "APARNA",
+      title2: "DECCAN TOWN",
+      subtitle: "Near West Hyderabad’s IT Corridor",
+      location: "📍 Gopanpally, Hyderabad",
+      feature1: "Township featuring High-Rise Apartments & Bungalows",
+      feature2: "Luxury 3 & 4 BHK Apartments | Premium Mall",
     },
-    // Form1 for Urban Oasis
     form1: {
-      submitButton: {
-        text: "ENQUIRE NOW",
-        className:
-          "px-10 py-3 rounded-lg bg-gradient-to-r from-teal-600 to-cyan-700 text-white font-bold hover:shadow-xl transition-all duration-300 w-full md:w-auto",
-      },
+      submitButton: { text: "SUBMIT" },
     },
-    // Gallery for Urban Oasis
-    gallery: [
-      { src: "/urban-gallery-1.png", caption: "Rooftop Pool" },
-      { src: "/urban-gallery-2.png", caption: "Facade" },
-      { src: "/urban-gallery-3.png", caption: "Modern Kitchen" },
-    ],
-    // SecondarySection for Urban Oasis
-    secondarySection: {
-      title: "Premium Smart Homes in Gachibowli",
-      p1: "Urban Oasis offers a unique blend of city life and serene nature with its state-of-the-art smart homes.",
-      p2: "The project features lush vertical gardens, a stunning rooftop infinity pool, and an exclusive co-working space, all within walking distance of major tech parks.",
-      stats: [
-        { value: "2", label: "TOWERS" },
-        { value: "G+35", label: "FLOORS" },
-        { value: "2 & 3 BHK\n(Smart Homes)", label: "CONFIGURATIONS" },
-        { value: "1450-2100 Sft.", label: "AREA RANGE" },
+    gallery: {
+      "Aparna Deccan Town": [
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/dec-gal-1.png",
+          caption: "Deccan Town View 1",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/dec-gal-2.png",
+          caption: "Deccan Town View 2",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/dec-gal-3.png",
+          caption: "Deccan Town View 3",
+        },
+      ],
+      "Aparna Sunstone": [
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-gal-1.png",
+          caption: "Sunstone Gallery 1",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-gal-2.png",
+          caption: "Sunstone Gallery 2",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-gal-3.png",
+          caption: "Sunstone Gallery 3",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-gal-4.png",
+          caption: "Sunstone Gallery 4",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-gal-5.png",
+          caption: "Sunstone Gallery 5",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-gal-6.png",
+          caption: "Sunstone Gallery 6",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-gal-7.png",
+          caption: "Sunstone Gallery 7",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-gal-8.png",
+          caption: "Sunstone Gallery 8",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-gal-9.png",
+          caption: "Sunstone Gallery 9",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-gal-10.png",
+          caption: "Sunstone Gallery 10",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-gal-11.png",
+          caption: "Sunstone Gallery 11",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-gal-12.png",
+          caption: "Sunstone Gallery 12",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-gal-13.png",
+          caption: "Sunstone Gallery 13",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-gal14.png", // Corrected filename if needed
+          caption: "Sunstone Gallery 14",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-gal-15.png",
+          caption: "Sunstone Gallery 15",
+        },
+      ],
+      "Aparna Moonstone": [
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/moon-gal-1.png",
+          caption: "Moonstone Gallery 1",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/moon-gal-2.png",
+          caption: "Moonstone Gallery 2",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/moon-gal-3.png",
+          caption: "Moonstone Gallery 3",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/moon-gal-4.png",
+          caption: "Moonstone Gallery 4",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/moon-gal-5.png",
+          caption: "Moonstone Gallery 5",
+        },
       ],
     },
-    // LocationHighlight for Urban Oasis
+    secondarySection: {
+      title: "Welcome to Aparna Deccan Town",
+      p1: "Welcome to Aparna Deccan Town, the township of tomorrow where modern living meets timeless elegance. Explore a thoughtfully designed community featuring four high-rise apartment gated communities, one uber-luxury bungalow enclave, and a luxury high-street. With exceptional amenities that seamlessly blend nature and innovation, Deccan Town offers more than just a residence- it's the future of sophisticated living.",
+      p2: "This thoughtfully planned development currently features luxury high-rise gated communities - Aparna Sunstone, Aparna Moonstone and Aparna Amber Bungalows, a uber-luxury bungalow community complemented by a Premium Mall, creating an exceptional lifestyle for residents.",
+      stats: [
+        { value: "24.9 Acre", label: "PROJECT (Sunstone)" },
+        { value: "9", label: "TOWERS (Sunstone)" },
+        { value: "G+44", label: "FLOORS (Sunstone)" },
+        { value: "3213", label: "UNITS (Sunstone)" },
+        { value: "3 BHK", label: "APARTMENTS (Sunstone)" },
+        { value: "1478 - 2237 Sft.", label: "UNIT SIZE (Sunstone)" },
+      ],
+    },
     locationHighlights: {
       "it-companies": [
-        "DLF Cybercity – 5 Mins",
-        "Amazon Campus – 8 Mins",
-        "Google Campus – 10 Mins",
+        "Wipro-Gopanpally – 2 Mins",
+        "Q City – 7 Mins",
+        "US Consulate – 7 Mins",
+        "Microsoft – 12 Mins",
+        "Infosys – 14 Mins",
+        "Wave Rock – 15 Mins",
+        "Gachibowli – 16 Mins",
       ],
       connectivity: [
-        "Financial District Metro - 2 Mins",
-        "Outer Ring Road - 5 Mins",
+        "Gopanpally Circle – 7 Mins",
+        "Wipro Circle – 10 Mins",
+        "Neopolis – 10 Mins",
+        "Kokapet – 11 Mins",
+        "Nanakramguda Junction – 12 Mins",
+        "ORR Exit No 1 – 12 Mins",
+        "ORR Exit No 2 – 15 Mins",
+        "Lingampally Railway Station – 21 Mins",
+        "Gachibowli Circle – 24 Mins",
       ],
       schools: [
-        "Future Kids School – 5 Mins",
-        "Phoenix Greens – 10 Mins",
-        "CHIREC International - 15 Mins",
+        "Glendale School – 2 Mins",
+        "Vista School – 2 Mins",
+        "Sridevi Engineering College – 7 Mins",
+        "St Xavier's PG College – 10 Mins",
+        "Euro Kid's Pre School – 10 Mins",
+        "Birla Open Minds School – 15 Mins",
       ],
-      supermarkets: ["More Supermarket – 1 Min", "FreshCo – 4 Mins"],
-      hospitals: ["AIG Hospitals – 5 Mins", "Care Hospitals – 12 Mins"],
-      hotels: [
-        "Sheraton Hyderabad – 8 Mins",
-        "Hyatt Gachibowli – 10 Mins",
-        "ITC Kohenur – 15 Mins",
+      hospitals: [
+        "Citizens Hospital – 12 Mins",
+        "Continental Hospital – 15 Mins",
+        "Star Hospital – 19 Mins",
       ],
+      supermarkets: [],
+      hotels: [],
     },
-    // Amenities for Urban Oasis
     amenities: [
+      /* Combined amenities */
       {
-        icon: "/ameneties-1.svg",
-        name: "Temperature Controlled Swimming Pool",
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-1.svg",
+        name: "Clubhouse",
       },
-      { icon: "/ameneties-2.svg", name: "Kids Pool" },
-      { icon: "/ameneties-3.svg", name: "Cricket Pitches" },
-      { icon: "/gym.svg", name: "Gym" },
-      { icon: "/ameneties-5.svg", name: "Hobby Room" },
-      { icon: "/ameneties-6.svg", name: "Creche" },
-      { icon: "/ameneties-7.svg", name: "Walking Trial" },
-      { icon: "/ameneties-8.svg", name: "Pet Park" },
-      { icon: "/ameneties-9.svg", name: "Outdoor Gym" },
-      { icon: "/ameneties-10.svg", name: "Conference Room" },
-      { icon: "/ameneties-11.svg", name: "Yoga Lawn" },
-      { icon: "/ameneties-12.svg", name: "Party Lawn" },
-      { icon: "/ameneties-13.svg", name: "Preview Theatre" },
-      { icon: "/ameneties-14.svg", name: "Guest Room" },
-      { icon: "/ameneties-15.svg", name: "Cafe Lounge" },
-      { icon: "/ameneties-16.svg", name: "Clinic" },
-      { icon: "/ameneties-17.svg", name: "Pharmacy" },
-      { icon: "/ameneties-18.svg", name: "Cardio Fitness" },
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-2.svg",
+        name: "Swimming Pool",
+      },
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-3.svg",
+        name: "Futsal Courts",
+      },
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-4.svg",
+        name: "Mini Golf",
+      },
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-5.svg",
+        name: "BBQ & Picnic Zone",
+      },
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-6.svg",
+        name: "Rain Garden",
+      },
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-7.svg",
+        name: "Mini Theatre",
+      },
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-8.svg",
+        name: "Creche",
+      },
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-9.svg",
+        name: "Kitty Party Room",
+      },
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-10.svg",
+        name: "Thematic Gardens",
+      },
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/a-11.svg",
+        name: "Volleyball Courts",
+      }, // Assuming this is as-11
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-12.svg",
+        name: "Cricket Practice Pitches",
+      },
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-13.svg",
+        name: "Floating Kanopy Walk",
+      },
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-14.svg",
+        name: "Skating Rink",
+      },
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-15.svg",
+        name: "Pet Park",
+      },
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-16.svg",
+        name: "Outdoor Gym",
+      },
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-17.svg",
+        name: "Pickleball Courts",
+      },
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-18.svg",
+        name: "Spa",
+      },
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-19.svg",
+        name: "Adventure Play",
+      },
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-3.png",
+        name: "Forest Adventures Play",
+      }, // from moonstone
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-6.svg",
+        name: "Supermarket",
+      }, // from moonstone
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-7.svg",
+        name: "Rain Shower",
+      }, // from moonstone
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-8.svg",
+        name: "Preview Theater",
+      }, // from moonstone (duplicate Mini Theatre?)
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-9.svg",
+        name: "Excercise Deck",
+      }, // from moonstone
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-11.svg",
+        name: "Billiards",
+      }, // from moonstone
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-12.svg",
+        name: "Sports Courts",
+      }, // from moonstone
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-13.svg",
+        name: "Forest Zone",
+      }, // from moonstone
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-17.svg",
+        name: "Cycle Track",
+      }, // from moonstone (duplicate?)
+      {
+        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-19.svg",
+        name: "Sand Pit",
+      }, // from moonstone
     ],
-    // FloorPlan for Urban Oasis
     floorPlan: {
-      masterPlan: "/urban-master-plan.webp",
+      masterPlan:
+        "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/pm-1.png",
       floorPlans: [
-        { src: "/urban-floor-plan-1.webp", alt: "2BHK Unit Plan" },
-        { src: "/urban-floor-plan-2.webp", alt: "3BHK Unit Plan" },
+        // Combined Floor Plans
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-floor-1.png",
+          alt: "Sunstone 2 BHK Plan 1",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-floor-2.png",
+          alt: "Sunstone 2 BHK Plan 2",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-floor-3.png",
+          alt: "Sunstone 3 BHK Plan 1",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-floor-5.jpg",
+          alt: "Sunstone 3 BHK Plan 2",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/moon-floor-1.png",
+          alt: "Moonstone 2 BHK Plan 1",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/moon-floor-2.png",
+          alt: "Moonstone 3 BHK Plan 1",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/moon-floor-3.png",
+          alt: "Moonstone 3 BHK Plan 2",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/moon-floor-4-min.jpg",
+          alt: "Moonstone 4 BHK Plan 1",
+        },
       ],
     },
-    // About for Urban Oasis
     about: {
-      videoSrc:
-        "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&controls=1&showinfo=0&rel=0",
+      videoSrc: "https://www.youtube.com/embed/lCK_Wd4ySZk?si=PDwS1BBgR8fo1mBe",
     },
-    // Form2 for Urban Oasis
     form2: {
-      logoSrc: "/urban-oasis-logo.svg",
+      logoSrc:
+        "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/navbar-logo.svg",
       address:
-        "Urban Oasis, Financial District, Nanakramguda, Gachibowli, Hyderabad, Telangana 500032",
-      title: "Smart Homes for Sale in Gachibowli",
-      subtitle:
-        "Urban Oasis 2 & 3 BHK smart homes for sale in Gachibowli, Hyderabad",
+        "APARNA CONSTRUCTIONS AND ESTATES PVT LTD.\n#802, DOOR NO: 6-3-352/2&3, ASTRAL HEIGHTS\nROAD NO: 1, BANJARA HILLS, HYDERABAD-500034 TELANGANA, INDIA",
+      title: "LOCATION MAP",
+      subtitle: "SCHEDULE A VISIT",
     },
   },
-
-  // You can add another project here by creating a new key like 'project-gamma'
-  // and providing the full data structure.
 };

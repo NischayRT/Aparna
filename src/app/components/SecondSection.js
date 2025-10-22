@@ -37,7 +37,7 @@ const SecondSection = ({
         <div className="flex flex-col lg:flex-row items-stretch justify-between gap-8">
           {/* Left Content */}
           <div className="lg:w-1/2 lg:text-left flex flex-col justify-center">
-            <h2 className="heading-font text-3xl md:text-4xl font-bold text-gray-800">
+            <h2 className="heading-font text-3xl md:text-4xl  text-gray-800">
               {h1}
             </h2>
             <div className="brown-underline h-1 bg-red-800 my-4 lg:my-6"></div>
@@ -47,13 +47,13 @@ const SecondSection = ({
               {stats.map((stat, index) => (
                 <div
                   key={index}
-                  className="info-box text-center p-4 border border-[#ccc] content-center"
+                  className="info-box text-center p-[10px]  border-[#ccc] content-center"
                 >
-                  <span className="text-xl sm:text-2xl font-bold block mb-2 whitespace-pre-line">
+                  <span className="text-xl sm:text-2xl  block mb-2 stats-value whitespace-pre-line">
                     {stat.value}
                   </span>
-                  <hr className="w-3/4 mx-auto border-gray-300 mb-2" />
-                  <span className="text-gray-600 text-sm font-medium">
+                  <hr className="w-3/4 mx-auto border-gray-300 mb-2 " />
+                  <span className="text-gray-600 text-sm font-medium stats-label">
                     {stat.label}
                   </span>
                 </div>

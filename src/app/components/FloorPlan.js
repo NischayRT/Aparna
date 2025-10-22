@@ -5,114 +5,21 @@ import { useState, useEffect, useCallback } from "react";
 import PopupForm from "./PopupForm";
 import { darkenColor } from "@/utils/colorUtils";
 
-// --- UPDATED: Reusable Fullscreen component ---
-// --- UPDATED: Reusable Fullscreen component ---
-const FullscreenImage = ({ src, alt, onClose, onNext, onPrev }) => {
-  const [isZoomed, setIsZoomed] = useState(false);
+// Import the Fancybox core library and its CSS
+import { Fancybox as NativeFancybox } from "@fancyapps/ui";
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
-  // Move useEffect before the early return
-  useEffect(() => {
-    setIsZoomed(false);
-  }, [src]);
-
-  if (!src) return null;
-
-  return (
-    <div
-      className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50"
-      onClick={onClose}
-    >
-      {/* Rest of the component remains the same */}
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 text-white text-4xl font-light bg-black/40 rounded-full w-12 h-12 flex items-center justify-center leading-none hover:bg-black/60 transition z-20"
-        aria-label="Close image"
-      >
-        &times;
-      </button>
-
-      {onPrev && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onPrev();
-          }}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/30 rounded-full shadow-md hover:bg-white/50 transition"
-          aria-label="Previous"
-        >
-          <svg
-            className="h-6 w-6 text-white"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </button>
-      )}
-      {onNext && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onNext();
-          }}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/30 rounded-full shadow-md hover:bg-white/50 transition"
-          aria-label="Next"
-        >
-          <svg
-            className="h-6 w-6 text-white"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </button>
-      )}
-
-      <div
-        className="relative w-[90vw] h-[90vh] flex items-center justify-center overflow-hidden"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div
-          className={`relative w-full h-full transition-transform duration-300 ease-in-out ${
-            isZoomed ? "scale-150" : "scale-100"
-          }`}
-          onClick={() => setIsZoomed(!isZoomed)}
-        >
-          <Image
-            src={src}
-            alt={alt}
-            layout="fill"
-            objectFit="contain"
-            className={isZoomed ? "cursor-zoom-out" : "cursor-zoom-in"}
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const FloorPlan = ({ masterPlanImage, floorPlans, style, budgetOptions }) => {
+// --- FIX 1: Add default props to prevent TypeErrors if props are not passed
+const FloorPlan = ({
+  masterPlanImage = "", // Default to empty string
+  floorPlans = [], // Default to empty array
+  style = {},
+  budgetOptions = [],
+}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-
-  // CHANGE: Added separate state for each fullscreen view
-  const [showFloorplanFullscreen, setShowFloorplanFullscreen] = useState(false);
-  const [showMasterplanFullscreen, setShowMasterplanFullscreen] =
-    useState(false);
 
   const handleNext = useCallback(() => {
     if (!floorPlans || floorPlans.length === 0) return;
@@ -129,27 +36,11 @@ const FloorPlan = ({ masterPlanImage, floorPlans, style, budgetOptions }) => {
   }, [floorPlans]);
 
   useEffect(() => {
-    // Timer pauses if either fullscreen view is open
-    const isFullscreenOpen =
-      showFloorplanFullscreen || showMasterplanFullscreen;
-    if (
-      !isAutoPlaying ||
-      isFullscreenOpen ||
-      !floorPlans ||
-      floorPlans.length <= 1
-    )
-      return;
+    if (!isAutoPlaying || !floorPlans || floorPlans.length <= 1) return;
 
     const interval = setInterval(handleNext, 4000);
     return () => clearInterval(interval);
-  }, [
-    isAutoPlaying,
-    currentIndex,
-    handleNext,
-    showFloorplanFullscreen,
-    showMasterplanFullscreen,
-    floorPlans,
-  ]);
+  }, [isAutoPlaying, currentIndex, handleNext, floorPlans]);
 
   const buttonStyle = {
     ...style,
@@ -163,11 +54,84 @@ const FloorPlan = ({ masterPlanImage, floorPlans, style, budgetOptions }) => {
     transition: "all 0.3s ease",
   };
 
-  // Handlers for each view
-  const openFloorplanFullscreen = () => setShowFloorplanFullscreen(true);
-  const closeFloorplanFullscreen = () => setShowFloorplanFullscreen(false);
-  const openMasterplanFullscreen = () => setShowMasterplanFullscreen(true);
-  const closeMasterplanFullscreen = () => setShowMasterplanFullscreen(false);
+  // --- FIX 2: Update Fancybox function to handle invalid/missing data
+  const openFloorplanFullscreen = () => {
+    // 1. Create a gallery array, filtering out any plans with no src
+    const gallery = floorPlans
+      .filter((plan) => plan && plan.src) // <-- ADDED FILTER
+      .map((plan) => ({
+        src: plan.src,
+        caption: plan.alt,
+        thumb: plan.src,
+      }));
+
+    // 2. If no valid images, do nothing
+    if (gallery.length === 0) return; // <-- ADDED GUARD
+
+    // 3. Find the new start index based on the *filtered* gallery
+    const currentValidSrc = floorPlans[currentIndex]?.src;
+    let newStartIndex = 0;
+
+    if (currentValidSrc) {
+      newStartIndex = gallery.findIndex((item) => item.src === currentValidSrc);
+      // If the current image was invalid and got filtered out, default to 0
+      if (newStartIndex === -1) {
+        newStartIndex = 0;
+      }
+    }
+
+    // 4. Show the Fancybox gallery, starting at the re-calculated index
+    NativeFancybox.show(gallery, {
+      startIndex: newStartIndex, // <-- Use new re-calculated index
+      Navigation: true,
+      Toolbar: {
+        display: {
+          left: ["infobar"],
+          middle: [
+            "prev",
+            "next",
+            "zoomIn",
+            "zoomOut",
+            "toggle1to1",
+            "rotateCCW",
+            "rotateCW",
+          ],
+          right: ["slideshow", "thumbs", "close"],
+        },
+      },
+    });
+  };
+
+  // --- FIX 3: Update Masterplan function to guard against missing src
+  const openMasterplanFullscreen = () => {
+    // Add a guard in case masterPlanImage is null or empty
+    if (!masterPlanImage) return; // <-- ADDED GUARD
+
+    NativeFancybox.show(
+      [
+        {
+          src: masterPlanImage,
+          caption: "Project Masterplan",
+          thumb: masterPlanImage,
+        },
+      ],
+      {
+        Toolbar: {
+          display: {
+            left: ["infobar"],
+            middle: [
+              "zoomIn",
+              "zoomOut",
+              "toggle1to1",
+              "rotateCCW",
+              "rotateCW",
+            ],
+            right: ["close"],
+          },
+        },
+      }
+    );
+  };
 
   return (
     <>
@@ -175,95 +139,105 @@ const FloorPlan = ({ masterPlanImage, floorPlans, style, budgetOptions }) => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:items-stretch">
             {/* Master Plan Card */}
-            <div className="border border-gray-200 p-6 rounded-2xl bg-white shadow-sm h-full flex flex-col">
-              <h2 className="heading-font text-center text-3xl font-bold text-gray-800 mb-6">
+            <div className="border border-gray-200 p-6  bg-white shadow-sm h-full flex flex-col">
+              <h2 className="heading-font text-center text-3xl  text-gray-800 mb-6">
                 Project Masterplan
               </h2>
-              {/* CHANGE: Added onClick and cursor */}
-              <div
-                className="relative w-full aspect-[4/3] min-h-[400px] mt-auto cursor-zoom-in"
-                onClick={openMasterplanFullscreen}
-              >
-                <Image
-                  src={masterPlanImage}
-                  alt="Project Masterplan"
-                  fill
-                  className="object-contain"
-                />
-              </div>
+              {/* --- FIX 4: Conditionally render Master Plan Image --- */}
+              {/* Only render if masterPlanImage is a valid string */}
+              {masterPlanImage ? (
+                <div
+                  className="relative w-full aspect-[4/3] min-h-[400px] mt-auto cursor-zoom-in"
+                  onClick={openMasterplanFullscreen}
+                >
+                  <Image
+                    src={masterPlanImage}
+                    alt="Project Masterplan"
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    priority
+                  />
+                </div>
+              ) : (
+                // Optional: Show a placeholder if no image
+                <div className="relative w-full aspect-[4/3] min-h-[400px] mt-auto flex items-center justify-center text-gray-500">
+                  Masterplan not available.
+                </div>
+              )}
             </div>
 
             {/* Floor Plans Carousel Card */}
-            <div className="border border-gray-200 p-6 rounded-2xl bg-white shadow-sm h-full flex flex-col">
-              <h2 className="text-center text-3xl font-bold text-gray-800 mb-6 heading-font">
+            <div className="border border-gray-200 p-6  bg-white shadow-sm h-full flex flex-col">
+              <h2 className="text-center text-3xl  text-gray-800 mb-6 heading-font">
                 Apartment Floor Plans
               </h2>
-              <div
-                className="relative w-full aspect-[4/3] min-h-[400px] rounded-lg overflow-hidden border border-gray-200 mt-auto cursor-zoom-in"
-                onMouseEnter={() => setIsAutoPlaying(false)}
-                onMouseLeave={() => setIsAutoPlaying(true)}
-                onClick={openFloorplanFullscreen}
-              >
-                {floorPlans.map((plan, index) => (
-                  <Image
-                    key={plan.src}
-                    src={plan.src}
-                    alt={plan.alt}
-                    fill
-                    className={`object-contain transition-opacity duration-700 ease-in-out ${
-                      index === currentIndex ? "opacity-100" : "opacity-0"
-                    }`}
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    priority={index < 2}
-                  />
-                ))}
-              </div>
-              <div className="flex items-center justify-center gap-4 mt-6">
-                <button
-                  onClick={handlePrev}
-                  className="p-2 bg-gray-100 rounded-full shadow-sm hover:bg-gray-200 transition"
-                  aria-label="Previous Plan"
-                >
-                  <svg
-                    className="h-5 w-5 text-gray-700"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+              {/* --- FIX 5: Conditionally render Floor Plans Carousel --- */}
+              {floorPlans.length > 0 ? (
+                <>
+                  <div
+                    className="relative w-full aspect-[4/3] min-h-[400px] rounded-lg overflow-hidden border border-gray-200 mt-auto cursor-zoom-in"
+                    onMouseEnter={() => setIsAutoPlaying(false)}
+                    onMouseLeave={() => setIsAutoPlaying(true)}
+                    onClick={openFloorplanFullscreen}
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 19l-7-7 7-7"
-                    />
-                  </svg>
-                </button>
-                <div className="para-font text-xl font-bold text-gray-800 tabular-nums">
-                  <span>{String(currentIndex + 1).padStart(2, "0")}</span> /{" "}
-                  <span>{String(floorPlans.length).padStart(2, "0")}</span>
+                    {floorPlans.map(
+                      (plan, index) =>
+                        // Add a guard to only render if plan and plan.src are valid
+                        plan && plan.src ? (
+                          <Image
+                            key={plan.id || plan.src || index} // Use a more robust key
+                            src={plan.src}
+                            alt={plan.alt || "Apartment Floor Plan"} // Add alt fallback
+                            fill
+                            className={`object-contain transition-opacity duration-700 ease-in-out ${
+                              index === currentIndex
+                                ? "opacity-100"
+                                : "opacity-0"
+                            }`}
+                            sizes="(max-width: 1024px) 100vw, 50vw"
+                            priority={index < 2}
+                          />
+                        ) : null // Don't render an <Image> if src is bad
+                    )}
+                  </div>
+                  {/* Carousel Controls */}
+                  <div className="flex items-center justify-center gap-4 mt-6">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handlePrev();
+                      }}
+                      className="..."
+                      aria-label="Previous Plan"
+                    >
+                      {/* SVG */}
+                    </button>
+                    <div className="...">
+                      <span>{String(currentIndex + 1).padStart(2, "0")}</span> /{" "}
+                      <span>{String(floorPlans.length).padStart(2, "0")}</span>
+                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleNext();
+                      }}
+                      className="..."
+                      aria-label="Next Plan"
+                    >
+                      {/* SVG */}
+                    </button>
+                  </div>
+                </>
+              ) : (
+                // Optional: Show a placeholder if no floor plans
+                <div className="relative w-full aspect-[4/3] min-h-[400px] mt-auto flex items-center justify-center text-gray-500">
+                  Floor plans not available.
                 </div>
-                <button
-                  onClick={handleNext}
-                  className="p-2 bg-gray-100 rounded-full shadow-sm hover:bg-gray-200 transition"
-                  aria-label="Next Plan"
-                >
-                  <svg
-                    className="h-5 w-5 text-gray-700"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </button>
-              </div>
+              )}
             </div>
           </div>
+          {/* View More Button (Unchanged) */}
           <div className="mt-12 text-center">
             <button
               className="schedule-btn para-font text-lg md:text-xl"
@@ -276,33 +250,13 @@ const FloorPlan = ({ masterPlanImage, floorPlans, style, budgetOptions }) => {
             </button>
           </div>
         </div>
+        {/* Popup Form (Unchanged) */}
         <PopupForm
           isOpen={showPopup}
           onClose={() => setShowPopup(false)}
           budgetOptions={budgetOptions}
         />
       </section>
-
-      {/* Conditionally render the fullscreen view for the FLOOR PLAN */}
-      {showFloorplanFullscreen && (
-        <FullscreenImage
-          src={floorPlans[currentIndex]?.src}
-          alt={floorPlans[currentIndex]?.alt}
-          onClose={closeFloorplanFullscreen}
-          onNext={handleNext}
-          onPrev={handlePrev}
-        />
-      )}
-
-      {/* Conditionally render the fullscreen view for the MASTER PLAN */}
-      {showMasterplanFullscreen && (
-        <FullscreenImage
-          src={masterPlanImage}
-          alt="Project Masterplan"
-          onClose={closeMasterplanFullscreen}
-          // No onNext or onPrev props are passed
-        />
-      )}
     </>
   );
 };

@@ -84,8 +84,8 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions = [], style1 }) => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           {/* LEFT — Enquiry Form */}
-          <div className="enquiry-card p-6 md:p-8 bg-blue-50 rounded-2xl shadow-lg">
-            <h2 className="heading-font text-center lg:text-left text-3xl font-bold text-gray-800 mb-4">
+          <div className="enquiry-card p-6 md:p-8 bg-blue-50  shadow-lg">
+            <h2 className="heading-font text-center lg:text-left text-3xl  text-gray-800 mb-4">
               ENQUIRY FORM
             </h2>
             <div
@@ -240,7 +240,7 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions = [], style1 }) => {
                 </label>
 
                 <small
-                  className="font-bold underline cursor-pointer text-[#e63946] hover:text-[#b91c1c] transition-colors"
+                  className=" underline cursor-pointer text-[#e63946] hover:text-[#b91c1c] transition-colors"
                   onClick={() => setShowPrivacyPopup(true)}
                 >
                   Privacy and Policy
@@ -275,7 +275,7 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions = [], style1 }) => {
               <p className="mt-2 text-sm font-semibold text-gray-800">{p1}</p>
             </div>
 
-            <div className="flex-grow overflow-hidden shadow-lg min-h-[400px] rounded-2xl">
+            <div className="flex-grow overflow-hidden shadow-lg min-h-[400px] ">
               <iframe
                 src={mapSrc}
                 width="100%"
