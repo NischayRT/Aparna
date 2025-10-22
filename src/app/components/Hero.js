@@ -62,7 +62,7 @@ const Hero = ({
           </div>
 
           {/* CHANGE: Reduced base font size from text-lg to text-base */}
-          <p className="location para-font font-semibold text-base md:text-l text-white mb-4 drop-shadow-lg mt-4 sm:w-[50%]">
+          <p className="location para-font font-semibold text-base md:text-l text-white mb-4 drop-shadow-lg mt-4 max-w-fit sm:w-[50%]">
             {p2_1}
             <br />
             {p2_2}
