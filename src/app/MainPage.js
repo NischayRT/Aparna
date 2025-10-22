@@ -8,6 +8,8 @@ import Gallery from "./components/Gallery";
 import SecondSection from "./components/SecondSection";
 import ThirdSection from "./components/ThirdSection";
 import FloorPlan from "./components/FloorPlan";
+import MasterPlan from "./components/MasterPlan";
+import VirtualTours from "./components/VirtualTours";
 import About from "./components/About";
 import Form2 from "./components/Form2";
 import LocationHighlight from "./components/LocationHighlight";
@@ -27,7 +29,9 @@ export default function MainPage({ siteData }) {
     secondarySection,
     locationHighlights,
     amenities,
+    masterPlan,
     floorPlan,
+    virtualTours,
     about,
     form2,
   } = siteData;
@@ -36,7 +40,6 @@ export default function MainPage({ siteData }) {
     backgroundColor: common.themeColor2,
   };
 
-  // The JSX remains identical to your original page.js
   return (
     <div className="relative">
       <NavBar
@@ -54,6 +57,8 @@ export default function MainPage({ siteData }) {
         p3={hero.feature2}
         style={common.buttonStyle1}
         budgetOptions={common.budgetOptions}
+        desktopBg={hero.desktopBg}
+        mobileBg={hero.mobileBg}
       />
 
       <Form1
@@ -63,6 +68,7 @@ export default function MainPage({ siteData }) {
       />
 
       <Gallery
+        title="Gallery"
         style={common.buttonStyle1}
         budgetOptions={common.budgetOptions}
         galleryData={gallery}
@@ -70,19 +76,17 @@ export default function MainPage({ siteData }) {
       />
 
       <SecondSection
-        stats={secondarySection.stats}
-        h1={secondarySection.title}
-        p1={secondarySection.p1}
-        p2={secondarySection.p2}
+        secondarySection={secondarySection}
         style1={colorStyle2}
         style={common.buttonStyle1}
-        src={gallery[gallery.length - 1]?.src}
+        budgetOptions={common.budgetOptions}
       />
 
+      {/* --- This section shows the correct prop passing --- */}
       <LocationHighlight
-        galleryData={gallery}
+        galleryData={locationHighlights.gallery}
         style={common.buttonStyle2}
-        locationData={locationHighlights}
+        locationData={locationHighlights.categories}
         budgetOptions={common.budgetOptions}
         style1={colorStyle2}
       />
@@ -94,11 +98,27 @@ export default function MainPage({ siteData }) {
         style1={colorStyle2}
       />
 
-      <FloorPlan
-        masterPlanImage={floorPlan.masterPlan}
-        floorPlans={floorPlan.floorPlans}
+      <VirtualTours
+        virtualTours={virtualTours}
         style={common.buttonStyle1}
         budgetOptions={common.budgetOptions}
+        style1={colorStyle2}
+      />
+
+      <MasterPlan
+        title="Project Masterplan"
+        style={common.buttonStyle1}
+        budgetOptions={common.budgetOptions}
+        galleryData={masterPlan}
+        style1={colorStyle2}
+      />
+
+      <FloorPlan
+        title="Apartment Floor Plans"
+        style={common.buttonStyle1}
+        budgetOptions={common.budgetOptions}
+        galleryData={floorPlan}
+        style1={colorStyle2}
       />
 
       <About
@@ -123,7 +143,7 @@ export default function MainPage({ siteData }) {
         budgetOptions={common.budgetOptions}
         style={common.buttonStyle1}
       />
-      <MobileSticky />
+      <MobileSticky budgetOptions={common.budgetOptions} />
     </div>
   );
 }

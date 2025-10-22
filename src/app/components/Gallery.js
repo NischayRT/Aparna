@@ -80,19 +80,21 @@ const Gallery = ({
 
   // --- Effect for scrolling ---
   useEffect(() => {
+    // If no images, reset scroll
     if (currentImageCount === 0) {
       if (scrollRef.current) {
         scrollRef.current.scrollTo({ left: 0, behavior: "auto" });
       }
       return;
     }
+    // If refs aren't ready, scroll to start if it's the first index
     if (!scrollRef.current || !itemRefs.current[currentIndex]) {
       if (scrollRef.current && currentIndex === 0) {
-        // Only scroll to start if it's the first index
         scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
       }
       return;
     }
+    // Scroll to the active item
     const container = scrollRef.current;
     const item = itemRefs.current[currentIndex];
     if (!item) return;
@@ -105,7 +107,7 @@ const Gallery = ({
   // --- Effect for auto-play ---
   useEffect(() => {
     if (!isAutoPlaying || !currentImages || currentImageCount <= 1) return;
-    const interval = setInterval(handleNext, 4000); // Reset to 4s, 2s is very fast
+    const interval = setInterval(handleNext, 4000); // 4-second interval
     return () => clearInterval(interval);
   }, [
     currentIndex,
@@ -139,7 +141,10 @@ const Gallery = ({
         thumb: item.src, // Use main image as thumbnail
       }));
 
-    if (gallery.length === 0) return;
+    if (gallery.length === 0) {
+      console.warn("No valid images in this category for Fancybox.");
+      return;
+    }
 
     NativeFancybox.show(gallery, {
       startIndex: index,
@@ -185,8 +190,8 @@ const Gallery = ({
       )
     : Array.isArray(galleryData) && galleryData.length > 0;
 
+  // This effect ensures the activeCategory is valid when data is an object
   useEffect(() => {
-    // This effect ensures the activeCategory is valid when data is an object
     if (
       isGalleryObject &&
       (!activeCategory ||
@@ -205,8 +210,9 @@ const Gallery = ({
     }
   }, [galleryData, galleryCategories, activeCategory, isGalleryObject]);
 
+  // Don't render if no valid data at all
   if (!hasValidData) {
-    return null; // Don't render if no valid data at all
+    return null;
   }
 
   // Show loading only if it's an object and the active category is still being set
@@ -232,7 +238,7 @@ const Gallery = ({
                   <button
                     key={category}
                     onClick={() => handleCategoryChange(category)}
-                    // Styling from your image: rounded-full, border, padding
+                    // Style based on user images: rounded-full, border, padding
                     className={`Gallery-toggle-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ease-in-out border
                     ${
                       activeCategory === category
@@ -242,7 +248,7 @@ const Gallery = ({
                     style={
                       activeCategory === category
                         ? style1 // Apply theme background color for active
-                        : { borderColor: style1?.backgroundColor || "#ccc" } // Apply theme border color for inactive
+                        : { borderColor: style1?.backgroundColor || "#A0522D" } // Fallback border color
                     }
                   >
                     {category}
@@ -356,12 +362,16 @@ const Gallery = ({
           </div>
 
           <div className="text-center mt-4 h-6">
+            {" "}
+            {/* Caption */}
             <h3 className="text-xl font-semibold text-gray-800">
               {currentImages[currentIndex]?.caption || ""}
             </h3>
           </div>
 
           <div className="text-center mt-12 md:mt-16">
+            {" "}
+            {/* View More Button */}
             <button
               className="schedule-btn para-font text-lg px-8 py-3 rounded-lg font-semibold"
               style={isHovered ? buttonHoverStyle : buttonStyle}

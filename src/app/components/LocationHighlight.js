@@ -5,14 +5,18 @@ import { useState } from "react";
 import PopupForm from "./PopupForm";
 import { darkenColor } from "@/utils/colorUtils";
 
+// --- FIX: Added default values to props ---
 const LocationHighlight = ({
-  galleryData,
+  galleryData = [], // Default to an empty array
   style,
-  locationData,
+  locationData = {}, // Default to an empty object
   budgetOptions,
   style1,
 }) => {
-  const [activeAccordion, setActiveAccordion] = useState("it-companies");
+  // --- FIX: Set a default active accordion key, or fallback if locationData is empty ---
+  const [activeAccordion, setActiveAccordion] = useState(
+    Object.keys(locationData)[0] || ""
+  );
   const [isHovered, setIsHovered] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
@@ -28,23 +32,35 @@ const LocationHighlight = ({
     transition: "all 0.3s ease",
   };
 
+  // Helper to safely get images, even if galleryData is short
+  const getImage = (index) => {
+    return (
+      galleryData[index] || {
+        src: "https://placehold.co/600x400/eee/ccc?text=Image",
+        caption: "Placeholder",
+      }
+    );
+  };
+
   return (
     <section className="location-highlights bg-white py-12">
       <div className="container mx-auto px-6">
-        {/* --- FIXED: Changed 'lg:flex-row' to 'md:flex-row' --- */}
         <div className="flex flex-col md:flex-row items-start gap-8">
           {/* ===== LEFT: Location Images ===== */}
-          {/* --- FIXED: Changed 'lg:w-1/2' to 'md:w-1/2' --- */}
           <div className="w-full md:w-1/2">
-            {/* --- FIXED: Mobile Vertical Stack (Now 'md:hidden') --- */}
+            {/* Mobile Vertical Stack */}
             <div className="md:hidden flex flex-col gap-4">
+              {/* --- FIX: This line is now safe thanks to the default prop --- */}
               {galleryData.slice(0, 3).map((img, index) => (
                 <div
                   key={index}
-                  className="relative w-full aspect-video overflow-hidden"
+                  className="relative w-full aspect-video overflow-hidden rounded-lg"
                 >
                   <Image
-                    src={img?.src}
+                    src={
+                      img?.src ||
+                      "https://placehold.co/600x400/eee/ccc?text=Image"
+                    }
                     alt={img?.caption || "Location Image"}
                     fill
                     className="object-cover"
@@ -54,13 +70,13 @@ const LocationHighlight = ({
               ))}
             </div>
 
-            {/* --- FIXED: Desktop Vertical Stack (Now 'hidden md:flex') --- */}
+            {/* Desktop Vertical Stack */}
             <div className="hidden md:flex flex-col justify-between gap-4 h-[720px]">
               {/* Top Large Image */}
-              <div className="relative h-[420px] bg-gray-100 overflow-hidden ">
+              <div className="relative h-[420px] bg-gray-100 overflow-hidden rounded-lg">
                 <Image
-                  src={galleryData[0]?.src}
-                  alt={galleryData[0]?.caption || "Location Image"}
+                  src={getImage(0).src}
+                  alt={getImage(0).caption}
                   fill
                   className="object-cover"
                   sizes="50vw"
@@ -68,20 +84,20 @@ const LocationHighlight = ({
               </div>
 
               {/* Bottom Two Images */}
-              <div className="grid grid-cols-2 gap-4 h-[290px] max-md:block flex">
-                <div className="relative bg-gray-100 overflow-hidden ">
+              <div className="grid grid-cols-2 gap-4 h-[290px]">
+                <div className="relative bg-gray-100 overflow-hidden rounded-lg">
                   <Image
-                    src={galleryData[1]?.src}
-                    alt={galleryData[1]?.caption || "Location Image"}
+                    src={getImage(1).src}
+                    alt={getImage(1).caption}
                     fill
                     className="object-cover"
                     sizes="25vw"
                   />
                 </div>
-                <div className="relative bg-gray-100 overflow-hidden ">
+                <div className="relative bg-gray-100 overflow-hidden rounded-lg">
                   <Image
-                    src={galleryData[2]?.src}
-                    alt={galleryData[2]?.caption || "Location Image"}
+                    src={getImage(2).src}
+                    alt={getImage(2).caption}
                     fill
                     className="object-cover"
                     sizes="25vw"
@@ -92,11 +108,9 @@ const LocationHighlight = ({
           </div>
 
           {/* ===== RIGHT: Location Details ===== */}
-          {/* --- FIXED: Changed 'lg:w-1/2' to 'md:w-1/2' --- */}
           <div className="w-full md:w-1/2 flex flex-col justify-between min-h-[600px]">
             <div>
-              {/* --- FIXED: Changed 'lg:text-left' to 'md:text-left' --- */}
-              <h2 className="heading-font text-center md:text-left text-3xl  text-gray-800">
+              <h2 className="heading-font text-center md:text-left text-3xl text-gray-800">
                 Location Highlights
               </h2>
               <p className="para-font font-bold text-black mt-4">
@@ -105,18 +119,18 @@ const LocationHighlight = ({
               <p className="para-font text-black mt-2">
                 Distances and ETAs are approx as per Google Maps
               </p>
-              {/* --- FIXED: Changed 'lg:mx-0' to 'md:mx-0' --- */}
               <div
                 className="brown-underline w-20 h-1 my-6 mx-auto md:mx-0"
                 style={style1}
               ></div>
 
-              {/* Accordion (No changes needed) */}
+              {/* Accordion */}
               <div className="space-y-4">
+                {/* --- FIX: This line is now safe thanks to the default prop --- */}
                 {Object.entries(locationData).map(([key, items]) => (
                   <div
                     key={key}
-                    className="border border-gray-200  overflow-hidden"
+                    className="border border-gray-200 rounded-lg overflow-hidden"
                   >
                     <button
                       className="w-full px-6 py-4 text-left para-font font-semibold text-lg bg-gray-50 hover:bg-gray-100 transition-colors duration-200 flex justify-between items-center"
@@ -145,9 +159,8 @@ const LocationHighlight = ({
                             <li
                               key={index}
                               className="text-gray-900 list-disc list-inside"
-                            >
-                              {item}
-                            </li>
+                              dangerouslySetInnerHTML={{ __html: item }}
+                            ></li>
                           ))}
                         </ul>
                       </div>
@@ -158,7 +171,6 @@ const LocationHighlight = ({
             </div>
 
             {/* Schedule Button */}
-            {/* --- FIXED: Changed 'lg:justify-start' to 'md:justify-start' --- */}
             <div className="flex justify-center md:justify-start mt-8">
               <button
                 className="schedule-btn para-font text-lg md:text-xl"

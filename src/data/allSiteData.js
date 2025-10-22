@@ -9,7 +9,6 @@ const aparnaThemeColor2 = "#A83031";
 export const allSiteData = {
   // --- Data for Project 1: Aparna Sarovar Towers ---
   "aparna-sarovar": {
-    // ... (rest of aparna-sarovar data remains unchanged)
     common: {
       themeColor1: aparnaThemeColor1,
       themeColor2: aparnaThemeColor2,
@@ -52,6 +51,8 @@ export const allSiteData = {
       location: "📍Nallagandla, Hyderabad",
       feature1: "1 Minute Walk to Aparna Neo Mall & Multiplex",
       feature2: "3 & 4 BHK Apartments | 2878 - 3700 Sq. Ft.",
+      desktopBg: "/Hero.jpg",
+      mobileBg: "/Hero.jpg",
     },
     form1: {
       submitButton: {
@@ -60,7 +61,6 @@ export const allSiteData = {
           "px-8 py-3 rounded-full bg-gradient-to-r from-red-800 to-red-700 text-white font-semibold hover:shadow-lg transition-all duration-300 w-full md:w-auto",
       },
     },
-    // Gallery for Sarovar remains an array (or update if needed)
     gallery: [
       { src: "/gallery-1.png", caption: "Lobby" },
       { src: "/gallery-2.png", caption: "Exterior View" },
@@ -70,77 +70,113 @@ export const allSiteData = {
       title: "Gated Community Flats for Sale in Nallagandla",
       p1: "Aparna Sarovar Towers is a gated community offering luxury 3 & 4 BHK apartments for sale in Nallagandla.",
       p2: "The project boasts access to Nallagandla Hi-street panoramic views of the HCU campus and cityscape, a grand 52,932 sq ft Clubhouse, and three car parks per unit.",
-      stats: [
-        { value: "3", label: "TOWERS" },
-        { value: "G+50", label: "FLOORS" },
-        { value: "3 & 4 BHK\n(+Maid Room)", label: "CONFIGURATIONS" },
-        { value: "2878-3700 Sft.", label: "AREA RANGE" },
+      image: "/gallery-3.png",
+      propertyCards: [
+        {
+          title: "Project Details",
+          subtitle: "3 & 4 BHK (+Maid Room)",
+          stats: [
+            { value: "3", label: "TOWERS" },
+            { value: "G+50", label: "FLOORS" },
+            { value: "2878-3700 Sft.", label: "AREA RANGE" },
+          ],
+        },
       ],
     },
     locationHighlights: {
-      "it-companies": [
-        "Wipro – 9 Mins",
-        "Microsoft – 13 Mins",
-        "Infosys – 18 Mins",
+      // --- UPDATED: New image URLs for aparna-sarovar ---
+      gallery: [
+        {
+          src: "/loc-high-1.svg",
+          caption: "Location Image 1",
+        },
+        {
+          src: "/loc-high-2.svg",
+          caption: "Location Image 2",
+        },
+        {
+          src: "/loc-high-3.svg",
+          caption: "Location Image 3",
+        },
       ],
-      connectivity: [
-        "Lingampally Railway Station - 2 Kms",
-        "RGI Airport - 45 Mins",
-      ],
-      schools: [
-        "Sancta Maria School – 8 Mins",
-        "Glendale School - 10 Mins",
-        "Vista School - 12 Mins",
-        "Oakridge School - 18 Mins",
-        "Delhi Public School - 22 Mins",
-      ],
-      supermarkets: ["D-Mart – 2 Mins", "Ratnadeep – 3 Mins"],
-      hospitals: [
-        "Citizens Multispecialty Hospital – 3 Mins",
-        "Continental Hospital – 14 Mins",
-        "Star Hospitals – 17 Mins",
-      ],
-      hotels: [
-        "Le Meridien Hotel – 20 Mins",
-        "Radisson Hitec Hotel – 22 Mins",
-        "Novotel Hotel – 28 Mins",
+      categories: {
+        "it-companies": [
+          "Wipro – 9 Mins",
+          "Microsoft – 13 Mins",
+          "Infosys – 18 Mins",
+        ],
+        connectivity: [
+          "Lingampally Railway Station - 2 Kms",
+          "RGI Airport - 45 Mins",
+        ],
+        schools: [
+          "Sancta Maria School – 8 Mins",
+          "Glendale School - 10 Mins",
+          "Vista School - 12 Mins",
+          "Oakridge School - 18 Mins",
+          "Delhi Public School - 22 Mins",
+        ],
+        supermarkets: ["D-Mart – 2 Mins", "Ratnadeep – 3 Mins"],
+        hospitals: [
+          "Citizens Multispecialty Hospital – 3 Mins",
+          "Continental Hospital – 14 Mins",
+          "Star Hospitals – 17 Mins",
+        ],
+        hotels: [
+          "Le Meridien Hotel – 20 Mins",
+          "Radisson Hitec Hotel – 22 Mins",
+          "Novotel Hotel – 28 Mins",
+        ],
+      },
+    },
+    amenities: {
+      "Main Amenities": [
+        {
+          icon: "/ameneties-1.svg",
+          name: "Temperature Controlled Swimming Pool",
+        },
+        { icon: "/ameneties-2.svg", name: "Kids Pool" },
+        { icon: "/ameneties-3.svg", name: "Cricket Pitches" },
+        { icon: "/gym.svg", name: "Gym" },
+        { icon: "/ameneties-5.svg", name: "Hobby Room" },
+        { icon: "/ameneties-6.svg", name: "Creche" },
+        { icon: "/ameneties-7.svg", name: "Walking Trial" },
+        { icon: "/ameneties-8.svg", name: "Pet Park" },
+        { icon: "/ameneties-9.svg", name: "Outdoor Gym" },
+        { icon: "/ameneties-10.svg", name: "Conference Room" },
+        { icon: "/ameneties-11.svg", name: "Yoga Lawn" },
+        { icon: "/ameneties-12.svg", name: "Party Lawn" },
+        { icon: "/ameneties-13.svg", name: "Preview Theatre" },
+        { icon: "/ameneties-14.svg", name: "Guest Room" },
+        { icon: "/ameneties-15.svg", name: "Cafe Lounge" },
+        { icon: "/ameneties-16.svg", name: "Clinic" },
+        { icon: "/ameneties-17.svg", name: "Pharmacy" },
+        { icon: "/ameneties-18.svg", name: "Cardio Fitness" },
       ],
     },
-    amenities: [
-      {
-        icon: "/ameneties-1.svg",
-        name: "Temperature Controlled Swimming Pool",
-      },
-      { icon: "/ameneties-2.svg", name: "Kids Pool" },
-      { icon: "/ameneties-3.svg", name: "Cricket Pitches" },
-      { icon: "/gym.svg", name: "Gym" },
-      { icon: "/ameneties-5.svg", name: "Hobby Room" },
-      { icon: "/ameneties-6.svg", name: "Creche" },
-      { icon: "/ameneties-7.svg", name: "Walking Trial" },
-      { icon: "/ameneties-8.svg", name: "Pet Park" },
-      { icon: "/ameneties-9.svg", name: "Outdoor Gym" },
-      { icon: "/ameneties-10.svg", name: "Conference Room" },
-      { icon: "/ameneties-11.svg", name: "Yoga Lawn" },
-      { icon: "/ameneties-12.svg", name: "Party Lawn" },
-      { icon: "/ameneties-13.svg", name: "Preview Theatre" },
-      { icon: "/ameneties-14.svg", name: "Guest Room" },
-      { icon: "/ameneties-15.svg", name: "Cafe Lounge" },
-      { icon: "/ameneties-16.svg", name: "Clinic" },
-      { icon: "/ameneties-17.svg", name: "Pharmacy" },
-      { icon: "/ameneties-18.svg", name: "Cardio Fitness" },
-    ],
+    virtualTours: {
+      title: "Take a Virtual Tour",
+      videos: [],
+    },
+    masterPlan: {
+      "Master Plan": [
+        {
+          src: "/floor-plan.webp",
+          caption: "Project Masterplan",
+        },
+      ],
+    },
     floorPlan: {
-      masterPlan: "/floor-plan.webp",
-      floorPlans: [
-        { src: "/floor-plan-1.webp", alt: "2BHK Floor Plan" },
-        { src: "/floor-plan-2.webp", alt: "3BHK Corner Unit Plan" },
-        { src: "/floor-plan-3.webp", alt: "3BHK Standard Unit Plan" },
-        { src: "/floor-plan-4.webp", alt: "4BHK Duplex Plan" },
-        { src: "/floor-plan-5.webp", alt: "3BHK Standard Unit Plan" },
-        { src: "/floor-plan-6.webp", alt: "4BHK Duplex Plan" },
-        { src: "/floor-plan-7.webp", alt: "3BHK Standard Unit Plan" },
-        { src: "/floor-plan-8.webp", alt: "4BHK Duplex Plan" },
-        { src: "/floor-plan-9.webp", alt: "3BHK Standard Unit Plan" },
+      "Apartment Plans": [
+        { src: "/floor-plan-1.webp", caption: "2BHK Floor Plan" },
+        { src: "/floor-plan-2.webp", caption: "3BHK Corner Unit Plan" },
+        { src: "/floor-plan-3.webp", caption: "3BHK Standard Unit Plan" },
+        { src: "/floor-plan-4.webp", caption: "4BHK Duplex Plan" },
+        { src: "/floor-plan-5.webp", caption: "3BHK Standard Unit Plan" },
+        { src: "/floor-plan-6.webp", caption: "4BHK Duplex Plan" },
+        { src: "/floor-plan-7.webp", caption: "3BHK Standard Unit Plan" },
+        { src: "/floor-plan-8.webp", caption: "4BHK Duplex Plan" },
+        { src: "/floor-plan-9.webp", caption: "3BHK Standard Unit Plan" },
       ],
     },
     about: {
@@ -157,7 +193,7 @@ export const allSiteData = {
     },
   },
 
-  // --- Data for Project 2: Aparna Deccan Town ---
+  // --- Data for Project 2: Aparna Deccan Town (UPDATED) ---
   "aparna-deccan-town": {
     common: {
       themeColor1: deccanTownThemeColor1,
@@ -171,10 +207,6 @@ export const allSiteData = {
         fontSize: "medium",
         boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
         transition: "all 0.3s ease",
-        // Add hover styles directly if not using darkenColor
-        // ':hover': {
-        //    backgroundColor: '#8B4513', // Example darker color
-        // }
       },
       buttonStyle2: {
         backgroundColor: deccanTownThemeColor2,
@@ -185,9 +217,6 @@ export const allSiteData = {
         fontSize: "medium",
         boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
         transition: "all 0.3s ease",
-        // ':hover': {
-        //    backgroundColor: '#5C2E0D', // Example darker color
-        // }
       },
       budgetOptions: [
         { value: "1.4 Cr - 1.5 Cr", label: "1.4 Cr - 1.5 Cr" },
@@ -201,8 +230,7 @@ export const allSiteData = {
       ],
     },
     navBar: {
-      logoSrc:
-        "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/navbar-logo.svg",
+      logoSrc: "",
       reraNo: "",
       permNo: "",
     },
@@ -213,6 +241,10 @@ export const allSiteData = {
       location: "📍 Gopanpally, Hyderabad",
       feature1: "Township featuring High-Rise Apartments & Bungalows",
       feature2: "Luxury 3 & 4 BHK Apartments | Premium Mall",
+      desktopBg:
+        "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/deccan-town-banner.webp",
+      mobileBg:
+        "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/deccan-town-mobile-banner.webp",
     },
     form1: {
       submitButton: { text: "SUBMIT" },
@@ -221,15 +253,15 @@ export const allSiteData = {
       "Aparna Deccan Town": [
         {
           src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/dec-gal-1.png",
-          caption: "Deccan Town View 1",
+          caption: "Deccan Gallery 1",
         },
         {
           src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/dec-gal-2.png",
-          caption: "Deccan Town View 2",
+          caption: "Deccan Gallery 2",
         },
         {
           src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/dec-gal-3.png",
-          caption: "Deccan Town View 3",
+          caption: "Deccan Gallery 3",
         },
       ],
       "Aparna Sunstone": [
@@ -286,7 +318,7 @@ export const allSiteData = {
           caption: "Sunstone Gallery 13",
         },
         {
-          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-gal14.png", // Corrected filename if needed
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-gal14.png",
           caption: "Sunstone Gallery 14",
         },
         {
@@ -321,212 +353,317 @@ export const allSiteData = {
       title: "Welcome to Aparna Deccan Town",
       p1: "Welcome to Aparna Deccan Town, the township of tomorrow where modern living meets timeless elegance. Explore a thoughtfully designed community featuring four high-rise apartment gated communities, one uber-luxury bungalow enclave, and a luxury high-street. With exceptional amenities that seamlessly blend nature and innovation, Deccan Town offers more than just a residence- it's the future of sophisticated living.",
       p2: "This thoughtfully planned development currently features luxury high-rise gated communities - Aparna Sunstone, Aparna Moonstone and Aparna Amber Bungalows, a uber-luxury bungalow community complemented by a Premium Mall, creating an exceptional lifestyle for residents.",
-      stats: [
-        { value: "24.9 Acre", label: "PROJECT (Sunstone)" },
-        { value: "9", label: "TOWERS (Sunstone)" },
-        { value: "G+44", label: "FLOORS (Sunstone)" },
-        { value: "3213", label: "UNITS (Sunstone)" },
-        { value: "3 BHK", label: "APARTMENTS (Sunstone)" },
-        { value: "1478 - 2237 Sft.", label: "UNIT SIZE (Sunstone)" },
+      image:
+        "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/third-sec.png",
+      propertyCards: [
+        {
+          title: "Aparna Sunstone",
+          subtitle:
+            "Offering <b>Luxury 3 BHK Apartments for <br>Sale in Hyderabad</b>",
+          stats: [
+            { value: "24.9 Acre", label: "Project" },
+            { value: "9", label: "Towers" },
+            { value: "G+44", label: "Floors" },
+            { value: "3213", label: "Units" },
+            { value: "3 BHK", label: "Apartments" },
+            { value: "1478 - 2237 Sft.", label: "Unit Size" },
+          ],
+        },
+        {
+          title: "Aparna Moonstone",
+          subtitle:
+            "Offering <b>Luxury 3 & 4 BHK Apartments for<br> Sale in Hyderabad</b>",
+          stats: [
+            { value: "22.28 Acre", label: "Project" },
+            { value: "8", label: "Towers" },
+            { value: "G+44", label: "Floors" },
+            { value: "2088", label: "Units" },
+            { value: "3 & 4 BHK", label: "Apartments" },
+            { value: "2166 - 3140 Sft.", label: "Unit Size" },
+          ],
+        },
       ],
     },
     locationHighlights: {
-      "it-companies": [
-        "Wipro-Gopanpally – 2 Mins",
-        "Q City – 7 Mins",
-        "US Consulate – 7 Mins",
-        "Microsoft – 12 Mins",
-        "Infosys – 14 Mins",
-        "Wave Rock – 15 Mins",
-        "Gachibowli – 16 Mins",
+      // --- UPDATED: New image URLs for aparna-deccan-town ---
+      gallery: [
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/loc-high-1.png",
+          caption: "Location Highlight 1",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/loc-high-2.png",
+          caption: "Location Highlight 2",
+        },
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/loc-high-3.png",
+          caption: "Location Highlight 3",
+        },
       ],
-      connectivity: [
-        "Gopanpally Circle – 7 Mins",
-        "Wipro Circle – 10 Mins",
-        "Neopolis – 10 Mins",
-        "Kokapet – 11 Mins",
-        "Nanakramguda Junction – 12 Mins",
-        "ORR Exit No 1 – 12 Mins",
-        "ORR Exit No 2 – 15 Mins",
-        "Lingampally Railway Station – 21 Mins",
-        "Gachibowli Circle – 24 Mins",
-      ],
-      schools: [
-        "Glendale School – 2 Mins",
-        "Vista School – 2 Mins",
-        "Sridevi Engineering College – 7 Mins",
-        "St Xavier's PG College – 10 Mins",
-        "Euro Kid's Pre School – 10 Mins",
-        "Birla Open Minds School – 15 Mins",
-      ],
-      hospitals: [
-        "Citizens Hospital – 12 Mins",
-        "Continental Hospital – 15 Mins",
-        "Star Hospital – 19 Mins",
-      ],
-      supermarkets: [],
-      hotels: [],
+      categories: {
+        "Key Connectivity": [
+          "Gopanpally Circle – <strong>7 Mins</strong>",
+          "Wipro Circle – <strong>10 Mins</strong>",
+          "Neopolis – <strong>10 Mins</strong>",
+          "Kokapet – <strong>11 Mins</strong>",
+          "Nanakramguda Junction – <strong>12 Mins</strong>",
+          "ORR Exit No 1 – <strong>12 Mins</strong>",
+          "ORR Exit No 2 – <strong>15 Mins</strong>",
+          "Lingampally Railway Station – <strong>21 Mins</strong>",
+          "Gachibowli Circle – <strong>24 Mins</strong>",
+        ],
+        "IT Firms": [
+          "Wipro-Gopanpally – <strong>2 Mins</strong>",
+          "Q City – <strong>7 Mins</strong>",
+          "US Consulate – <strong>7 Mins</strong>",
+          "Microsoft – <strong>12 Mins</strong>",
+          "Infosys – <strong>14 Mins</strong>",
+          "Wave Rock – <strong>15 Mins</strong>",
+          "Gachibowli – <strong>16 Mins</strong>",
+        ],
+        "Educational Institutions": [
+          "Glendale School – <strong>2 Mins</strong>",
+          "Vista School – <strong>2 Mins</strong>",
+          "Sridevi Engineering College – <strong>7 Mins</strong>",
+          "St Xavier's PG College – <strong>10 Mins</strong>",
+          "Euro Kid's Pre School – <strong>10 Mins</strong>",
+          "Birla Open Minds School – <strong>15 Mins</strong>",
+        ],
+        Hospitals: [
+          "Citizens Hospital – <strong>12 Mins</strong>",
+          "Continental Hospital – <strong>15 Mins</strong>",
+          "Star Hospital – <strong>19 Mins</strong>",
+        ],
+      },
     },
-    amenities: [
-      /* Combined amenities */
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-1.svg",
-        name: "Clubhouse",
-      },
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-2.svg",
-        name: "Swimming Pool",
-      },
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-3.svg",
-        name: "Futsal Courts",
-      },
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-4.svg",
-        name: "Mini Golf",
-      },
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-5.svg",
-        name: "BBQ & Picnic Zone",
-      },
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-6.svg",
-        name: "Rain Garden",
-      },
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-7.svg",
-        name: "Mini Theatre",
-      },
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-8.svg",
-        name: "Creche",
-      },
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-9.svg",
-        name: "Kitty Party Room",
-      },
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-10.svg",
-        name: "Thematic Gardens",
-      },
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/a-11.svg",
-        name: "Volleyball Courts",
-      }, // Assuming this is as-11
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-12.svg",
-        name: "Cricket Practice Pitches",
-      },
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-13.svg",
-        name: "Floating Kanopy Walk",
-      },
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-14.svg",
-        name: "Skating Rink",
-      },
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-15.svg",
-        name: "Pet Park",
-      },
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-16.svg",
-        name: "Outdoor Gym",
-      },
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-17.svg",
-        name: "Pickleball Courts",
-      },
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-18.svg",
-        name: "Spa",
-      },
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-19.svg",
-        name: "Adventure Play",
-      },
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-3.png",
-        name: "Forest Adventures Play",
-      }, // from moonstone
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-6.svg",
-        name: "Supermarket",
-      }, // from moonstone
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-7.svg",
-        name: "Rain Shower",
-      }, // from moonstone
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-8.svg",
-        name: "Preview Theater",
-      }, // from moonstone (duplicate Mini Theatre?)
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-9.svg",
-        name: "Excercise Deck",
-      }, // from moonstone
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-11.svg",
-        name: "Billiards",
-      }, // from moonstone
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-12.svg",
-        name: "Sports Courts",
-      }, // from moonstone
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-13.svg",
-        name: "Forest Zone",
-      }, // from moonstone
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-17.svg",
-        name: "Cycle Track",
-      }, // from moonstone (duplicate?)
-      {
-        icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-19.svg",
-        name: "Sand Pit",
-      }, // from moonstone
-    ],
+    amenities: {
+      "Aparna Sunstone": [
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-1.svg",
+          name: "Clubhouse",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-2.svg",
+          name: "Swimming Pool",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-3.svg",
+          name: "Futsal Courts",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-4.svg",
+          name: "Mini Golf",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-5.svg",
+          name: "BBQ & Picnic Zone",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-6.svg",
+          name: "Rain Garden",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-7.svg",
+          name: "Mini Theatre",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-8.svg",
+          name: "Creche",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-9.svg",
+          name: "Kitty Party Room",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-10.svg",
+          name: "Thematic Gardens",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/a-11.svg",
+          name: "Volleyball Courts",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-12.svg",
+          name: "Cricket Practice Pitches",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-13.svg",
+          name: "Floating Kanopy Walk",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-14.svg",
+          name: "Skating Rink",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-15.svg",
+          name: "Pet Park",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-16.svg",
+          name: "Outdoor Gym",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-17.svg",
+          name: "Pickleball Courts",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-18.svg",
+          name: "Spa",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/as-19.svg",
+          name: "Adventure Play",
+        },
+      ],
+      "Aparna Moonstone": [
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-1.svg",
+          name: "Clubhouse",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-2.svg",
+          name: "Swimmingpool",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-3.png",
+          name: "Forest Adventures Play",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-4.svg",
+          name: "Spa",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-5.svg",
+          name: "Mini Golf",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-6.svg",
+          name: "Supermarket",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-7.svg",
+          name: "Rain Shower",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-8.svg",
+          name: "Preview Theater",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-9.svg",
+          name: "Excercise Deck",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-10.svg",
+          name: "Creche",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-11.svg",
+          name: "Billiards",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-12.svg",
+          name: "Sports Courts",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-13.svg",
+          name: "Forest Zone",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-14.svg",
+          name: "Outdoor Gym",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-15.svg",
+          name: "Cricket Practice Pictches",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-16.svg",
+          name: "Cycle Track",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-17.svg",
+          name: "Skating Rink",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-18.svg",
+          name: "Pet Park",
+        },
+        {
+          icon: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/am-19.svg",
+          name: "Sand Pit",
+        },
+      ],
+    },
+    virtualTours: {
+      title: "Take a virtual tour of our Projects",
+      videos: [
+        {
+          title: "Aparna Sunstone",
+          src: "https://www.youtube.com/embed/YAusFUuAbgs",
+        },
+        {
+          title: "Aparna Moonstone",
+          src: "https://www.youtube.com/embed/y5P0Jc6eHi8",
+        },
+      ],
+    },
+    masterPlan: {
+      "Aparna Deccan Town": [
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/pm-1.png",
+          caption: "Aparna Deccan Town Masterplan",
+        },
+      ],
+      "Aparna Sunstone": [
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/pm-2.png",
+          caption: "Aparna Sunstone Masterplan",
+        },
+      ],
+      "Aparna Moonstone": [
+        {
+          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/pm-3.png",
+          caption: "Aparna Moonstone Masterplan",
+        },
+      ],
+    },
     floorPlan: {
-      masterPlan:
-        "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/pm-1.png",
-      floorPlans: [
-        // Combined Floor Plans
+      "Aparna Sunstone": [
         {
           src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-floor-1.png",
-          alt: "Sunstone 2 BHK Plan 1",
+          caption: "Sunstone 2 BHK Plan 1",
         },
         {
           src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-floor-2.png",
-          alt: "Sunstone 2 BHK Plan 2",
+          caption: "Sunstone 2 BHK Plan 2",
         },
         {
           src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-floor-3.png",
-          alt: "Sunstone 3 BHK Plan 1",
+          caption: "Sunstone 3 BHK Plan 1",
         },
         {
           src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/sun-floor-5.jpg",
-          alt: "Sunstone 3 BHK Plan 2",
+          caption: "Sunstone 3 BHK Plan 2",
         },
-        {
-          src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/moon-floor-1.png",
-          alt: "Moonstone 2 BHK Plan 1",
-        },
+      ],
+      "Aparna Moonstone": [
         {
           src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/moon-floor-2.png",
-          alt: "Moonstone 3 BHK Plan 1",
+          caption: "Moonstone 3 BHK Plan 1",
         },
         {
           src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/moon-floor-3.png",
-          alt: "Moonstone 3 BHK Plan 2",
+          caption: "Moonstone 3 BHK Plan 2",
         },
         {
           src: "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/moon-floor-4-min.jpg",
-          alt: "Moonstone 4 BHK Plan 1",
+          caption: "Moonstone 4 BHK Plan 1",
         },
       ],
     },
     about: {
-      videoSrc: "https://www.youtube.com/embed/lCK_Wd4ySZk?si=PDwS1BBgR8fo1mBe",
+      videoSrc:
+        "https://www.youtube.com/embed/NXMVHeQzLdo?autoplay=0&controls=1&showinfo=0&rel=0",
     },
     form2: {
       logoSrc:
