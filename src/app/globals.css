@@ -143,7 +143,7 @@ h2 {
 @media (max-width: 767px) {
   .hero-bg-dynamic {
     background-size: contain !important; /* Show full image */
-    background-position: top center !important;
+    background-position: bottom center !important;
     width: 100%;
     aspect-ratio: 390 / 840; /* match mobile banner ratio */
     height: auto; /* allow full scroll height */

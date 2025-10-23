@@ -69,7 +69,7 @@ const Hero = ({
       <section
         className="hero-section relative"
         style={{
-          marginTop: `${navHeight - 40}px`, // starts after navbar
+          marginTop: `${navHeight - 50}px`, // starts after navbar
         }}
       >
         {/* Background Layer */}
