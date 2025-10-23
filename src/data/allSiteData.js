@@ -79,6 +79,7 @@ export const allSiteData = {
             { value: "3", label: "TOWERS" },
             { value: "G+50", label: "FLOORS" },
             { value: "2878-3700 Sft.", label: "AREA RANGE" },
+            { value: "3 & 4 BHK\n(+Maid Room)", label: "CONFIGURATIONS" },
           ],
         },
       ],
