@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { darkenColor } from "@/utils/colorUtils";
 import Image from "next/image";
 import PrivacyPolicyPopup from "./PrivacyPolicyPopup.js";
@@ -53,6 +53,29 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions = [], style1 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
+  // --- NEW: Dynamic Project/Budget States ---
+  const [selectedProject, setSelectedProject] = useState("");
+  const [currentBudgetOptions, setCurrentBudgetOptions] = useState([]);
+
+  // --- Detect if budgetOptions is project-based (object) ---
+  const isProjectBased = useMemo(
+    () =>
+      budgetOptions &&
+      !Array.isArray(budgetOptions) &&
+      typeof budgetOptions === "object",
+    [budgetOptions]
+  );
+
+  // --- Update budget options based on selected project ---
+  useEffect(() => {
+    if (isProjectBased) {
+      setCurrentBudgetOptions(budgetOptions[selectedProject] || []);
+    } else {
+      setCurrentBudgetOptions(budgetOptions);
+    }
+  }, [budgetOptions, selectedProject, isProjectBased]);
+
+  // --- Hover Button Styles ---
   const buttonStyle = {
     ...style,
     backgroundColor: isHovered
@@ -65,6 +88,7 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions = [], style1 }) => {
     transition: "all 0.3s ease",
   };
 
+  // --- Dropdown close on click outside ---
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -84,8 +108,8 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions = [], style1 }) => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           {/* LEFT — Enquiry Form */}
-          <div className="enquiry-card p-6 md:p-8 bg-blue-50  shadow-lg">
-            <h2 className="heading-font text-center lg:text-left text-3xl  text-gray-800 mb-4">
+          <div className="enquiry-card p-6 md:p-8 bg-blue-50">
+            <h2 className="heading-font text-center lg:text-left text-3xl text-gray-800 mb-4">
               ENQUIRY FORM
             </h2>
             <div
@@ -105,10 +129,7 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions = [], style1 }) => {
                 </label>
                 <input
                   type="text"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg
-                  focus:ring-2 focus:ring-[#e63946] focus:border-transparent
-                  focus-visible:outline-none active:ring-2 active:ring-[#e63946]
-                  transition-all duration-300 ease-in-out"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#e63946] focus:border-transparent transition-all duration-300 ease-in-out"
                   placeholder="Enter your full name"
                   required
                 />
@@ -121,10 +142,7 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions = [], style1 }) => {
                 </label>
                 <input
                   type="email"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg
-                  focus:ring-2 focus:ring-[#e63946] focus:border-transparent
-                  focus-visible:outline-none active:ring-2 active:ring-[#e63946]
-                  transition-all duration-300 ease-in-out"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#e63946] focus:border-transparent transition-all duration-300 ease-in-out"
                   placeholder="Enter your email"
                   required
                 />
@@ -136,23 +154,18 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions = [], style1 }) => {
                   Phone*
                 </label>
                 <div className="relative" ref={dropdownRef}>
-                  <div
-                    className="flex items-center w-full border border-gray-300 rounded-lg
-                    focus-within:ring-2 focus-within:ring-[#e63946]
-                    focus-within:border-transparent transition-all duration-300 ease-in-out"
-                  >
+                  <div className="flex items-center w-full border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-[#e63946] transition-all duration-300 ease-in-out">
                     <button
                       type="button"
                       className="flex items-center pl-2 pr-1 bg-transparent border-none outline-none"
                       onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                     >
-                      {/* --- REPLACED 1 --- */}
                       <Image
                         src={`https://flagcdn.com/w20/${selectedCountry.code}.png`}
                         alt={selectedCountry.name}
-                        className="w-6 h-4 object-cover rounded-sm"
                         width={24}
                         height={16}
+                        className="w-6 h-4 object-cover rounded-sm"
                       />
                       <span className="ml-1 text-sm text-gray-600">
                         {selectedCountry.dial_code}
@@ -160,8 +173,7 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions = [], style1 }) => {
                     </button>
                     <input
                       type="tel"
-                      className="w-full pl-4 py-3 border-none bg-transparent rounded-r-lg
-                      focus:ring-0 outline-none focus-visible:outline-none"
+                      className="w-full pl-4 py-3 border-none bg-transparent rounded-r-lg focus:ring-0 outline-none"
                       placeholder="81234 56789"
                       value={phoneNumber}
                       onChange={(e) => setPhoneNumber(e.target.value)}
@@ -170,10 +182,7 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions = [], style1 }) => {
                   </div>
 
                   {isDropdownOpen && (
-                    <ul
-                      className="absolute z-[9999] w-full mt-1 bg-white border border-gray-300 
-                      rounded-lg shadow-lg max-h-60 overflow-y-auto"
-                    >
+                    <ul className="absolute z-[9999] w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
                       {countries.map((country, index) => (
                         <li
                           key={index}
@@ -183,13 +192,12 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions = [], style1 }) => {
                             setIsDropdownOpen(false);
                           }}
                         >
-                          {/* --- REPLACED 2 --- */}
                           <Image
                             src={`https://flagcdn.com/w20/${country.code}.png`}
                             alt={country.name}
-                            className="w-6 h-4 object-cover"
                             width={24}
                             height={16}
+                            className="w-6 h-4 object-cover"
                           />
                           <span className="ml-3 text-sm">
                             {country.name} ({country.dial_code})
@@ -201,20 +209,44 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions = [], style1 }) => {
                 </div>
               </div>
 
+              {/* Project Field (only if project-based) */}
+              {isProjectBased && (
+                <div>
+                  <label className="block text-gray-700 font-medium mb-2">
+                    Project*
+                  </label>
+                  <select
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#e63946] transition-all duration-300 ease-in-out"
+                    value={selectedProject}
+                    onChange={(e) => setSelectedProject(e.target.value)}
+                    required
+                  >
+                    <option value="">Select Project*</option>
+                    {Object.keys(budgetOptions).map((project) => (
+                      <option key={project} value={project}>
+                        {project}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
               {/* Budget */}
               <div>
                 <label className="block text-gray-700 font-medium mb-2">
                   Budget*
                 </label>
                 <select
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg
-                  focus:ring-2 focus:ring-[#e63946] focus:border-transparent
-                  focus-visible:outline-none active:ring-2 active:ring-[#e63946]
-                  transition-all duration-300 ease-in-out"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#e63946] transition-all duration-300 ease-in-out"
                   required
+                  disabled={isProjectBased && !selectedProject}
                 >
-                  <option value="">Select Budget*</option>
-                  {budgetOptions.map((option, index) => (
+                  <option value="">
+                    {isProjectBased && !selectedProject
+                      ? "Select a project first"
+                      : "Select Budget*"}
+                  </option>
+                  {currentBudgetOptions.map((option, index) => (
                     <option key={index} value={option.value}>
                       {option.label}
                     </option>
@@ -227,20 +259,17 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions = [], style1 }) => {
                 <label className="flex items-start space-x-2">
                   <input
                     type="checkbox"
-                    className="mt-1 accent-[#e63946] focus:ring-2 focus:ring-[#e63946] 
-                    focus-visible:outline-none transition-all duration-300 ease-in-out"
+                    className="mt-1 accent-[#e63946] focus:ring-2 focus:ring-[#e63946] transition-all duration-300 ease-in-out"
                     required
                   />
                   <span className="text-gray-700 text-sm">
                     I authorize Aparna Constructions and its representative to
                     contact me via email, SMS, or Call, which overrides DND/NDNC
                     Registration.
-                    <br />
                   </span>
                 </label>
-
                 <small
-                  className=" underline cursor-pointer text-[#e63946] hover:text-[#b91c1c] transition-colors"
+                  className="underline cursor-pointer text-[#e63946] hover:text-[#b91c1c] transition-colors"
                   onClick={() => setShowPrivacyPopup(true)}
                 >
                   Privacy and Policy
@@ -264,6 +293,7 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions = [], style1 }) => {
 
           {/* RIGHT — Logo + Address + Map */}
           <div className="flex flex-col h-full">
+          {src && (            
             <div className="text-center mb-4">
               <Image
                 src={src}
@@ -274,8 +304,8 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions = [], style1 }) => {
               />
               <p className="mt-2 text-sm font-semibold text-gray-800">{p1}</p>
             </div>
-
-            <div className="flex-grow overflow-hidden shadow-lg min-h-[400px] ">
+          )}
+            <div className="flex-grow overflow-hidden shadow-lg min-h-[400px]">
               <iframe
                 src={mapSrc}
                 width="100%"

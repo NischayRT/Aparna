@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import Image from "next/image"; // --- ADDED IMPORT ---
+import React, { useState, useEffect, useRef, useMemo } from "react";
+import Image from "next/image";
 import PrivacyPolicyPopup from "./PrivacyPolicyPopup";
 
-// 🌍 Expanded Country List with Image Flags (PNG from flagcdn.com)
+// 🌍 Country list
 const countries = [
   { name: "India", dial_code: "+91", code: "in" },
   { name: "United States", dial_code: "+1", code: "us" },
@@ -53,7 +53,27 @@ const PopupForm = ({ isOpen, onClose, budgetOptions = [] }) => {
   const dropdownRef = useRef(null);
   const [showPrivacyPopup, setShowPrivacyPopup] = useState(false);
 
-  // 🧩 Prevent background scroll when popup is open
+  // 🧩 Dynamic Project + Budget logic
+  const [selectedProject, setSelectedProject] = useState("");
+  const [currentBudgetOptions, setCurrentBudgetOptions] = useState([]);
+
+  const isProjectBased = useMemo(
+    () =>
+      budgetOptions &&
+      !Array.isArray(budgetOptions) &&
+      typeof budgetOptions === "object",
+    [budgetOptions]
+  );
+
+  useEffect(() => {
+    if (isProjectBased) {
+      setCurrentBudgetOptions(budgetOptions[selectedProject] || []);
+    } else {
+      setCurrentBudgetOptions(budgetOptions);
+    }
+  }, [budgetOptions, selectedProject, isProjectBased]);
+
+  // 🧩 Prevent background scroll when open
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
   }, [isOpen]);
@@ -83,43 +103,44 @@ const PopupForm = ({ isOpen, onClose, budgetOptions = [] }) => {
 
   return (
     <>
-      {/* 🟢 Popup Overlay */}
+      {/* 🟢 Overlay */}
       <div
         className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
         onClick={handleBackdropClick}
         style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
       >
+        {/* 🟦 Popup */}
         <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl mx-auto relative animate-fadeIn">
           {/* Header */}
-          <div className="bg-[#0071BA] text-white p-6 rounded-t-2xl">
-            <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold">Schedule a Site Visit</h2>
-              <button
-                onClick={onClose}
-                className="text-white hover:text-gray-200 text-2xl font-bold w-8 h-8 flex items-center justify-center"
-              >
-                ×
-              </button>
-            </div>
+          <div className="bg-[#0071BA] text-white p-6 rounded-t-2xl flex justify-between items-center">
+            <h2 className="text-2xl font-bold">Schedule a Site Visit</h2>
+            <button
+              onClick={onClose}
+              className="text-white hover:text-gray-200 text-2xl font-bold w-8 h-8 flex items-center justify-center"
+            >
+              ×
+            </button>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="p-6 space-y-4">
+            {/* Name */}
             <input
               type="text"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0071BA] outline-none"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0071BA]"
               placeholder="Name *"
               required
             />
 
+            {/* Email */}
             <input
               type="email"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0071BA] outline-none"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0071BA]"
               placeholder="Email *"
               required
             />
 
-            {/* Phone Field with Flag Dropdown */}
+            {/* Phone */}
             <div className="relative" ref={dropdownRef}>
               <div className="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-[#0071BA]">
                 <button
@@ -127,7 +148,6 @@ const PopupForm = ({ isOpen, onClose, budgetOptions = [] }) => {
                   className="flex items-center px-3 bg-transparent border-none outline-none"
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 >
-                  {/* --- REPLACED 1 --- */}
                   <Image
                     src={`https://flagcdn.com/w20/${selectedCountry.code}.png`}
                     alt={selectedCountry.name}
@@ -160,7 +180,6 @@ const PopupForm = ({ isOpen, onClose, budgetOptions = [] }) => {
                         setIsDropdownOpen(false);
                       }}
                     >
-                      {/* --- REPLACED 2 --- */}
                       <Image
                         src={`https://flagcdn.com/w20/${country.code}.png`}
                         alt={country.name}
@@ -177,13 +196,35 @@ const PopupForm = ({ isOpen, onClose, budgetOptions = [] }) => {
               )}
             </div>
 
-            {/* Budget Field */}
+            {/* --- NEW: Project Dropdown (if project-based) --- */}
+            {isProjectBased && (
+              <select
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0071BA]"
+                value={selectedProject}
+                onChange={(e) => setSelectedProject(e.target.value)}
+                required
+              >
+                <option value="">Select Project</option>
+                {Object.keys(budgetOptions).map((project, index) => (
+                  <option key={index} value={project}>
+                    {project}
+                  </option>
+                ))}
+              </select>
+            )}
+
+            {/* --- UPDATED: Budget Dropdown --- */}
             <select
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0071BA] outline-none"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0071BA]"
               required
+              disabled={isProjectBased && !selectedProject}
             >
-              <option value="">Select Budget</option>
-              {budgetOptions.map((option, index) => (
+              <option value="">
+                {isProjectBased && !selectedProject
+                  ? "Select a project first"
+                  : "Select Budget"}
+              </option>
+              {currentBudgetOptions.map((option, index) => (
                 <option key={index} value={option.value}>
                   {option.label}
                 </option>
@@ -198,7 +239,6 @@ const PopupForm = ({ isOpen, onClose, budgetOptions = [] }) => {
                   I authorize Aparna Constructions and its representative to
                   contact me via email, SMS, or Call, which overrides DND/NDNC
                   Registration.
-                  <br />
                 </span>
               </label>
 
@@ -221,6 +261,7 @@ const PopupForm = ({ isOpen, onClose, budgetOptions = [] }) => {
         </div>
       </div>
 
+      {/* Privacy Policy Popup */}
       <PrivacyPolicyPopup
         isOpen={showPrivacyPopup}
         onClose={() => setShowPrivacyPopup(false)}

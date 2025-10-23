@@ -1,11 +1,9 @@
 "use client";
-
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import Image from "next/image";
 import { darkenColor } from "@/utils/colorUtils";
 import PrivacyPolicyPopup from "./PrivacyPolicyPopup.js";
 
-// 🌍 Expanded Country List with Image Flags (from PopupForm)
 const countries = [
   { name: "India", dial_code: "+91", code: "in" },
   { name: "United States", dial_code: "+1", code: "us" },
@@ -55,6 +53,26 @@ const Form1 = ({ budgetOptions = [], submitButton = {}, style }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
+  // NEW: Project-based logic
+  const [selectedProject, setSelectedProject] = useState("");
+  const [currentBudgetOptions, setCurrentBudgetOptions] = useState([]);
+
+  const isProjectBased = useMemo(
+    () =>
+      budgetOptions &&
+      !Array.isArray(budgetOptions) &&
+      typeof budgetOptions === "object",
+    [budgetOptions]
+  );
+
+  useEffect(() => {
+    if (isProjectBased) {
+      setCurrentBudgetOptions(budgetOptions[selectedProject] || []);
+    } else {
+      setCurrentBudgetOptions(budgetOptions);
+    }
+  }, [budgetOptions, selectedProject, isProjectBased]);
+
   const buttonStyle = {
     ...style,
     backgroundColor: isHovered
@@ -81,60 +99,45 @@ const Form1 = ({ budgetOptions = [], submitButton = {}, style }) => {
     <div className="container mx-auto px-4 my-8 relative -mt-10">
       <div className="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-gray-100">
         <form className="Bannerform para-font">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-1">
-            {/* Name Field */}
-            <div>
-              <input
-                type="text"
-                className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg 
-                focus:ring-2 focus:ring-[#e63946] focus:border-transparent 
-                focus-visible:outline-none active:ring-2 active:ring-[#e63946]
-                transition-all duration-300 ease-in-out"
-                placeholder="Name *"
-                required
-              />
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-1">
+            {/* Name */}
+            <input
+              type="text"
+              className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#e63946] transition-all"
+              placeholder="Name *"
+              required
+            />
 
-            {/* Email Field */}
-            <div>
-              <input
-                type="email"
-                className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg 
-                focus:ring-2 focus:ring-[#e63946] focus:border-transparent 
-                focus-visible:outline-none active:ring-2 active:ring-[#e63946]
-                transition-all duration-300 ease-in-out"
-                placeholder="Email *"
-                required
-              />
-            </div>
+            {/* Email */}
+            <input
+              type="email"
+              className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#e63946] transition-all"
+              placeholder="Email *"
+              required
+            />
 
-            {/* Phone Field (Copied from PopupForm and styles adapted) */}
+            {/* Phone */}
             <div className="relative" ref={dropdownRef}>
-              <div
-                className="flex items-center w-full border border-gray-300 rounded-lg 
-                focus-within:ring-2 focus-within:ring-[#e63946] 
-                focus-within:border-transparent transition-all duration-300 ease-in-out"
-              >
+              <div className="flex items-center w-full border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-[#e63946] transition-all">
                 <button
                   type="button"
-                  className="flex items-center pl-2 pr-1 bg-transparent border-none outline-none"
+                  className="flex items-center pl-2 pr-1"
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 >
                   <Image
                     src={`https://flagcdn.com/w20/${selectedCountry.code}.png`}
                     alt={selectedCountry.name}
+                    width={24}
+                    height={16}
                     className="w-6 h-4 object-cover rounded-sm"
-                    width={24} // w-6 = 1.5rem = 24px
-                    height={16} // h-4 = 1rem = 16px
                   />
-                  <span className=" text-sm text-gray-600">
+                  <span className="text-sm text-gray-600 ml-1">
                     {selectedCountry.dial_code}
                   </span>
                 </button>
                 <input
                   type="tel"
-                  className="w-full pl-4 py-3 border-none bg-transparent rounded-r-lg 
-                  focus:ring-0 outline-none focus-visible:outline-none"
+                  className="w-full pl-4 py-3 border-none bg-transparent focus:ring-0 outline-none"
                   placeholder="81234 56789"
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
@@ -143,10 +146,7 @@ const Form1 = ({ budgetOptions = [], submitButton = {}, style }) => {
               </div>
 
               {isDropdownOpen && (
-                <ul
-                  className="absolute z-[9999] w-full mt-1 bg-white border border-gray-300 
-                  rounded-lg shadow-lg max-h-60 overflow-y-auto"
-                >
+                <ul className="absolute z-[9999] w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
                   {countries.map((country, index) => (
                     <li
                       key={index}
@@ -159,9 +159,9 @@ const Form1 = ({ budgetOptions = [], submitButton = {}, style }) => {
                       <Image
                         src={`https://flagcdn.com/w20/${country.code}.png`}
                         alt={country.name}
+                        width={24}
+                        height={16}
                         className="w-6 h-4 object-cover"
-                        width={24} // w-6 = 1.5rem = 24px
-                        height={16} // h-4 = 1rem = 16px
                       />
                       <span className="ml-3 text-sm">
                         {country.name} ({country.dial_code})
@@ -172,23 +172,40 @@ const Form1 = ({ budgetOptions = [], submitButton = {}, style }) => {
               )}
             </div>
 
-            {/* Budget Field */}
-            <div>
+            {/* Project Selector (if applicable) */}
+            {isProjectBased && (
               <select
-                className="form-select w-full px-4 py-3 border border-gray-300 rounded-lg 
-                focus:ring-2 focus:ring-[#e63946] focus:border-transparent 
-                focus-visible:outline-none active:ring-2 active:ring-[#e63946]
-                transition-all duration-300 ease-in-out"
+                className="form-select w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#e63946] transition-all"
+                value={selectedProject}
+                onChange={(e) => setSelectedProject(e.target.value)}
                 required
               >
-                <option value="">Budget</option>
-                {budgetOptions.map((option, index) => (
-                  <option key={index} value={option.value}>
-                    {option.label}
+                <option value="">Select Project*</option>
+                {Object.keys(budgetOptions).map((project) => (
+                  <option key={project} value={project}>
+                    {project}
                   </option>
                 ))}
               </select>
-            </div>
+            )}
+
+            {/* Budget */}
+            <select
+              className="form-select w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#e63946] transition-all"
+              required
+              disabled={isProjectBased && !selectedProject}
+            >
+              <option value="">
+                {isProjectBased && !selectedProject
+                  ? "Select a project first"
+                  : "Select Budget"}
+              </option>
+              {currentBudgetOptions.map((option, index) => (
+                <option key={index} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* Checkbox */}
@@ -196,27 +213,25 @@ const Form1 = ({ budgetOptions = [], submitButton = {}, style }) => {
             <label className="flex items-start space-x-2">
               <input
                 type="checkbox"
-                className="mt-1 accent-[#e63946] focus:ring-2 focus:ring-[#e63946] 
-                focus-visible:outline-none transition-all duration-300 ease-in-out"
+                className="mt-1 accent-[#e63946] focus:ring-2 focus:ring-[#e63946]"
                 required
               />
               <span className="text-gray-700 max-md:text-xs text-sm">
                 I authorize Aparna Constructions and its representative to
                 contact me via email, SMS, or Call, which overrides DND/NDNC
                 Registration.
-                <br />
               </span>
             </label>
 
             <small
-              className=" underline cursor-pointer text-[#e63946] hover:text-[#b91c1c] transition-colors"
+              className="underline cursor-pointer text-[#e63946] hover:text-[#b91c1c]"
               onClick={() => setShowPrivacyPopup(true)}
             >
               Privacy and Policy
             </small>
           </div>
 
-          {/* Submit Button */}
+          {/* Submit */}
           <div className="mt-6 flex justify-center">
             <button
               type="submit"
@@ -225,7 +240,7 @@ const Form1 = ({ budgetOptions = [], submitButton = {}, style }) => {
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             >
-              SUBMIT
+              {submitButton.label || "SUBMIT"}
             </button>
           </div>
         </form>

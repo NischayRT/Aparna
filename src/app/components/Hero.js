@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PopupForm from "./PopupForm";
 import { darkenColor } from "@/utils/colorUtils";
 
@@ -18,6 +18,7 @@ const Hero = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [navHeight, setNavHeight] = useState(0);
 
   const buttonStyle = {
     ...style,
@@ -31,53 +32,67 @@ const Hero = ({
     transition: "all 0.3s ease",
   };
 
-  // Define dynamic styles for background images
+  // Dynamically read navbar height
+  useEffect(() => {
+    const navbar = document.querySelector("nav");
+    if (navbar) setNavHeight(navbar.offsetHeight);
+  }, []);
+
+  // ✅ Dynamic CSS for desktop and mobile image sizing
   const bgStyles = `
     .hero-bg-dynamic {
       background-image: url('${desktopBg}');
-      background-size: cover;
-      background-position: center;
+      background-size: contain;
       background-repeat: no-repeat;
+      background-position: top center;
+      width: 100%;
+      aspect-ratio: 4496 / 2546; /* Desktop image ratio */
     }
+
     @media (max-width: 768px) {
       .hero-bg-dynamic {
         background-image: url('${mobileBg}');
+        background-size: contain; /* ✅ SHOW FULL IMAGE */
+        background-repeat: no-repeat;
+        background-position: top center;
+        width: 100%;
+        aspect-ratio: 390 / 840; /* ✅ Mobile image ratio */
+        height: auto; /* ✅ Let it grow naturally */
       }
     }
   `;
 
   return (
     <>
-      {/* Inject the dynamic styles into the component */}
       <style>{bgStyles}</style>
 
-      <section className="hero-section relative pl-4 pb-4y">
-        {/* Background Image */}
-        {/* Apply the dynamic class */}
-        <div className="absolute inset-0 z-0 hero-bg-dynamic">
-          {/* Dark overlay for better text readability (optional) */}
-          {/* <div className="absolute inset-0 bg-black opacity-20"></div> */}
-        </div>
+      <section
+        className="hero-section relative"
+        style={{
+          marginTop: `${navHeight - 40}px`, // starts after navbar
+        }}
+      >
+        {/* Background Layer */}
+        <div className="hero-bg-dynamic w-full relative z-0"></div>
 
-        {/* Content */}
-        <div className="container hero-content mx-auto py-12 relative z-10">
-          <div className="heading-location ">
-            <h1 className="heading-font er max-sm:text-2xl text-3xl md:pt-6 md:text-4xl lg:text-6xl text-white leading-tight drop-shadow-lg ">
+        {/* Text + Button Overlay */}
+        <div className="container hero-content absolute inset-0 flex flex-col justify-center items-start z-10">
+          <div className="heading-location">
+            <h1 className="heading-font max-sm:text-2xl text-3xl md:pt-6 md:text-4xl lg:text-6xl text-white leading-tight drop-shadow-lg">
               {h1_name1} <br className="hidden md:block" />
               {h1_name2}
             </h1>
-            <p className="para-font text-lg md:text-2xl py-4 lg:text-xl text-white  mb-md-5 mb-2 mt-4 drop-shadow-lg">
+            <p className="para-font text-lg md:text-2xl py-4 lg:text-xl text-white mb-md-5 mb-2 mt-4 drop-shadow-lg">
               {p1}
             </p>
           </div>
+
           {p2_1 && (
-            <>
-              <p className="location para-font font-semibold text-base md:text-l text-white mb-4 drop-shadow-lg mt-4 max-w-fit sm:w-[50%]">
-                {p2_1}
-                <br />
-                {p2_2}
-              </p>
-            </>
+            <p className="location para-font font-semibold text-base md:text-l text-white mb-4 drop-shadow-lg mt-4 max-w-fit sm:w-[50%]">
+              {p2_1}
+              <br />
+              {p2_2}
+            </p>
           )}
 
           {p3 && (
@@ -104,7 +119,7 @@ const Hero = ({
         </div>
       </section>
 
-      {/* Popup Form */}
+      {/* Popup */}
       <PopupForm
         isOpen={showPopup}
         onClose={() => setShowPopup(false)}

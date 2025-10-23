@@ -38,9 +38,9 @@ const NavBar = ({ src, rera_no, perm_no }) => {
             <Image
               src="/logo.svg"
               alt="Aparna Lead the Future"
-              width={135}
-              height={140}
-              className="w-[95px] h-auto md:w-[135px]"
+              width={125}
+              height={130}
+              className="w-[95px] h-auto md:w-[130px]"
               priority
             />
           </div>

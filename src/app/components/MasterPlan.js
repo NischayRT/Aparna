@@ -255,7 +255,7 @@ const MasterPlan = ({
                     }
                   >
                     <div
-                      className={`relative w-full aspect-[4/3] overflow-hidden rounded-lg shadow-lg transform transition-all duration-500 ease-out ${
+                      className={`relative w-full aspect-[4/3] overflow-hidden rounded-lg  transform transition-all duration-500 ease-out ${
                         index === currentIndex
                           ? "scale-100 opacity-100"
                           : "scale-90 opacity-60 group-hover:opacity-80"

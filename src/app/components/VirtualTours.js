@@ -48,7 +48,7 @@ const VirtualTours = ({ virtualTours, style, budgetOptions, style1 }) => {
         >
           {videos.map((video, index) => (
             <div key={index}>
-              <p className="para-font text-center font-semibold text-lg text-gray-700 mb-3">
+              <p className=" text-center font-semibold text-lg text-gray-700 mb-3">
                 {video.title}
               </p>
               <div className="relative aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-lg">

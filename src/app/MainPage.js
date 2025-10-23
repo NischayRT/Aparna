@@ -16,6 +16,7 @@ import LocationHighlight from "./components/LocationHighlight";
 import Footer from "./components/Footer";
 import StickyCTA from "./components/StickyCTA";
 import MobileSticky from "./components/MobileSticky";
+import CustomerTestimonial from "./components/CustomerTestimonial";
 
 // This component is now reusable. It receives the site data via props.
 export default function MainPage({ siteData }) {
@@ -34,6 +35,7 @@ export default function MainPage({ siteData }) {
     virtualTours,
     about,
     form2,
+    CustomerTestimonial: customerTestimonialData,
   } = siteData;
 
   const colorStyle2 = {
@@ -73,6 +75,12 @@ export default function MainPage({ siteData }) {
         budgetOptions={common.budgetOptions}
         galleryData={gallery}
         style1={colorStyle2}
+      />
+
+      <CustomerTestimonial
+        videoSrc={customerTestimonialData.src}
+        buttonStyle={common.buttonStyle1}
+        budgetOptions={common.budgetOptions}      
       />
 
       <SecondSection

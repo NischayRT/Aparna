@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+
 html,
 body {
   margin: 0;
@@ -121,11 +122,32 @@ h2 {
 /* Hero section background */
 /* Base hero section setup */
 .hero-section {
-  height: 105.5vh;
+  position: relative;
   width: 100%;
   display: flex;
-  padding-right: 5rem;
+  flex-direction: column;
   overflow: hidden;
+}
+
+/* Hero background defaults (desktop) */
+.hero-bg-dynamic {
+  /* REMOVED !important tags to allow component styles to work */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: top center;
+  width: 100%;
+  aspect-ratio: 4496 / 2546; /* Keep desktop image ratio */
+}
+
+/* Mobile override */
+@media (max-width: 767px) {
+  .hero-bg-dynamic {
+    background-size: contain !important; /* Show full image */
+    background-position: top center !important;
+    width: 100%;
+    aspect-ratio: 390 / 840; /* match mobile banner ratio */
+    height: auto; /* allow full scroll height */
+  }
 }
 
 /* Default (desktop) image behavior */
@@ -213,6 +235,9 @@ h2 {
   .hero-section {
     font-size: 2rem !important;
   }
+  .stats-value {
+    font-size: 1rem !important;
+  }
 }
 /* Hide scrollbar for Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar {
@@ -239,12 +264,12 @@ h2 {
 }
 
 /* Some builds place background-image inline on a child DIV without those classes;
-   target any element that has youtube thumbnail url in its inline style */
+    target any element that has youtube thumbnail url in its inline style */
 div[style*="i.ytimg.com"],
 div[style*="ytimg.com"],
 div[style*="vi/"] {
   background-repeat: no-repeat !important;
-  background-size: cover !important;
+  background-size: cover !imporant;
   background-position: center center !important;
 }
 
@@ -266,4 +291,33 @@ div[style*="vi/"] {
   font-size: 1.5rem;
   font-weight: 600;
   color: #251c1c;
+}
+.amenities-section {
+  background-color: #f8f9fa;
+}
+
+.toggle-btn {
+  border: 1px solid #ccc;
+  background-color: white;
+  color: #444;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toggle-btn.active {
+  color: #fff;
+}
+
+.amenity-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.amenity-icon img {
+  transition: transform 0.3s ease;
+}
+
+.amenity-icon:hover img {
+  transform: scale(1.05);
 }

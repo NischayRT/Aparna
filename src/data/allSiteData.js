@@ -155,6 +155,10 @@ export const allSiteData = {
         { icon: "/ameneties-18.svg", name: "Cardio Fitness" },
       ],
     },
+        CustomerTestimonial: {
+       src: "",
+    },
+
     virtualTours: {
       title: "Take a Virtual Tour",
       videos: [],
@@ -219,16 +223,20 @@ export const allSiteData = {
         boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
         transition: "all 0.3s ease",
       },
-      budgetOptions: [
-        { value: "1.4 Cr - 1.5 Cr", label: "1.4 Cr - 1.5 Cr" },
-        { value: "1.5 Cr - 1.6 Cr", label: "1.5 Cr - 1.6 Cr" },
-        { value: "1.6 Cr - 1.7 Cr", label: "1.6 Cr - 1.7 Cr" },
-        { value: "More than 1.7 Cr", label: "More than 1.7 Cr" },
-        { value: "2.2 Cr - 2.5 Cr", label: "2.2 Cr - 2.5 Cr" },
-        { value: "2.5 Cr - 2.7 Cr", label: "2.5 Cr - 2.7 Cr" },
-        { value: "2.7 Cr - 2.9 Cr", label: "2.7 Cr - 2.9 Cr" },
-        { value: "More than 2.9 Cr", label: "More than 2.9 Cr" },
-      ],
+      budgetOptions: {
+        "Aparna Sunstone": [
+          { value: "1.4 Cr - 1.5 Cr", label: "1.4 Cr - 1.5 Cr" },
+          { value: "1.5 Cr - 1.6 Cr", label: "1.5 Cr - 1.6 Cr" },
+          { value: "1.6 Cr - 1.7 Cr", label: "1.6 Cr - 1.7 Cr" },
+          { value: "More than 1.7 Cr", label: "More than 1.7 Cr" },
+        ],
+        "Aparna Moonstone": [
+          { value: "2.2 Cr - 2.5 Cr", label: "2.2 Cr - 2.5 Cr" },
+          { value: "2.5 Cr - 2.7 Cr", label: "2.5 Cr - 2.7 Cr" },
+          { value: "2.7 Cr - 2.9 Cr", label: "2.7 Cr - 2.9 Cr" },
+          { value: "More than 2.9 Cr", label: "More than 2.9 Cr" },
+        ],
+      },
     },
     navBar: {
       logoSrc: "",
@@ -349,6 +357,10 @@ export const allSiteData = {
           caption: "Moonstone Gallery 5",
         },
       ],
+    },
+    CustomerTestimonial: {
+      src: "https://www.youtube.com/embed/zm1s74JPKSU?si=MwKjd9xosR_Q4Dz2",
+       
     },
     secondarySection: {
       title: "Welcome to Aparna Deccan Town",
@@ -667,8 +679,7 @@ export const allSiteData = {
         "https://www.youtube.com/embed/NXMVHeQzLdo?autoplay=0&controls=1&showinfo=0&rel=0",
     },
     form2: {
-      logoSrc:
-        "https://d2tdzhum1kggza.cloudfront.net/LPs/aparna-deccan-town-apartments-in-gopanpally/navbar-logo.svg",
+      logoSrc: "",
       address:
         "APARNA CONSTRUCTIONS AND ESTATES PVT LTD.\n#802, DOOR NO: 6-3-352/2&3, ASTRAL HEIGHTS\nROAD NO: 1, BANJARA HILLS, HYDERABAD-500034 TELANGANA, INDIA",
       title: "LOCATION MAP",
