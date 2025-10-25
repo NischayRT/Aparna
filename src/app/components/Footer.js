@@ -32,7 +32,7 @@ const Footer = () => {
       </div>{" "}
       {/* Black copyright section */}
       <div className="bg-black py-4 ">
-        <div className="container mx-auto px-4 max-lg:pb-15">
+        <div className="container mx-auto px-4 pb-4 max-lg:pb-[6rem]">
           <p className="text-gray-400 text-center para-font text-sm">
             Copyright © 2025. Aparna Constructions And Estates Pvt. Ltd.
           </p>

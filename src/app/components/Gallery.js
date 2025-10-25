@@ -242,7 +242,7 @@ const Gallery = ({
                     className={`Gallery-toggle-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ease-in-out border
                     ${
                       activeCategory === category
-                        ? "text-white border-transparent shadow-md" // Active state
+                        ? "text-white border-transparent" // Active state
                         : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100 hover:border-gray-400" // Inactive state
                     }`}
                     style={
@@ -287,7 +287,7 @@ const Gallery = ({
                     }
                   >
                     <div
-                      className={`relative w-full aspect-[4/3] overflow-hidden rounded-lg shadow-lg transform transition-all duration-500 ease-out ${
+                      className={`relative w-full aspect-[4/3] overflow-hidden transform transition-all duration-500 ease-out ${
                         // Added rounded-lg
                         index === currentIndex
                           ? "scale-100 opacity-100"

@@ -15,7 +15,7 @@ export const allSiteData = {
       buttonStyle1: {
         backgroundColor: aparnaThemeColor1,
         color: "white",
-        padding: "1rem 2rem",
+        padding: "14px 32px",
         borderRadius: "2px",
         fontWeight: 600,
         fontSize: "medium",
@@ -25,7 +25,7 @@ export const allSiteData = {
       buttonStyle2: {
         backgroundColor: aparnaThemeColor2,
         color: "white",
-        padding: "1rem 2rem",
+        padding: "14px 32px",
         borderRadius: "2px",
         fontWeight: 600,
         fontSize: "medium",
@@ -155,8 +155,8 @@ export const allSiteData = {
         { icon: "/ameneties-18.svg", name: "Cardio Fitness" },
       ],
     },
-        CustomerTestimonial: {
-       src: "",
+    CustomerTestimonial: {
+      src: "",
     },
 
     virtualTours: {
@@ -206,7 +206,7 @@ export const allSiteData = {
       buttonStyle1: {
         backgroundColor: deccanTownThemeColor1,
         color: "white",
-        padding: "1rem 2rem",
+        padding: "14px 32px",
         borderRadius: "2px",
         fontWeight: 600,
         fontSize: "medium",
@@ -216,7 +216,7 @@ export const allSiteData = {
       buttonStyle2: {
         backgroundColor: deccanTownThemeColor2,
         color: "white",
-        padding: "1rem 2rem",
+        padding: "14px 32px",
         borderRadius: "2px",
         fontWeight: 600,
         fontSize: "medium",
@@ -360,7 +360,6 @@ export const allSiteData = {
     },
     CustomerTestimonial: {
       src: "https://www.youtube.com/embed/zm1s74JPKSU?si=MwKjd9xosR_Q4Dz2",
-       
     },
     secondarySection: {
       title: "Welcome to Aparna Deccan Town",
@@ -682,7 +681,7 @@ export const allSiteData = {
       logoSrc: "",
       address:
         "APARNA CONSTRUCTIONS AND ESTATES PVT LTD.\n#802, DOOR NO: 6-3-352/2&3, ASTRAL HEIGHTS\nROAD NO: 1, BANJARA HILLS, HYDERABAD-500034 TELANGANA, INDIA",
-      title: "LOCATION MAP",
+      title: "",
       subtitle: "SCHEDULE A VISIT",
     },
   },

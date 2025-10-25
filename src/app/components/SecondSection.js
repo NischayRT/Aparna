@@ -72,7 +72,7 @@ const SecondSection = ({ secondarySection, style1, style, budgetOptions }) => {
             {propertyCards.map((card, index) => (
               <div
                 key={index}
-                className="property-card p-6 bg-gray-50 rounded-lg shadow-md border border-gray-200 h-full flex flex-col"
+                className="property-card p-4 bg-gray-50 shadow-md border border-gray-200 h-full flex flex-col"
               >
                 {/* Conditionally render title if there are multiple cards */}
                 {propertyCards.length > 1 && (

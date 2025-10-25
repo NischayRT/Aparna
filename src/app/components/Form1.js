@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import Image from "next/image";
 import { darkenColor } from "@/utils/colorUtils";
@@ -99,113 +100,125 @@ const Form1 = ({ budgetOptions = [], submitButton = {}, style }) => {
     <div className="container mx-auto px-4 my-8 relative -mt-10">
       <div className="bg-white p-6 md:p-8 rounded-2xl shadow-xl border border-gray-100">
         <form className="Bannerform para-font">
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-1">
+          {/* UPDATED: Changed grid layout to match HTML example */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
             {/* Name */}
-            <input
-              type="text"
-              className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#e63946] transition-all"
-              placeholder="Name *"
-              required
-            />
+            <div className="w-full">
+              <input
+                type="text"
+                className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#e63946] transition-all"
+                placeholder="Name *"
+                required
+              />
+            </div>
 
             {/* Email */}
-            <input
-              type="email"
-              className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#e63946] transition-all"
-              placeholder="Email *"
-              required
-            />
+            <div className="w-full">
+              <input
+                type="email"
+                className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#e63946] transition-all"
+                placeholder="Email *"
+                required
+              />
+            </div>
 
             {/* Phone */}
-            <div className="relative" ref={dropdownRef}>
-              <div className="flex items-center w-full border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-[#e63946] transition-all">
-                <button
-                  type="button"
-                  className="flex items-center pl-2 pr-1"
-                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                >
-                  <Image
-                    src={`https://flagcdn.com/w20/${selectedCountry.code}.png`}
-                    alt={selectedCountry.name}
-                    width={24}
-                    height={16}
-                    className="w-6 h-4 object-cover rounded-sm"
+            <div className="w-full">
+              <div className="relative" ref={dropdownRef}>
+                <div className="flex items-center w-full border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-[#e63946] transition-all">
+                  <button
+                    type="button"
+                    className="flex items-center pl-2 pr-1"
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  >
+                    <Image
+                      src={`https://flagcdn.com/w20/${selectedCountry.code}.png`}
+                      alt={selectedCountry.name}
+                      width={24}
+                      height={16}
+                      className="w-6 h-4 object-cover rounded-sm"
+                    />
+                    <span className="text-sm text-gray-600 ml-1">
+                      {selectedCountry.dial_code}
+                    </span>
+                  </button>
+                  <input
+                    type="tel"
+                    className="w-full pl-4 py-3 border-none bg-transparent focus:ring-0 outline-none"
+                    placeholder="81234 56789"
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    required
                   />
-                  <span className="text-sm text-gray-600 ml-1">
-                    {selectedCountry.dial_code}
-                  </span>
-                </button>
-                <input
-                  type="tel"
-                  className="w-full pl-4 py-3 border-none bg-transparent focus:ring-0 outline-none"
-                  placeholder="81234 56789"
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  required
-                />
-              </div>
+                </div>
 
-              {isDropdownOpen && (
-                <ul className="absolute z-[9999] w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
-                  {countries.map((country, index) => (
-                    <li
-                      key={index}
-                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center"
-                      onClick={() => {
-                        setSelectedCountry(country);
-                        setIsDropdownOpen(false);
-                      }}
-                    >
-                      <Image
-                        src={`https://flagcdn.com/w20/${country.code}.png`}
-                        alt={country.name}
-                        width={24}
-                        height={16}
-                        className="w-6 h-4 object-cover"
-                      />
-                      <span className="ml-3 text-sm">
-                        {country.name} ({country.dial_code})
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
+                {isDropdownOpen && (
+                  <ul className="absolute z-[9999] w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                    {countries.map((country, index) => (
+                      <li
+                        key={index}
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center"
+                        onClick={() => {
+                          setSelectedCountry(country);
+                          setIsDropdownOpen(false);
+                        }}
+                      >
+                        <Image
+                          src={`https://flagcdn.com/w20/${country.code}.png`}
+                          alt={country.name}
+                          width={24}
+                          height={16}
+                          className="w-6 h-4 object-cover"
+                        />
+                        <span className="ml-3 text-sm">
+                          {country.name} ({country.dial_code})
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </div>
 
             {/* Project Selector (if applicable) */}
             {isProjectBased && (
-              <select
-                className="form-select w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#e63946] transition-all"
-                value={selectedProject}
-                onChange={(e) => setSelectedProject(e.target.value)}
-                required
-              >
-                <option value="">Select Project*</option>
-                {Object.keys(budgetOptions).map((project) => (
-                  <option key={project} value={project}>
-                    {project}
-                  </option>
-                ))}
-              </select>
+              <div className="w-full">
+                <select
+                  className="form-select w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#e63946] transition-all"
+                  value={selectedProject}
+                  onChange={(e) => setSelectedProject(e.target.value)}
+                  required
+                >
+                  <option value="">Select Project*</option>
+                  {Object.keys(budgetOptions).map((project) => (
+                    <option key={project} value={project}>
+                      {project}
+                    </option>
+                  ))}
+                </select>
+              </div>
             )}
 
             {/* Budget */}
-            <select
-              className="form-select w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#e63946] transition-all"
-              required
-              disabled={isProjectBased && !selectedProject}
-            >
-              <option value="">
-                {isProjectBased && !selectedProject
-                  ? "Select a project first"
-                  : "Select Budget"}
-              </option>
-              {currentBudgetOptions.map((option, index) => (
-                <option key={index} value={option.value}>
-                  {option.label}
+            {/* If project based, budget is full width. If not, it's half width on lg. */}
+            <div className={isProjectBased ? "w-full lg:col-span-2" : "w-full"}>
+              <select
+                className="form-select w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#e63946] transition-all"
+                required
+                disabled={isProjectBased && !selectedProject}
+              >
+                <option value="">
+                  {isProjectBased && !selectedProject
+                    ? "Select a project first"
+                    : "Select Budget"}
                 </option>
-              ))}
-            </select>
+                {currentBudgetOptions.map((option, index) => (
+                  <option key={index} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
           {/* Checkbox */}

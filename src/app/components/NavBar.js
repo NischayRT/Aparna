@@ -19,7 +19,7 @@ const NavBar = ({ src, rera_no, perm_no }) => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 md:h-[6rem] max-md:h-[5rem] w-full z-50 bg-white shadow-lg transition-all duration-300 ${
+      className={`fixed top-0 left-0 h-[6rem] max-lg:h-[5rem] w-full z-50 bg-white shadow-lg transition-all duration-300 ${
         isScrolled ? "py-0" : "py-1"
       }`}
     >
@@ -40,7 +40,7 @@ const NavBar = ({ src, rera_no, perm_no }) => {
               alt="Aparna Lead the Future"
               width={125}
               height={130}
-              className="w-[95px] h-auto md:w-[130px]"
+              className="w-[95px] h-auto lg:w-[130px]"
               priority
             />
           </div>
@@ -51,22 +51,22 @@ const NavBar = ({ src, rera_no, perm_no }) => {
               {/* --- NEW: Conditionally render Permission Card --- */}
               {hasPermissionDetails && (
                 <div className="border border-gray-300 px-1 md:px-4 flex flex-col text-left h-[52px] md:h-auto">
-                  <small className="text-gray-600 mb-0 md:mb-1 text-[8px] md:text-xs">
+                  <small className="text-gray-600 mb-0 md:mb-1 text-[8px] lg:text-xs">
                     Building Permission No.
                   </small>
                   {/* Render only if perm_no exists */}
                   {perm_no && (
-                    <small className="font-bold border-b border-gray-300 text-[8px] md:text-xs">
+                    <small className="font-bold border-b border-gray-300 text-[8px] lg:text-xs">
                       {perm_no}
                     </small>
                   )}
                   {/* Render only if rera_no exists */}
                   {rera_no && (
-                    <small className="font-bold border-b border-gray-300 text-[8px] md:text-xs">
+                    <small className="font-bold border-b border-gray-300 text-[8px] lg:text-xs">
                       TG RERA NO: {rera_no}
                     </small>
                   )}
-                  <small className="text-gray-600 text-[8px] md:text-xs">
+                  <small className="text-gray-600 text-[8px] lg:text-xs">
                     www.rera.telangana.gov.in
                   </small>
                 </div>

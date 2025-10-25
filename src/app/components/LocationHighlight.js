@@ -54,7 +54,7 @@ const LocationHighlight = ({
               {galleryData.slice(0, 3).map((img, index) => (
                 <div
                   key={index}
-                  className="relative w-full aspect-video overflow-hidden rounded-lg"
+                  className="relative w-full aspect-video overflow-hidden"
                 >
                   <Image
                     src={
@@ -130,7 +130,7 @@ const LocationHighlight = ({
                 {Object.entries(locationData).map(([key, items]) => (
                   <div
                     key={key}
-                    className="border border-gray-200 rounded-lg overflow-hidden"
+                    className="border border-gray-200 overflow-hidden"
                   >
                     <button
                       className="w-full px-6 py-4 text-left para-font font-semibold text-lg bg-gray-50 hover:bg-gray-100 transition-colors duration-200 flex justify-between items-center"

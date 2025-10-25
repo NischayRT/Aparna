@@ -1,5 +1,20 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+
+/* STEP 1: Define the local font face.
+  (Adjust the 'url' path to match your file's location)
+*/
+@font-face {
+  font-family: "Playfair Display";
+  src: url("../utils/playfair-display.regular.ttf") format("truetype");
+  font-weight: 400; /* 'regular' is typically 400 */
+  font-style: regular;
+  font-display: swap;
+}
+
+/* STEP 2: Import *only* Karla from Google Fonts.
+  (Playfair Display has been removed from this line)
+*/
+@import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap");
 
 html,
 body {
@@ -13,7 +28,7 @@ body {
   max-width: 100%; /* Prevent fixed elements from overflowing */
 }
 /* Default styles for 'md' screens and up
-  (md:max-w-[80%] mx-auto py-3 px-4) 
+   (md:max-w-[80%] mx-auto py-3 px-4) 
 */
 .container {
   max-width: 80%;
@@ -26,7 +41,7 @@ body {
 }
 
 /* For screens *smaller* than 'md' (max-width: 767px)
-  (max-md:px-[15px] max-md:mx-0)
+   (max-md:px-[15px] max-md:mx-0)
 */
 @media (max-width: 767px) {
   .container {
@@ -39,7 +54,7 @@ body {
 }
 
 /* For screens *smaller* than 'sm' (max-width: 639px)
-  (max-sm:px-[10px])
+   (max-sm:px-[10px])
 */
 @media (max-width: 640px) {
   .container {
@@ -59,15 +74,6 @@ body {
 .para-font {
   font-family: ui-sans-serif, system-ui, sans-serif;
 }
-.location {
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.2
-  ); /* Semi-transparent white background */
-  padding: 10px 20px;
-}
 .heading-font {
   margin-top: 0;
   margin-bottom: 0.5rem;
@@ -77,12 +83,6 @@ body {
   font-weight: 600;
   line-height: 1.2;
 }
-.hero-content {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: center;
-}
 .heading-font h1 {
   word-spacing: 1px;
   font-family: "Karla", sans-serif;
@@ -90,7 +90,7 @@ body {
   font-size: 3rem;
 }
 h2 {
-  font-family: "Playfair Display", serif !important;
+  font-family: "Playfair Display", serif !important; /* This will now use your local font */
   font-weight: 500 !important;
   line-height: 1.2;
   margin-bottom: 0.5 rem !important;
@@ -109,52 +109,12 @@ h2 {
 /* Info box styles */
 .info-box {
   border: 1px solid #ccc;
-  border-radius: 0.5rem;
-  padding: 1rem;
   text-align: center;
   transition: box-shadow 0.2s ease;
 }
 
 .info-box:hover {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-/* Hero section background */
-/* Base hero section setup */
-.hero-section {
-  position: relative;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-/* Hero background defaults (desktop) */
-.hero-bg-dynamic {
-  /* REMOVED !important tags to allow component styles to work */
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: top center;
-  width: 100%;
-  aspect-ratio: 4496 / 2546; /* Keep desktop image ratio */
-}
-
-/* Mobile override */
-@media (max-width: 767px) {
-  .hero-bg-dynamic {
-    background-size: contain !important; /* Show full image */
-    background-position: bottom center !important;
-    width: 100%;
-    aspect-ratio: 390 / 840; /* match mobile banner ratio */
-    height: auto; /* allow full scroll height */
-  }
-}
-
-/* Default (desktop) image behavior */
-.hero-image {
-  transition: transform 6s ease-in-out;
-  transform-origin: center center;
-  padding-bottom: 2rem;
 }
 
 /* Mobile zoom + shift to bottom-right */
@@ -264,7 +224,7 @@ h2 {
 }
 
 /* Some builds place background-image inline on a child DIV without those classes;
-    target any element that has youtube thumbnail url in its inline style */
+     target any element that has youtube thumbnail url in its inline style */
 div[style*="i.ytimg.com"],
 div[style*="ytimg.com"],
 div[style*="vi/"] {

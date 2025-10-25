@@ -114,14 +114,14 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions = [], style1 }) => {
             </h2>
             <div
               className="brown-underline h-1 mb-6"
-              style={{ backgroundColor: style1?.color }}
+              style={{ Color: style1?.color }}
             ></div>
 
             <p className="para-font text-center lg:text-left text-gray-700 mb-8">
               Learn more about {p2}.
             </p>
 
-            <form className="contact-form para-font space-y-6">
+            <form className="contact-form para-font space-y-1">
               {/* Full Name */}
               <div>
                 <label className="block text-gray-700 font-medium mb-2">
@@ -221,7 +221,7 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions = [], style1 }) => {
                     onChange={(e) => setSelectedProject(e.target.value)}
                     required
                   >
-                    <option value="">Select Project*</option>
+                    <option value="">Project*</option>
                     {Object.keys(budgetOptions).map((project) => (
                       <option key={project} value={project}>
                         {project}
@@ -293,18 +293,18 @@ const Form2 = ({ src, style, address, p1, p2, budgetOptions = [], style1 }) => {
 
           {/* RIGHT — Logo + Address + Map */}
           <div className="flex flex-col h-full">
-          {src && (            
-            <div className="text-center mb-4">
-              <Image
-                src={src}
-                alt="Project Logo"
-                width={200}
-                height={60}
-                className="mx-auto"
-              />
-              <p className="mt-2 text-sm font-semibold text-gray-800">{p1}</p>
-            </div>
-          )}
+            {src && (
+              <div className="text-center mb-4">
+                <Image
+                  src={src}
+                  alt="Project Logo"
+                  width={200}
+                  height={60}
+                  className="mx-auto"
+                />
+                <p className="mt-2 text-sm font-semibold text-gray-800">{p1}</p>
+              </div>
+            )}
             <div className="flex-grow overflow-hidden shadow-lg min-h-[400px]">
               <iframe
                 src={mapSrc}
